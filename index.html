@@ -1,0 +1,3947 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STATON ｜ 仕坦登企業管理顧問 — From Insight to Execution</title>
+<meta name="description" content="STATON 仕坦登企業管理顧問 — 為中小企業設計可被驗證的經營系統。組織架構、營運優化、客製化管報、財務規劃、行銷品牌、法律遵循六大顧問模組，加上 IPO 與 M&A 資本化進階顧問，從診斷、執行到驗證的全程顧問夥伴。">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<style>
+:root {
+  --navy: #000e2f;
+  --navy-deep: #00081f;
+  --navy-soft: #0a1d4a;
+  --navy-tint: #f0f3f9;
+  --gold: #f4b702;
+  --gold-soft: #fde9a8;
+  --gold-pale: rgba(244, 183, 2, 0.08);
+  --cream: #fdfaf3;
+  --cream-soft: rgba(253, 250, 243, 0.06);
+  --cream-line: rgba(253, 250, 243, 0.14);
+  --cream-text: rgba(253, 250, 243, 0.78);
+  --cream-mute: rgba(253, 250, 243, 0.45);
+  --line: rgba(244, 183, 2, 0.18);
+  --line-soft: rgba(253, 250, 243, 0.10);
+  --shadow-lg: 0 24px 56px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Serif TC', 'Source Han Serif TC', serif;
+  background: var(--navy);
+  color: var(--cream);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  overflow-x: hidden;
+  position: relative;
+}
+
+::selection { background: var(--gold); color: var(--navy); }
+
+/* ========== Global Particle Canvas ========== */
+#artCanvas {
+  position: fixed; top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  display: block; z-index: 0;
+  pointer-events: none;
+}
+
+/* 主要內容疊層 */
+section, header, footer, .nav-bar, .scroll-progress {
+  position: relative; z-index: 2;
+}
+
+.shape-flash {
+  position: fixed; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(244, 183, 2, 0.10), transparent 60%);
+  opacity: 0; z-index: 5;
+  transition: opacity 0.4s ease-out;
+}
+.shape-flash.active { opacity: 1; }
+
+/* ========== Navigation ========== */
+.nav-bar {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 56px;
+  z-index: 100;
+  background: linear-gradient(180deg, rgba(0,8,31,0.55) 0%, rgba(0,8,31,0) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.35em;
+  color: var(--cream);
+}
+.nav-brand .dot { color: var(--gold); margin: 0 4px; }
+.nav-links {
+  display: flex; gap: 30px;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+}
+.nav-links a {
+  color: var(--cream-text);
+  text-decoration: none;
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.4s ease;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--navy);
+  background: var(--gold);
+  padding: 10px 22px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+.nav-cta:hover {
+  background: var(--cream);
+  letter-spacing: 0.4em;
+}
+
+/* Language toggle pill */
+.lang-toggle {
+  margin-left: 14px;
+  background: transparent;
+  border: 1px solid rgba(244, 183, 2, 0.28);
+  border-radius: 100px;
+  padding: 7px 14px;
+  color: var(--cream-mute);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+}
+.lang-toggle:hover {
+  border-color: var(--gold);
+  color: var(--cream);
+}
+.lang-toggle .lt-active {
+  color: var(--gold);
+  font-weight: 700;
+  font-style: italic;
+}
+.lang-toggle .lt-sep {
+  margin: 0 6px;
+  color: rgba(244, 183, 2, 0.4);
+}
+.lang-toggle .lt-other {
+  font-weight: 400;
+}
+@media (max-width: 900px) {
+  .nav-bar { padding: 16px 16px; gap: 8px; }
+  .nav-links { display: none; }
+  /* 語言切換按鈕：手機保留顯示，但更緊湊 */
+  .lang-toggle {
+    margin-left: 8px;
+    padding: 6px 11px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+  }
+  .lang-toggle .lt-sep { margin: 0 5px; }
+}
+
+/* ========== Mobile Hamburger Button ========== */
+.nav-burger {
+  display: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-right: 4px;
+  border-radius: 4px;
+  transition: background 0.25s ease;
+}
+.nav-burger:hover { background: rgba(244, 183, 2, 0.06); }
+.nav-burger span {
+  display: block;
+  width: 22px;
+  height: 1.2px;
+  background: var(--cream);
+  transition: background 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  transform-origin: center;
+}
+.nav-burger:hover span { background: var(--gold); }
+/* Active state: morph into × when drawer open */
+.nav-burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(6.2px) rotate(45deg);
+  background: var(--gold);
+}
+.nav-burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav-burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-6.2px) rotate(-45deg);
+  background: var(--gold);
+}
+
+@media (max-width: 900px) {
+  .nav-burger { display: flex; }
+}
+
+/* ========== Mobile Drawer ========== */
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  visibility: hidden;
+  pointer-events: none;
+}
+.mobile-drawer.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+.mobile-drawer-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 8, 31, 0.55);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(6px) saturate(140%);
+  -webkit-backdrop-filter: blur(6px) saturate(140%);
+}
+.mobile-drawer.is-open .mobile-drawer-overlay { opacity: 1; }
+
+.mobile-drawer-panel {
+  position: absolute;
+  top: 0; right: 0;
+  width: min(360px, 86vw);
+  height: 100%;
+  background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 100%);
+  border-left: 1px solid rgba(244, 183, 2, 0.18);
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+.mobile-drawer.is-open .mobile-drawer-panel { transform: translateX(0); }
+
+/* Subtle gold accent line at top of panel */
+.mobile-drawer-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.5;
+}
+
+.mobile-drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 26px;
+  border-bottom: 1px solid var(--line-soft);
+  flex-shrink: 0;
+}
+.mobile-drawer-brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.34em;
+  color: var(--cream);
+}
+.mobile-drawer-close {
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+  border-radius: 4px;
+  transition: background 0.25s ease;
+}
+.mobile-drawer-close:hover { background: rgba(244, 183, 2, 0.06); }
+.mobile-drawer-close span {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 20px;
+  height: 1.2px;
+  background: var(--cream);
+  transition: background 0.3s ease;
+}
+.mobile-drawer-close span:nth-child(1) { transform: translate(-50%, -50%) rotate(45deg); }
+.mobile-drawer-close span:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
+.mobile-drawer-close:hover span { background: var(--gold); }
+
+.mobile-drawer-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0 16px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.mobile-drawer-nav a {
+  position: relative;
+  display: block;
+  padding: 20px 26px;
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  font-weight: 500;
+  color: var(--cream);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-soft);
+  transition: color 0.3s ease, padding-left 0.3s ease, background 0.3s ease;
+}
+.mobile-drawer-nav a::before {
+  content: '';
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+.mobile-drawer-nav a:hover,
+.mobile-drawer-nav a:active {
+  color: var(--gold);
+  padding-left: 38px;
+  background: rgba(244, 183, 2, 0.03);
+}
+.mobile-drawer-nav a:hover::before,
+.mobile-drawer-nav a:active::before { width: 14px; }
+
+.mobile-drawer-nav a.mobile-drawer-cta {
+  margin: 18px 26px 6px;
+  background: var(--gold);
+  color: var(--navy);
+  text-align: center;
+  border-bottom: none;
+  font-weight: 600;
+  padding: 16px 24px;
+  letter-spacing: 0.4em;
+  transition: background 0.3s ease, letter-spacing 0.3s ease;
+}
+.mobile-drawer-nav a.mobile-drawer-cta::before { display: none; }
+.mobile-drawer-nav a.mobile-drawer-cta:hover,
+.mobile-drawer-nav a.mobile-drawer-cta:active {
+  background: var(--cream);
+  color: var(--navy);
+  padding-left: 24px;
+  letter-spacing: 0.44em;
+}
+
+.mobile-drawer-foot {
+  padding: 22px 26px;
+  border-top: 1px solid var(--line-soft);
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 0.38em;
+  color: var(--cream-mute);
+  flex-shrink: 0;
+}
+.mobile-drawer-foot .drawer-foot-divider {
+  display: inline-block;
+  width: 20px; height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+  vertical-align: middle;
+  margin: 0 10px;
+}
+
+/* Body scroll lock when drawer open */
+body.drawer-open { overflow: hidden; }
+
+/* Hide drawer entirely on desktop */
+@media (min-width: 901px) {
+  .mobile-drawer { display: none; }
+}
+
+
+/* ========== Scroll Progress · Watchmaker Bezel ========== */
+.scroll-progress {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 50;
+  padding: 10px 22px;
+  gap: 18px;
+  pointer-events: none;
+}
+.scroll-progress::before {
+  /* horizontal pill backplate */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 14, 47, 0.6);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(244, 183, 2, 0.12);
+  border-radius: 100px;
+  z-index: -1;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Left — Chapter Roman Numeral */
+.sp-chapter {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 21px;
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  transition: opacity 0.5s ease, transform 0.3s ease;
+  text-shadow: 0 0 12px rgba(244, 183, 2, 0.45);
+  pointer-events: auto;
+  min-width: 22px;
+  text-align: center;
+}
+.sp-chapter.changing {
+  opacity: 0;
+  transform: translateY(-3px);
+}
+/* Section name display — stacked Chinese on top, English below */
+.sp-section-name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  line-height: 1;
+  min-width: 88px;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.sp-section-name.changing {
+  opacity: 0;
+}
+.sp-section-zh {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: var(--cream);
+  padding-left: 0.32em;
+}
+.sp-section-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 9.5px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  font-weight: 500;
+  padding-left: 0.3em;
+}
+/* Hidden in horizontal mode */
+.sp-chapter-of,
+.sp-cap-line {
+  display: none;
+}
+
+/* Horizontal Rail */
+.sp-rail {
+  position: relative;
+  width: 280px;
+  height: 1px;
+  background: rgba(244, 183, 2, 0.15);
+  pointer-events: auto;
+}
+.sp-rail-fill {
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 0%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold) 0%, rgba(244, 183, 2, 0.55) 80%, rgba(244, 183, 2, 0.2) 100%);
+  box-shadow: 0 0 4px rgba(244, 183, 2, 0.55);
+  transition: width 0.18s ease-out;
+}
+
+.sp-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 1px solid rgba(244, 183, 2, 0.42);
+  cursor: pointer;
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+.sp-marker::before {
+  content: '';
+  position: absolute;
+  inset: 1.5px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.4s ease;
+}
+.sp-marker.passed {
+  border-color: var(--gold);
+  background: rgba(0, 14, 47, 0.95);
+}
+.sp-marker.passed::before {
+  background: var(--gold);
+}
+.sp-marker.active {
+  width: 10px; height: 10px;
+  border-color: var(--gold);
+  background: var(--navy);
+  box-shadow:
+    0 0 0 3px rgba(244, 183, 2, 0.10),
+    0 0 14px rgba(244, 183, 2, 0.55);
+  animation: spMarkerPulse 2.2s ease-in-out infinite;
+}
+.sp-marker.active::before {
+  inset: 2px;
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
+}
+@keyframes spMarkerPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(244, 183, 2, 0.10), 0 0 12px rgba(244, 183, 2, 0.45); }
+  50%      { box-shadow: 0 0 0 5px rgba(244, 183, 2, 0.06), 0 0 18px rgba(244, 183, 2, 0.7);  }
+}
+.sp-marker:hover {
+  border-color: var(--cream);
+}
+.sp-marker:hover::before {
+  background: var(--cream);
+}
+
+/* Label panel — appears ABOVE marker on HOVER ONLY (active no longer auto-shows) */
+.sp-marker-panel {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  padding-bottom: 10px;
+}
+.sp-marker-panel::after {
+  /* vertical tick connector marker→label */
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 1px; height: 10px;
+  background: var(--gold);
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+}
+.sp-marker-zh {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  color: var(--cream);
+  padding-left: 0.42em;
+}
+.sp-marker-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 9.5px;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+  font-weight: 500;
+  padding-left: 0.32em;
+}
+.sp-marker:hover .sp-marker-panel {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.sp-marker:hover .sp-marker-panel::after {
+  transform: translateX(-50%) scaleY(1);
+}
+
+/* Right — Percentage */
+.sp-pct-wrap {
+  margin-top: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.sp-pct-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cream);
+  letter-spacing: 0.04em;
+  font-feature-settings: "tnum";
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+  min-width: 26px;
+}
+.sp-pct-num .pct-val { font-size: 15px; }
+.sp-pct-num .pct-mark {
+  font-size: 9px;
+  color: var(--gold);
+  opacity: 0.8;
+  margin-left: 1px;
+}
+.sp-pct-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 8px;
+  letter-spacing: 0.42em;
+  color: var(--cream-mute);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) { .scroll-progress { display: none; } }
+
+/* ========== HERO ========== */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 140px 64px 64px;
+  overflow: hidden;
+}
+.hero-top {
+  display: flex; justify-content: space-between;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  font-weight: 500;
+}
+.hero-mark {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 80px 0;
+}
+.hero-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  letter-spacing: 0.5em;
+  color: var(--gold);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 1.2s 0.2s ease-out forwards;
+}
+.hero-en {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(72px, 13vw, 200px);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  color: var(--cream);
+  opacity: 0;
+  animation: fadeUp 1.4s 0.5s ease-out forwards;
+  text-shadow: 0 0 60px rgba(244, 183, 2, 0.18);
+}
+.hero-divider {
+  width: 0; height: 1px;
+  background: var(--gold);
+  margin: 36px 0 32px;
+  animation: expandLine 1.4s 1.4s ease-out forwards;
+}
+.hero-zh {
+  font-size: clamp(20px, 2.6vw, 32px);
+  font-weight: 500;
+  letter-spacing: 0.45em;
+  color: var(--gold);
+  padding-left: 0.45em;
+  opacity: 0;
+  animation: fadeUp 1.2s 1.6s ease-out forwards;
+}
+.hero-tagline-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(16px, 1.6vw, 22px);
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  margin-top: 36px;
+  opacity: 0;
+  animation: fadeUp 1.2s 2.0s ease-out forwards;
+}
+.hero-tagline-zh {
+  font-size: 13px;
+  letter-spacing: 0.4em;
+  color: var(--cream-mute);
+  margin-top: 14px;
+  opacity: 0;
+  animation: fadeUp 1.2s 2.3s ease-out forwards;
+}
+.hero-bottom {
+  display: flex; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  color: var(--gold);
+  opacity: 0;
+  animation: fadeIn 1s 2.8s forwards, scrollBounce 2.4s 3.8s infinite;
+}
+.scroll-arrow { display: inline-block; margin-left: 10px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes expandLine {
+  from { width: 0; }
+  to { width: 120px; }
+}
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 100px 20px 48px; }
+
+  /* ① 頂部品牌列：改為垂直堆疊、縮小字距，避免兩段擠壓重疊 */
+  .hero-top {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-align: center;
+  }
+
+  /* ② 中文 tagline：縮字距、允許換行 */
+  .hero-tagline-zh {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    padding-left: 0.22em;
+    line-height: 1.9;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ③ Eyebrow：縮字距避免被擠出畫面 */
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    padding-left: 0.32em;
+  }
+
+  /* 中文品牌名同步收緊 */
+  .hero-zh {
+    letter-spacing: 0.3em;
+    padding-left: 0.3em;
+  }
+
+  /* hero-mark 上下間距收緊，避免手機顯得空 */
+  .hero-mark { padding: 40px 0; }
+}
+
+/* ========== Chapter Divider ========== */
+.chapter-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 120px 64px 80px;
+  position: relative;
+}
+.chapter-divider .ch-line {
+  flex: 1;
+  max-width: 240px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.5;
+}
+.chapter-divider .ch-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.chapter-divider .ch-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  color: var(--gold);
+  font-weight: 500;
+}
+.chapter-divider .ch-title {
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 0.5em;
+  padding-left: 0.5em;
+}
+.chapter-divider .ch-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--cream-mute);
+}
+/* 拆字浮現 */
+.chapter-divider .ch-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(28px) scale(0.8);
+  filter: blur(10px);
+  transition:
+    opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.1s ease;
+}
+.chapter-divider.in-view .ch-char {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+@media (max-width: 1024px) {
+  .chapter-divider { gap: 14px; padding: 80px 16px 50px; }
+  .chapter-divider .ch-line { max-width: 80px; }
+}
+
+/* ========== Section Common ========== */
+.section {
+  padding: 0 64px 80px;
+}
+.section-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.section-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.section-title {
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 600;
+  color: var(--cream);
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  margin-bottom: 18px;
+  position: relative;
+  display: inline-block;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -10px;
+  width: 48px; height: 2px;
+  background: var(--gold);
+}
+.section-summary {
+  font-size: 15px;
+  color: var(--cream-text);
+  max-width: 720px;
+  margin-top: 32px;
+  line-height: 2;
+}
+
+.fade-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+  /* Safety net: if JS doesn't add .reveal within 2.5s, force show via CSS */
+  animation: fadeSectionFallback 1.2s 2.5s ease-out forwards;
+}
+.fade-section.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  animation: none; /* JS-triggered reveal wins */
+}
+@keyframes fadeSectionFallback {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Language toggle visibility */
+body[data-lang="en"] .lang-zh-only { display: none !important; }
+body[data-lang="zh"] .lang-en-only { display: none !important; }
+
+/* ===========================================
+   CJK typography — keep Chinese compound terms together
+   Replaces literal-space decorative spacing with CSS letter-spacing,
+   and prevents browsers from breaking inside a compound word like
+   "顧問模組" / "專業背景" / "制度背後的人" / etc.
+   =========================================== */
+.zh-cluster {
+  display: inline-block;
+  white-space: nowrap;
+  letter-spacing: 0.32em;
+  padding-left: 0.32em; /* compensate for trailing letter-spacing */
+}
+/* Allow wrap when needed by letting the cluster jump to its own line */
+.stat-label, .section-eyebrow {
+  word-break: keep-all;
+}
+
+/* ===========================================
+   English-mode typography refinements
+   English text needs slightly more breathing room
+   than Chinese (which packs more meaning per character)
+   =========================================== */
+
+/* Body / description text — bump for English readability */
+body[data-lang="en"] .sys-desc,
+body[data-lang="en"] .cl-text {
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+body[data-lang="en"] .method-desc {
+  font-size: 14px;
+  line-height: 1.85;
+}
+body[data-lang="en"] .capital-desc {
+  font-size: 14.5px;
+  line-height: 1.85;
+}
+body[data-lang="en"] .diff-desc {
+  font-size: 14px;
+  line-height: 1.8;
+}
+body[data-lang="en"] .stat-desc {
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+body[data-lang="en"] .section-summary {
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+body[data-lang="en"] .closing-body {
+  font-size: 17px;
+  line-height: 1.7;
+}
+body[data-lang="en"] .lead-soon-desc {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Capital quote — when ZH line is hidden, EN quote becomes the centerpiece */
+body[data-lang="en"] .capital-quote-en {
+  font-size: 15px;
+  letter-spacing: 0.24em;
+  padding-left: 0.24em;
+  margin-top: 0;
+}
+body[data-lang="en"] .capital-quote {
+  font-size: 0;          /* collapse Chinese line's whitespace contribution */
+  padding: 18px 24px;
+}
+body[data-lang="en"] .capital-quote .capital-quote-en {
+  font-size: 15px;       /* restore for the EN line itself */
+}
+
+/* Process stage names — when ZH name hidden, process-en becomes the stage label */
+body[data-lang="en"] .process-en {
+  font-family: 'Playfair Display', serif;
+  font-style: normal;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  margin-bottom: 14px;
+}
+
+/* Chapter divider English title — when ZH ch-title is hidden, ch-en is the only label */
+body[data-lang="en"] .ch-en {
+  font-size: 13px;
+  letter-spacing: 0.5em;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .section { padding: 0 24px 60px; }
+}
+
+/* ========== Philosophy Section (品牌敘事) ========== */
+.philosophy {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.phil-statement {
+  font-family: 'Playfair Display', 'Noto Serif TC', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1.5;
+  color: var(--cream);
+  letter-spacing: 0.01em;
+}
+/* 中文模式：保留斜體，但確保 fallback 到 Noto Serif TC（思源宋體） */
+body[data-lang="zh"] .phil-statement {
+  font-family: 'Noto Serif TC', serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.phil-statement .accent {
+  color: var(--gold);
+  font-weight: 500;
+}
+.phil-quote-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 96px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: -20px;
+  opacity: 0.6;
+}
+.phil-body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.phil-body p {
+  font-size: 15px;
+  color: var(--cream-text);
+  line-height: 2;
+}
+.phil-signature {
+  margin-top: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+}
+@media (max-width: 900px) {
+  .philosophy { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ========== Glass Card (玻璃擬態通用) ========== */
+.glass-card {
+  background: rgba(0, 14, 47, 0.45);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s ease;
+}
+.glass-card:hover {
+  border-color: rgba(244, 183, 2, 0.4);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* ========== Six Systems Grid ========== */
+.systems-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 56px;
+}
+.system-card {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+.system-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.system-card:hover::before { transform: scaleX(1); }
+.sys-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+  font-weight: 500;
+}
+.sys-icon {
+  width: 48px; height: 48px;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.sys-icon svg {
+  width: 22px; height: 22px;
+  stroke: var(--gold);
+  stroke-width: 1.4;
+  fill: none;
+}
+.sys-name {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 0.04em;
+}
+.sys-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  margin-top: -8px;
+  margin-bottom: 4px;
+}
+.sys-desc {
+  font-size: 13px;
+  color: var(--cream-text);
+  line-height: 1.85;
+}
+.sys-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line-soft);
+}
+.sys-tag {
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--cream-mute);
+  padding: 3px 9px;
+  border: 1px solid var(--line-soft);
+  background: rgba(253, 250, 243, 0.02);
+}
+
+@media (max-width: 1024px) {
+  .systems-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .systems-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== Capital Advisory (IPO / M&A) ========== */
+.capital-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 56px;
+}
+.capital-card {
+  padding: 48px 40px 44px;
+  position: relative;
+  overflow: hidden;
+}
+.capital-card::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 80px; height: 80px;
+  background: radial-gradient(circle at top right, rgba(244, 183, 2, 0.14), transparent 70%);
+  pointer-events: none;
+}
+.capital-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.45em;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 22px;
+}
+.capital-title-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+.capital-mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 20px rgba(244, 183, 2, 0.3);
+}
+.capital-bar {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.capital-name {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 0.18em;
+  margin-bottom: 6px;
+}
+.capital-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  margin-bottom: 22px;
+}
+.capital-desc {
+  font-size: 14px;
+  color: var(--cream-text);
+  line-height: 2;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px dashed var(--line-soft);
+}
+.capital-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.capital-list li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.cl-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold);
+  flex-shrink: 0;
+  min-width: 24px;
+  padding-top: 2px;
+  letter-spacing: 0.05em;
+}
+.cl-text {
+  font-size: 13px;
+  color: var(--cream-text);
+  line-height: 1.85;
+}
+.cl-text strong {
+  display: block;
+  color: var(--cream);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+.capital-quote {
+  margin-top: 28px;
+  padding: 20px 24px;
+  border-left: 2px solid var(--gold);
+  background: rgba(244, 183, 2, 0.04);
+  font-family: 'Noto Serif TC', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--cream);
+  letter-spacing: 0.08em;
+  line-height: 1.8;
+}
+.capital-quote-en {
+  display: block;
+  margin-top: 6px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+}
+@media (max-width: 900px) {
+  .capital-grid { grid-template-columns: 1fr; gap: 24px; }
+  .capital-card { padding: 36px 28px 32px; }
+  .capital-mark { font-size: 44px; }
+}
+
+/* ========== Methodology (三層架構) ========== */
+.method-wrap {
+  margin-top: 56px;
+  position: relative;
+}
+.method-layers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  position: relative;
+}
+.method-layer {
+  padding: 40px 32px 36px;
+  position: relative;
+  background: rgba(0, 14, 47, 0.4);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--line);
+  border-right: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.5s ease, border-top-color 0.5s ease;
+  cursor: pointer;
+}
+.method-layer:last-child { border-right: 1px solid var(--line); }
+.method-layer:hover { background: rgba(244, 183, 2, 0.05); }
+.method-layer.featured {
+  background: rgba(244, 183, 2, 0.05);
+  border-top-color: var(--gold);
+}
+.method-num-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
+}
+.method-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 1;
+  font-style: italic;
+}
+.method-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--cream-mute);
+  font-weight: 500;
+}
+.method-name {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.method-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  margin-bottom: 22px;
+}
+.method-divider {
+  width: 32px; height: 1px;
+  background: var(--gold);
+  margin-bottom: 22px;
+}
+.method-desc {
+  font-size: 13.5px;
+  color: var(--cream-text);
+  line-height: 2;
+  margin-bottom: 24px;
+}
+.method-actions {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.method-actions li {
+  font-size: 12.5px;
+  color: var(--cream-text);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.7;
+}
+.method-actions li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 9px;
+  width: 8px; height: 1px;
+  background: var(--gold);
+}
+
+/* 連接箭頭 */
+.method-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--gold);
+  z-index: 3;
+  background: var(--navy);
+  width: 32px; height: 32px;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-style: italic;
+}
+.method-arrow.a1 { left: calc(33.33% - 16px); }
+.method-arrow.a2 { left: calc(66.66% - 16px); }
+
+@media (max-width: 1024px) {
+  .method-layers { grid-template-columns: 1fr; }
+  .method-layer { border-right: 1px solid var(--line); border-bottom: none; }
+  .method-layer:last-child { border-bottom: 1px solid var(--line); }
+  .method-arrow { display: none; }
+}
+
+/* ========== Stats / Numbers ========== */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+.stat-card {
+  padding: 36px 28px 32px;
+  text-align: left;
+  background: rgba(0, 14, 47, 0.5);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all 0.4s;
+}
+.stat-card:hover {
+  background: rgba(244, 183, 2, 0.04);
+  transform: translateY(-3px);
+}
+.stat-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.stat-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.stat-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.02em;
+}
+.stat-unit {
+  font-size: 16px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+.stat-desc {
+  font-size: 12.5px;
+  color: var(--cream-mute);
+  line-height: 1.7;
+}
+@media (max-width: 1024px) {
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .stats-row { grid-template-columns: 1fr; }
+}
+
+/* ========== Process Timeline ========== */
+.process-wrap {
+  margin-top: 64px;
+  position: relative;
+  padding: 40px 0 20px;
+}
+.process-track {
+  position: absolute;
+  top: 88px;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(244, 183, 2, 0.4), rgba(244, 183, 2, 0.4), transparent);
+  z-index: 1;
+}
+.process-stages {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+.process-stage {
+  text-align: center;
+  padding: 0 6px;
+}
+.process-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.process-dot {
+  width: 16px; height: 16px;
+  background: var(--navy);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  position: relative;
+  transition: all 0.3s;
+}
+.process-dot::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1px solid rgba(244, 183, 2, 0.3);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.process-stage:hover .process-dot::after { opacity: 1; }
+.process-stage:hover .process-dot {
+  background: var(--gold);
+  box-shadow: 0 0 16px rgba(244, 183, 2, 0.5);
+}
+.process-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.process-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.process-desc {
+  font-size: 12px;
+  color: var(--cream-text);
+  line-height: 1.7;
+}
+@media (max-width: 900px) {
+  .process-stages { grid-template-columns: 1fr; gap: 32px; }
+  .process-track { display: none; }
+  .process-stage { display: flex; align-items: flex-start; gap: 20px; text-align: left; }
+  .process-dot { margin: 4px 0 0 0; flex-shrink: 0; }
+  .process-num { display: none; }
+}
+
+/* ========== Differentiators ========== */
+.diff-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  margin-top: 56px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.diff-item {
+  background: rgba(0, 14, 47, 0.55);
+  padding: 36px 32px;
+  position: relative;
+  transition: all 0.4s;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.diff-item:hover {
+  background: rgba(244, 183, 2, 0.05);
+}
+.diff-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.diff-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.diff-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+.diff-desc {
+  font-size: 13.5px;
+  color: var(--cream-text);
+  line-height: 1.95;
+}
+@media (max-width: 768px) {
+  .diff-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== Leadership Team ========== */
+.leadership-wrap {
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Featured Founder-CEO Card */
+.lead-featured {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 0;
+  background: rgba(0, 14, 47, 0.5);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s ease;
+}
+.lead-featured::before {
+  /* gold accent strip on top */
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, rgba(244, 183, 2, 0.2) 60%, transparent 100%);
+}
+.lead-featured:hover {
+  border-color: rgba(244, 183, 2, 0.35);
+  box-shadow: var(--shadow-lg);
+}
+.lead-featured-photo {
+  position: relative;
+  background: var(--navy-deep);
+  min-height: 380px;
+  overflow: hidden;
+  padding: 12px;
+  box-sizing: border-box;
+}
+.lead-featured-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(20%) contrast(1.05);
+  transition: transform 0.8s ease, filter 0.6s ease;
+}
+.lead-featured:hover .lead-featured-photo img {
+  transform: scale(1.04);
+  filter: grayscale(0%) contrast(1);
+}
+/* Gold matte frame */
+.lead-featured-photo::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(244, 183, 2, 0.55);
+  pointer-events: none;
+  z-index: 3;
+  transition: border-color 0.5s ease;
+}
+.lead-featured:hover .lead-featured-photo::before {
+  border-color: rgba(244, 183, 2, 0.85);
+}
+.lead-featured-photo::after {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  background: linear-gradient(135deg, rgba(0, 14, 47, 0.15) 0%, transparent 35%, rgba(0, 14, 47, 0.4) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+.lead-featured-meta {
+  padding: 44px 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.lead-featured-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.lead-featured-tag::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--gold);
+}
+.lead-featured-name-en {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(32px, 3.4vw, 44px);
+  line-height: 1.05;
+  color: var(--cream);
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
+}
+.lead-featured-name-zh {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  padding-left: 0.4em;
+  margin-bottom: 22px;
+}
+.lead-featured-divider {
+  width: 56px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 22px;
+}
+.lead-featured-creds {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+}
+.lead-featured-creds li {
+  font-size: 13px;
+  color: var(--cream-text);
+  line-height: 1.7;
+  padding-left: 16px;
+  position: relative;
+}
+.lead-featured-creds li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 9px;
+  width: 8px; height: 1px;
+  background: var(--gold);
+}
+.lead-featured-creds li strong {
+  color: var(--cream);
+  font-weight: 600;
+}
+
+/* Partner Grid (2x3) */
+.lead-partners {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.lead-card {
+  background: rgba(0, 14, 47, 0.5);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+.lead-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.lead-card:hover {
+  border-color: rgba(244, 183, 2, 0.32);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+.lead-card:hover::before { transform: scaleX(1); }
+
+.lead-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: #000;
+  overflow: hidden;
+  padding: 6px;
+  box-sizing: border-box;
+}
+.lead-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: grayscale(20%) contrast(1.05);
+  transition: transform 0.8s ease, filter 0.6s ease;
+}
+.lead-card:hover .lead-photo img {
+  transform: scale(1.04);
+  filter: grayscale(0%) contrast(1);
+}
+.lead-photo::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  background: linear-gradient(180deg, transparent 65%, rgba(0, 0, 0, 0.45) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+.lead-photo-num {
+  display: none;
+}
+
+/* Coming Soon placeholder */
+.lead-photo-soon {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lead-photo-soon::after {
+  /* Override gradient — keep simple */
+  background: radial-gradient(ellipse at center, rgba(244, 183, 2, 0.04) 0%, transparent 60%);
+}
+.lead-soon-mark {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.55;
+  transition: opacity 0.5s ease;
+}
+.lead-card-soon:hover .lead-soon-mark {
+  opacity: 0.85;
+}
+.lead-soon-en {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+  padding-left: 0.32em;
+}
+.lead-soon-zh {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 11px;
+  letter-spacing: 0.55em;
+  color: var(--cream-mute);
+  padding-left: 0.55em;
+}
+.lead-soon-desc {
+  font-size: 12px;
+  color: var(--cream-mute);
+  line-height: 1.7;
+  margin: 0 0 16px;
+  flex: 1;
+  font-style: italic;
+}
+.lead-card-soon .lead-name-en {
+  color: var(--cream-mute);
+  font-style: italic;
+  font-weight: 500;
+}
+.lead-card-soon .lead-loc {
+  display: none;
+}
+
+.lead-meta {
+  padding: 26px 26px 28px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.lead-role {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10.5px;
+  letter-spacing: 0.42em;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.lead-role-zh {
+  font-size: 11.5px;
+  letter-spacing: 0.32em;
+  color: var(--cream-mute);
+  margin-top: 3px;
+  margin-bottom: 14px;
+  font-weight: 400;
+}
+.lead-name-en {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.15;
+  color: var(--cream);
+  letter-spacing: 0.03em;
+  margin-bottom: 16px;
+}
+.lead-name-zh {
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+  font-weight: 500;
+  padding-left: 0.32em;
+  margin-bottom: 14px;
+}
+.lead-divider {
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 14px;
+}
+.lead-creds {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 16px;
+  flex: 1;
+}
+.lead-creds li {
+  font-size: 12px;
+  color: var(--cream-text);
+  line-height: 1.65;
+  padding-left: 12px;
+  position: relative;
+}
+.lead-creds li::before {
+  content: '·';
+  position: absolute;
+  left: 0; top: -1px;
+  color: var(--gold);
+  font-weight: 700;
+}
+.lead-loc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10.5px;
+  letter-spacing: 0.32em;
+  color: var(--cream-mute);
+  text-transform: uppercase;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+.lead-loc::before {
+  content: '⌖';
+  color: var(--gold);
+  font-size: 12px;
+}
+
+/* Closing note for legal counsel */
+.lead-counsel {
+  margin-top: 14px;
+  padding: 26px 32px;
+  background: rgba(244, 183, 2, 0.04);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.lead-counsel-text {
+  font-size: 13px;
+  color: var(--cream-text);
+  letter-spacing: 0.06em;
+  line-height: 1.7;
+}
+.lead-counsel-text strong {
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+.lead-counsel-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10.5px;
+  letter-spacing: 0.42em;
+  color: var(--gold);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .lead-partners { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .lead-featured { grid-template-columns: 1fr; }
+  .lead-featured-photo { aspect-ratio: 4 / 3; min-height: 0; }
+  .lead-featured-meta { padding: 32px 28px; }
+  .lead-featured-creds { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .lead-partners { grid-template-columns: 1fr; }
+  .lead-counsel { flex-direction: column; align-items: flex-start; }
+}
+
+/* ========== Closing CTA ========== */
+.closing {
+  position: relative;
+  padding: 160px 64px 180px;
+  text-align: center;
+  overflow: hidden;
+}
+.closing::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 720px; height: 720px;
+  background: radial-gradient(circle, rgba(244, 183, 2, 0.08) 0%, transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+}
+.closing-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 72px 56px;
+  background: rgba(0, 14, 47, 0.32);
+  border: 1px solid rgba(253, 250, 243, 0.14);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.5);
+}
+.closing-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  margin-bottom: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  font-weight: 500;
+}
+.closing-tag::before,
+.closing-tag::after {
+  content: '';
+  width: 36px; height: 1px;
+  background: var(--gold);
+}
+.closing-headline {
+  font-family: 'Playfair Display', 'Noto Serif TC', serif;
+  font-size: clamp(34px, 4.8vw, 60px);
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 32px;
+  color: var(--cream);
+  letter-spacing: 0.01em;
+}
+.closing-headline .accent {
+  color: var(--gold);
+  font-style: italic;
+}
+/* 中文模式：取消 accent 的 synthetic italic */
+body[data-lang="zh"] .closing-headline {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+}
+body[data-lang="zh"] .closing-headline .accent {
+  font-style: normal;
+}
+.closing-body {
+  font-size: 16px;
+  color: var(--cream-text);
+  max-width: 640px;
+  margin: 0 auto 48px;
+  line-height: 2.1;
+}
+.closing-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+.btn-primary, .btn-ghost {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  padding: 16px 36px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.4s;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--gold);
+}
+.btn-primary {
+  background: var(--gold);
+  color: var(--navy);
+}
+.btn-primary:hover {
+  background: var(--cream);
+  border-color: var(--cream);
+  letter-spacing: 0.4em;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--gold);
+}
+.btn-ghost:hover {
+  background: var(--gold);
+  color: var(--navy);
+  letter-spacing: 0.4em;
+}
+.closing-meta {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+  flex-wrap: wrap;
+  padding-top: 36px;
+  border-top: 1px solid var(--line-soft);
+}
+.closing-meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.closing-meta-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  font-weight: 500;
+}
+.closing-meta-value {
+  font-size: 13px;
+  color: var(--cream);
+  letter-spacing: 0.1em;
+}
+/* 頁尾語言切換按鈕 */
+.closing-meta-lang {
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.3s ease;
+  outline: none;
+}
+.closing-meta-lang:hover { opacity: 0.85; }
+.closing-meta-lang:hover .closing-meta-label { color: var(--cream); }
+.closing-meta-lang:focus-visible .closing-meta-value {
+  box-shadow: 0 0 0 1px rgba(244, 183, 2, 0.4);
+  border-radius: 4px;
+}
+.closing-meta-lang .closing-meta-value {
+  padding: 2px 4px;
+  transition: color 0.3s ease;
+}
+.closing-meta-lang .closing-meta-value .lt-active {
+  color: var(--gold);
+  font-weight: 600;
+  font-style: italic;
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+}
+.closing-meta-lang .closing-meta-value .lt-sep {
+  color: var(--cream-mute);
+  margin: 0 8px;
+}
+.closing-meta-lang .closing-meta-value .lt-other {
+  color: var(--cream-mute);
+  font-weight: 400;
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+  transition: color 0.3s ease;
+}
+.closing-meta-lang:hover .closing-meta-value .lt-other { color: var(--cream); }
+@media (max-width: 768px) {
+  .closing { padding: 100px 24px 120px; }
+  .closing-inner { padding: 48px 24px; }
+  .closing-meta { gap: 32px; }
+}
+
+/* ========== Footer ========== */
+.footer {
+  background: var(--navy-deep);
+  border-top: 1px solid var(--line);
+  padding: 64px 64px 32px;
+  position: relative;
+}
+.footer-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.footer-col h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.footer-brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+}
+.footer-brand-zh {
+  font-size: 14px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.footer-brand-text {
+  font-size: 13px;
+  color: var(--cream-text);
+  line-height: 1.85;
+  max-width: 320px;
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li {
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+.footer-col ul li a {
+  color: var(--cream-text);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-col ul li a:hover { color: var(--gold); }
+.footer-meta {
+  font-size: 12.5px;
+  color: var(--cream-text);
+  line-height: 2;
+}
+.footer-meta strong {
+  color: var(--cream);
+  font-weight: 500;
+}
+.footer-bottom {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-top: 28px;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  color: var(--cream-mute);
+  letter-spacing: 0.05em;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-social {
+  display: flex; gap: 16px;
+}
+.footer-social a {
+  width: 32px; height: 32px;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cream-text);
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.footer-social a:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+@media (max-width: 900px) {
+  .footer { padding: 48px 24px 24px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+@media (max-width: 540px) {
+  .footer-inner { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body data-lang="en">
+
+<!-- ============ GLOBAL PARTICLE CANVAS ============ -->
+<canvas id="artCanvas"></canvas>
+<div class="shape-flash" id="shapeFlash"></div>
+
+<!-- ============ NAVIGATION ============ -->
+<nav class="nav-bar">
+  <button id="navBurger" class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="nav-brand">STATON<span class="dot lang-zh-only">·</span><span class="lang-zh-only" style="font-family:'Noto Serif TC',serif;font-size:14px;letter-spacing:0.25em;">仕坦登</span></div>
+  <div class="nav-links">
+    <a href="#philosophy">PHILOSOPHY</a>
+    <a href="#systems">SERVICES</a>
+    <a href="#capital">CAPITAL</a>
+    <a href="#methodology">METHOD</a>
+    <a href="#leadership">LEADERSHIP</a>
+    <a href="#process">PROCESS</a>
+  </div>
+  <a href="#booking" class="nav-cta">BOOKING</a>
+  <button id="langToggle" class="lang-toggle" aria-label="Switch language">
+    <span class="lt-active">EN</span><span class="lt-sep">·</span><span class="lt-other">中</span>
+  </button>
+</nav>
+
+<!-- ============ MOBILE DRAWER ============ -->
+<div id="mobileDrawer" class="mobile-drawer" aria-hidden="true">
+  <div class="mobile-drawer-overlay" data-drawer-dismiss></div>
+  <aside class="mobile-drawer-panel" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <div class="mobile-drawer-head">
+      <div class="mobile-drawer-brand">STATON</div>
+      <button class="mobile-drawer-close" aria-label="Close menu" data-drawer-dismiss>
+        <span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-drawer-nav">
+      <a href="#philosophy" data-en="PHILOSOPHY" data-zh="經 營 主 張">PHILOSOPHY</a>
+      <a href="#systems" data-en="SERVICES" data-zh="顧 問 服 務">SERVICES</a>
+      <a href="#capital" data-en="CAPITAL" data-zh="資 本 化 顧 問">CAPITAL</a>
+      <a href="#methodology" data-en="METHODOLOGY" data-zh="顧 問 方 法">METHODOLOGY</a>
+      <a href="#leadership" data-en="LEADERSHIP" data-zh="團 隊">LEADERSHIP</a>
+      <a href="#process" data-en="PROCESS" data-zh="合 作 流 程">PROCESS</a>
+      <a href="#booking" class="mobile-drawer-cta" data-en="BOOKING →" data-zh="預 約 諮 詢 →">BOOKING →</a>
+    </nav>
+    <div class="mobile-drawer-foot">
+      <span data-en="STATON" data-zh="STATON">STATON</span>
+      <span class="drawer-foot-divider"></span>
+      <span data-en="TAIPEI" data-zh="臺 北">TAIPEI</span>
+      <span class="drawer-foot-divider"></span>
+      <span>EST. 2026</span>
+    </div>
+  </aside>
+</div>
+
+<!-- ============ SCROLL PROGRESS · WATCHMAKER BEZEL ============ -->
+<aside class="scroll-progress" id="scrollProgress">
+  <div class="sp-chapter" id="spChapter">Ⅰ</div>
+  <div class="sp-section-name" id="spSectionName">
+    <span class="sp-section-zh lang-zh-only" id="spSectionZh">序章</span>
+    <span class="sp-section-en" id="spSectionEn">PROLOGUE</span>
+  </div>
+  <div class="sp-chapter-of">OF Ⅸ</div>
+  <div class="sp-cap-line"></div>
+  <div class="sp-rail" id="spRail">
+    <div class="sp-rail-fill" id="spRailFill"></div>
+    <!-- markers injected by JS -->
+  </div>
+  <div class="sp-cap-line"></div>
+  <div class="sp-pct-wrap">
+    <div class="sp-pct-num">
+      <span class="pct-val" id="spPctNum">00</span>
+      <span class="pct-mark">%</span>
+    </div>
+    <div class="sp-pct-label">PROGRESS</div>
+  </div>
+</aside>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-top">
+    <span>STATON · MANAGEMENT CONSULTING</span>
+    <span>EST. 2026 · TAIPEI</span>
+  </div>
+
+  <div class="hero-mark">
+    <div class="hero-eyebrow">— MANAGEMENT CONSULTING FIRM —</div>
+    <div class="hero-en">STATON</div>
+    <div class="hero-divider"></div>
+    <div class="hero-zh lang-zh-only">仕坦登企業管理顧問</div>
+    <div class="hero-tagline-en">From Insight to Execution.</div>
+    <div class="hero-tagline-zh" data-en="Operating Systems Designed for SMEs · Verifiable by Design" data-zh="為中小企業設計 · 可被驗證的經營系統">為中小企業設計 · 可被驗證的經營系統</div>
+  </div>
+
+  <div class="hero-bottom">
+    <span>SCROLL TO EXPLORE</span><span class="scroll-arrow">↓</span>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 01 — PHILOSOPHY ============ -->
+<div class="chapter-divider">
+  <div class="ch-line"></div>
+  <div class="ch-content">
+    <div class="ch-num">CHAPTER 01</div>
+    <div class="ch-title lang-zh-only">經 營 主 張</div>
+    <div class="ch-en">PHILOSOPHY</div>
+  </div>
+  <div class="ch-line"></div>
+</div>
+
+<section id="philosophy" class="section">
+  <div class="section-inner fade-section">
+    <div class="philosophy">
+      <div>
+        <div class="phil-quote-mark">"</div>
+        <div class="phil-statement" data-en="The value of consulting&lt;br&gt;
+          is not in giving answers;&lt;br&gt;
+          it is in building a &lt;span class=&quot;accent&quot;&gt;system&lt;/span&gt;&lt;br&gt;
+          that answers every &lt;span class=&quot;accent&quot;&gt;future&lt;/span&gt; question for you." data-zh="顧問的價值，&lt;br&gt;
+          不在於提供答案；&lt;br&gt;
+          而是讓&lt;span class=&quot;accent&quot;&gt;系統&lt;/span&gt;替你&lt;br&gt;
+          回答&lt;span class=&quot;accent&quot;&gt;未來&lt;/span&gt;的每一個問題。">顧問的價值，<br>
+          不在於提供答案；<br>
+          而是讓<span class="accent">系統</span>替你<br>
+          回答<span class="accent">未來</span>的每一個問題。</div>
+      </div>
+
+      <div class="phil-body">
+        <div class="section-eyebrow">— OUR BELIEF —</div>
+        <div class="section-title" data-en="Systems Are Our Commitment to Business" data-zh="系 統，是 對 經 營 的 承 諾">系 統，是 對 經 營 的 承 諾</div>
+        <p data-en="The pain point of most SMEs is not a lack of effort — it's the absence of a verifiable system. When operations depend on individuals' experience and intuition, the organization's growth gets locked beneath a ceiling." data-zh="多數中小企業的痛點，不是缺乏努力，而是缺乏「可被檢驗」的系統。當營運仰賴個別人員的經驗與直覺，組織的成長就被天花板鎖死。">多數中小企業的痛點，不是缺乏努力，而是缺乏「可被檢驗」的系統。當營運仰賴個別人員的經驗與直覺，組織的成長就被天花板鎖死。</p>
+        <p data-en="STATON believes that a company's true resilience rests on systems that are repeatable, measurable, and correctable. We don't sell one-off advice — we build you an operating skeleton that runs itself: rooted in human nature, driven by incentives, calibrated by review." data-zh="STATON 相信，一家企業的真正韌性，建立在可重複、可衡量、可修正的制度上。我們不販售一次性的建議，而是為你打造一套會自己運轉的經營骨架——從人性出發，用誘因驅動，藉檢查校準。">STATON 相信，一家企業的真正韌性，建立在可重複、可衡量、可修正的制度上。我們不販售一次性的建議，而是為你打造一套會自己運轉的經營骨架——從人性出發，用誘因驅動，藉檢查校準。</p>
+        <p data-en="Our long-term mission: help &lt;strong style=&quot;color:var(--gold);&quot;&gt;100,000 SMEs&lt;/strong&gt; move from dependence on individuals to reliance on systems." data-zh="我們的長期目標：協助 &lt;strong style=&quot;color:var(--gold);&quot;&gt;100,000 家中小企業&lt;/strong&gt;，從仰賴個人，走向仰賴系統。">我們的長期目標：協助 <strong style="color:var(--gold);">100,000 家中小企業</strong>，從仰賴個人，走向仰賴系統。</p>
+        <div class="phil-signature" data-en="— STATON" data-zh="— STATON · 仕 坦 登">— STATON · 仕 坦 登</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 02 — TAILORED SOLUTIONS ============ -->
+<div class="chapter-divider">
+  <div class="ch-line"></div>
+  <div class="ch-content">
+    <div class="ch-num">CHAPTER 02</div>
+    <div class="ch-title lang-zh-only">六 大 顧 問 模 組</div>
+    <div class="ch-en">TAILORED SOLUTIONS</div>
+  </div>
+  <div class="ch-line"></div>
+</div>
+
+<section id="systems" class="section">
+  <div class="section-inner fade-section">
+    <div class="section-eyebrow" data-en="— TAILORED SOLUTIONS —" data-zh="— TAILORED SOLUTIONS · &lt;span class=&quot;zh-cluster&quot;&gt;仕坦登解決方案&lt;/span&gt; —">— TAILORED SOLUTIONS · <span class="zh-cluster">仕坦登解決方案</span> —</div>
+    <h2 class="section-title" data-en="Six Consulting Modules Tailored for SMEs" data-zh="為 中 小 企 業 量 身 設 計 的 六 大 顧 問 模 組">為 中 小 企 業 量 身 設 計 的 六 大 顧 問 模 組</h2>
+    <p class="section-summary" data-en="STATON breaks down the operating arteries of a business into six consulting modules — each can be optimized independently or run as an integrated whole. From organizational structure and operations to management reporting, finance, branding and compliance, every module embeds a built-in &quot;Diagnose → Execute → Verify&quot; mechanism, ensuring changes land on the ground and value can be measured." data-zh="STATON 將企業營運的關鍵命脈拆解為六個可獨立優化、亦可整合運作的顧問模組。從組織架構、營運流程到管報、財務、品牌與法遵，每個模組皆內建「診斷 → 執行 → 驗證」三層機制，確保改變能落地、效益能被衡量。">STATON 將企業營運的關鍵命脈拆解為六個可獨立優化、亦可整合運作的顧問模組。從組織架構、營運流程到管報、財務、品牌與法遵，每個模組皆內建「診斷 → 執行 → 驗證」三層機制，確保改變能落地、效益能被衡量。</p>
+
+    <div class="systems-grid">
+      <div class="system-card glass-card">
+        <div class="sys-num">MODULE Ⅰ</div>
+        <div class="sys-icon">
+          <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="4" rx="0.5"/><rect x="2.5" y="14" width="6" height="4" rx="0.5"/><rect x="9" y="14" width="6" height="4" rx="0.5"/><rect x="15.5" y="14" width="6" height="4" rx="0.5"/><path d="M12 7v3M5.5 14v-1h13v1"/></svg>
+        </div>
+        <div class="sys-name" data-en="Organizational Structure Design" data-zh="組織架構設計">組織架構設計</div>
+        <div class="sys-en lang-zh-only">Organizational Structure Design</div>
+        <p class="sys-desc" data-en="Optimize your organizational architecture. Based on company size, industry characteristics and growth stage, we help select the right functional, divisional, or matrix structure — ensuring department layers and responsibility allocation are aligned for scale." data-zh="協助企業優化組織架構，依規模、產業特性與發展階段，選擇最適合的職能型、事業部型或矩陣型架構，確保部門層級與職責分工最適化。">協助企業優化組織架構，依規模、產業特性與發展階段，選擇最適合的職能型、事業部型或矩陣型架構，確保部門層級與職責分工最適化。</p>
+        <div class="sys-tags">
+          <span class="sys-tag" data-en="Org. Models" data-zh="組織型態">組織型態</span>
+          <span class="sys-tag" data-en="Hierarchy" data-zh="層級規劃">層級規劃</span>
+          <span class="sys-tag" data-en="Authority" data-zh="職權分工">職權分工</span>
+        </div>
+      </div>
+
+      <div class="system-card glass-card">
+        <div class="sys-num">MODULE Ⅱ</div>
+        <div class="sys-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/></svg>
+        </div>
+        <div class="sys-name" data-en="Business Operations Optimization" data-zh="營運優化">營運優化</div>
+        <div class="sys-en lang-zh-only">Business Operations Optimization</div>
+        <p class="sys-desc" data-en="Audit and optimize operating workflows. We deploy ERP, SaaS and AI tools to redesign and automate processes, and build information dashboards and cross-functional collaboration mechanisms — making operational efficiency sustainable." data-zh="檢視並優化營運流程，導入 ERP、SaaS、AI 工具進行流程重整與自動化；建立資訊儀表板與跨部門協作機制，讓營運效率長期落地。">檢視並優化營運流程，導入 ERP、SaaS、AI 工具進行流程重整與自動化；建立資訊儀表板與跨部門協作機制，讓營運效率長期落地。</p>
+        <div class="sys-tags">
+          <span class="sys-tag" data-en="Automation" data-zh="流程自動化">流程自動化</span>
+          <span class="sys-tag" data-en="ERP / AI Tools" data-zh="ERP / AI 工具">ERP / AI 工具</span>
+          <span class="sys-tag" data-en="Dashboard" data-zh="Dashboard">Dashboard</span>
+        </div>
+      </div>
+
+      <div class="system-card glass-card">
+        <div class="sys-num">MODULE Ⅲ</div>
+        <div class="sys-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/><path d="M12.5 16.5l2-3 2 2 2-4"/></svg>
+        </div>
+        <div class="sys-name" data-en="Customized Management Reporting" data-zh="客製化管報">客製化管報</div>
+        <div class="sys-en lang-zh-only">Customized Management Reporting</div>
+        <p class="sys-desc" data-en="Bespoke management report design. We consolidate financial and operating data into a single source of truth for decisions, visualize key indicators, and set up dynamic tracking and anomaly-alert mechanisms." data-zh="提供企業專屬管理報表設計，匯總財務與營運數據形成單一決策依據；將關鍵指標視覺化，建立動態追蹤與異常預警機制。">提供企業專屬管理報表設計，匯總財務與營運數據形成單一決策依據；將關鍵指標視覺化，建立動態追蹤與異常預警機制。</p>
+        <div class="sys-tags">
+          <span class="sys-tag" data-en="Data Integration" data-zh="數據整合">數據整合</span>
+          <span class="sys-tag" data-en="Visualization" data-zh="視覺化呈現">視覺化呈現</span>
+          <span class="sys-tag" data-en="Real-Time Alerts" data-zh="即時預警">即時預警</span>
+        </div>
+      </div>
+
+      <div class="system-card glass-card">
+        <div class="sys-num">MODULE Ⅳ</div>
+        <div class="sys-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 7h18v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M3 7l3-4h12l3 4"/><circle cx="16" cy="14" r="1.6"/></svg>
+        </div>
+        <div class="sys-name" data-en="Financial Planning &amp; Management" data-zh="財務規劃">財務規劃</div>
+        <div class="sys-en lang-zh-only">Financial Planning &amp; Management</div>
+        <p class="sys-desc" data-en="Build a resilient financial management system — from annual and rolling budgets to treasury efficiency. We support business decisions with data analysis and safeguard the efficiency of capital deployment." data-zh="建立穩健的財務管理機制，從年度與滾動預算編制控管，到資金調度效率提升；透過關鍵數據分析支援經營決策，保障資金運用效率。">建立穩健的財務管理機制，從年度與滾動預算編制控管，到資金調度效率提升；透過關鍵數據分析支援經營決策，保障資金運用效率。</p>
+        <div class="sys-tags">
+          <span class="sys-tag" data-en="Budget Control" data-zh="預算編控">預算編控</span>
+          <span class="sys-tag" data-en="Treasury" data-zh="資金管理">資金管理</span>
+          <span class="sys-tag" data-en="Decision Support" data-zh="決策支持">決策支持</span>
+        </div>
+      </div>
+
+      <div class="system-card glass-card">
+        <div class="sys-num">MODULE Ⅴ</div>
+        <div class="sys-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 11v2c0 1.1.9 2 2 2h1l5 5V4l-5 5H5c-1.1 0-2 .9-2 2z"/><path d="M19 8c1.5 1 2 2.5 2 4s-.5 3-2 4"/><path d="M16 11.5c.6.4.8.9.8 1.5s-.2 1.1-.8 1.5"/></svg>
+        </div>
+        <div class="sys-name" data-en="Brand Strategy &amp; Marketing" data-zh="行銷品牌策略">行銷品牌策略</div>
+        <div class="sys-en lang-zh-only">Brand Strategy &amp; Marketing</div>
+        <p class="sys-desc" data-en="From positioning to execution. We help you build an impactful brand — clarify target markets and brand value, design integrated online/offline marketing plans, and measure outcomes with data." data-zh="從定位到行銷落地，協助企業建立具影響力的品牌。明確目標市場與品牌價值，制定整合線上線下管道的行銷計畫，並透過數據檢視成效。">從定位到行銷落地，協助企業建立具影響力的品牌。明確目標市場與品牌價值，制定整合線上線下管道的行銷計畫，並透過數據檢視成效。</p>
+        <div class="sys-tags">
+          <span class="sys-tag" data-en="Brand Positioning" data-zh="品牌定位">品牌定位</span>
+          <span class="sys-tag" data-en="Integrated Marketing" data-zh="整合行銷">整合行銷</span>
+          <span class="sys-tag" data-en="Performance Tracking" data-zh="成效追蹤">成效追蹤</span>
+        </div>
+      </div>
+
+      <div class="system-card glass-card">
+        <div class="sys-num">MODULE Ⅵ</div>
+        <div class="sys-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div class="sys-name" data-en="Legal Risk &amp; Compliance" data-zh="法律遵循">法律遵循</div>
+        <div class="sys-en lang-zh-only">Legal Risk &amp; Compliance</div>
+        <p class="sys-desc" data-en="Build a systematic legal and compliance framework to de-risk operations. From contract review and risk identification to remediation and a full compliance system — keeping your operations aligned with law and industry standards." data-zh="建立制度化的法務與合規體系，降低經營風險。從契約審閱、風險識別、應對措施到法遵制度建置，確保企業營運符合法規與產業規範。">建立制度化的法務與合規體系，降低經營風險。從契約審閱、風險識別、應對措施到法遵制度建置，確保企業營運符合法規與產業規範。</p>
+        <div class="sys-tags">
+          <span class="sys-tag" data-en="Contract Management" data-zh="契約管理">契約管理</span>
+          <span class="sys-tag" data-en="Risk Control" data-zh="風險控管">風險控管</span>
+          <span class="sys-tag" data-en="Compliance Framework" data-zh="合規架構">合規架構</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 03 — CAPITAL ADVISORY (IPO / M&A) ============ -->
+<div class="chapter-divider">
+  <div class="ch-line"></div>
+  <div class="ch-content">
+    <div class="ch-num">CHAPTER 03</div>
+    <div class="ch-title lang-zh-only">資 本 化 顧 問</div>
+    <div class="ch-en">CAPITAL ADVISORY</div>
+  </div>
+  <div class="ch-line"></div>
+</div>
+
+<section id="capital" class="section">
+  <div class="section-inner fade-section">
+    <div class="section-eyebrow">— BEYOND OPERATIONS · IPO &amp; M&amp;A —</div>
+    <h2 class="section-title" data-en="Beyond Operations · Capitalization &amp; Value Maximization" data-zh="不 只 協 助 經 營 · 更 實 現 資 本 化 與 價 值 最 大 化">不 只 協 助 經 營 · 更 實 現 資 本 化 與 價 值 最 大 化</h2>
+    <p class="section-summary" data-en="Once a business clears the threshold of stable operations, the next horizon is the capital markets and strategic M&amp;A. STATON assembles cross-disciplinary teams with CPAs, securities firms and lawyers, helping you build a complete IPO or M&amp;A roadmap, integrate resources, control costs, and translate growth into shareholder value." data-zh="當企業跨越穩定經營門檻，下一個關卡是「資本市場」與「策略性併購」。STATON 與會計師、券商、律師組成跨專業協作團隊，協助企業在 IPO 或 M&amp;A 旅程中，建立完整 Roadmap、整合資源、控管成本，把成長翻譯為股東價值。">當企業跨越穩定經營門檻，下一個關卡是「資本市場」與「策略性併購」。STATON 與會計師、券商、律師組成跨專業協作團隊，協助企業在 IPO 或 M&amp;A 旅程中，建立完整 Roadmap、整合資源、控管成本，把成長翻譯為股東價值。</p>
+
+    <div class="capital-grid">
+      <div class="capital-card glass-card">
+        <div class="capital-tag">ADVANCED · ONE</div>
+        <div class="capital-title-row">
+          <div class="capital-mark">IPO</div>
+          <div class="capital-bar"></div>
+        </div>
+        <div class="capital-name" data-en="Capital Market Advisory" data-zh="資 本 市 場 顧 問">資 本 市 場 顧 問</div>
+        <div class="capital-en lang-zh-only">IPO &amp; Capital Market Advisory</div>
+        <p class="capital-desc" data-en="Help companies in the growth stage move toward public listing. From strategic planning and timeline management to team integration — building an organizational backbone that can withstand public-market scrutiny." data-zh="協助企業從成長階段邁向資本市場 IPO，從策略規劃、時程管理到團隊整合，逐步打造能承受公開市場檢驗的組織體質。">協助企業從成長階段邁向資本市場 IPO，從策略規劃、時程管理到團隊整合，逐步打造能承受公開市場檢驗的組織體質。</p>
+        <ul class="capital-list">
+          <li><span class="cl-num">01</span><span class="cl-text" data-en="&lt;strong&gt;Capital Market Strategy&lt;/strong&gt;　Evaluate the optimal IPO venue (Taiwan, U.S. or others), and design a listing path that fits your stage." data-zh="&lt;strong&gt;資本市場策略規劃&lt;/strong&gt;　評估最適 IPO 地點（臺灣、美國或其他市場），設計符合企業階段的上市路徑。"><strong>資本市場策略規劃</strong>　評估最適 IPO 地點（臺灣、美國或其他市場），設計符合企業階段的上市路徑。</span></li>
+          <li><span class="cl-num">02</span><span class="cl-text" data-en="&lt;strong&gt;IPO Timeline &amp;amp; Milestones&lt;/strong&gt;　Build a complete IPO roadmap with clear key milestones — internal controls, financials, compliance." data-zh="&lt;strong&gt;上市時程與里程碑管理&lt;/strong&gt;　建立完整 IPO Roadmap，明確 Key Milestones（內控、財報、法遵）。"><strong>上市時程與里程碑管理</strong>　建立完整 IPO Roadmap，明確 Key Milestones（內控、財報、法遵）。</span></li>
+          <li><span class="cl-num">03</span><span class="cl-text" data-en="&lt;strong&gt;Professional Team Selection&lt;/strong&gt;　Help screen and onboard underwriters, accountants and lawyers; build cross-disciplinary collaboration." data-zh="&lt;strong&gt;專業團隊遴選與整合&lt;/strong&gt;　協助遴選券商、會計師、律師，建立跨專業團隊協作機制。"><strong>專業團隊遴選與整合</strong>　協助遴選券商、會計師、律師，建立跨專業團隊協作機制。</span></li>
+          <li><span class="cl-num">04</span><span class="cl-text" data-en="&lt;strong&gt;Cost &amp;amp; Resource Planning&lt;/strong&gt;　Estimate total IPO costs (underwriting, advisory, compliance) and ensure resources are deployed effectively." data-zh="&lt;strong&gt;成本與資源配置規劃&lt;/strong&gt;　預估 IPO 整體費用（承銷費、顧問費、法遵成本），確保資源有效投入。"><strong>成本與資源配置規劃</strong>　預估 IPO 整體費用（承銷費、顧問費、法遵成本），確保資源有效投入。</span></li>
+          <li><span class="cl-num">05</span><span class="cl-text" data-en="&lt;strong&gt;Internal Alignment&lt;/strong&gt;　Coordinate departments and key personnel; build organization-wide IPO consensus and execution cadence." data-zh="&lt;strong&gt;內部整合與組織準備&lt;/strong&gt;　協調各部門與關鍵人員，建立 IPO 共識與執行節奏。"><strong>內部整合與組織準備</strong>　協調各部門與關鍵人員，建立 IPO 共識與執行節奏。</span></li>
+        </ul>
+      </div>
+
+      <div class="capital-card glass-card">
+        <div class="capital-tag">ADVANCED · TWO</div>
+        <div class="capital-title-row">
+          <div class="capital-mark">M&amp;A</div>
+          <div class="capital-bar"></div>
+        </div>
+        <div class="capital-name" data-en="Mergers &amp; Acquisitions" data-zh="併 購 顧 問">併 購 顧 問</div>
+        <div class="capital-en lang-zh-only">Mergers &amp; Acquisitions Advisory</div>
+        <p class="capital-desc" data-en="Accelerate growth via M&amp;A — optimize resource allocation and lift overall enterprise value. From target screening to deal structuring and closing execution, we provide end-to-end advisory." data-zh="透過併購策略加速成長、優化資源配置，並提升整體企業價值。從前期標的篩選，到交易架構設計與交割執行，提供全程顧問支援。">透過併購策略加速成長、優化資源配置，並提升整體企業價值。從前期標的篩選，到交易架構設計與交割執行，提供全程顧問支援。</p>
+        <ul class="capital-list">
+          <li><span class="cl-num">01</span><span class="cl-text" data-en="&lt;strong&gt;Identify M&amp;amp;A Targets&lt;/strong&gt;　Analyze industry and market; screen suitable acquirers or investors to lift transaction success rates." data-zh="&lt;strong&gt;識別潛在併購對象&lt;/strong&gt;　分析產業與市場，篩選合適之收購者或投資方，提升交易成功機率。"><strong>識別潛在併購對象</strong>　分析產業與市場，篩選合適之收購者或投資方，提升交易成功機率。</span></li>
+          <li><span class="cl-num">02</span><span class="cl-text" data-en="&lt;strong&gt;Deal Timeline &amp;amp; Process&lt;/strong&gt;　Build a complete roadmap covering initial contact, due diligence, term negotiation and closing." data-zh="&lt;strong&gt;規劃併購時程與流程&lt;/strong&gt;　建立完整 Roadmap，掌握初步接觸、盡職調查、條件談判及交割執行關鍵節點。"><strong>規劃併購時程與流程</strong>　建立完整 Roadmap，掌握初步接觸、盡職調查、條件談判及交割執行關鍵節點。</span></li>
+          <li><span class="cl-num">03</span><span class="cl-text" data-en="&lt;strong&gt;Tax &amp;amp; Deal Structure&lt;/strong&gt;　Design optimal tax arrangements and deal structure (share or asset purchase) — reducing cost, raising net benefit." data-zh="&lt;strong&gt;設計稅務與交易架構&lt;/strong&gt;　規劃最適稅務安排與交易結構（股權或資產收購），降低交易成本並提升整體效益。"><strong>設計稅務與交易架構</strong>　規劃最適稅務安排與交易結構（股權或資產收購），降低交易成本並提升整體效益。</span></li>
+        </ul>
+        <div class="capital-quote">
+          <span class="lang-zh-only">「對的買家、對的價格、對的時點。」<br></span>
+          <span class="capital-quote-en">— Right Buyer · Right Price · Right Timing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 04 — METHODOLOGY ============ -->
+<div class="chapter-divider">
+  <div class="ch-line"></div>
+  <div class="ch-content">
+    <div class="ch-num">CHAPTER 04</div>
+    <div class="ch-title lang-zh-only">三 層 方 法 論</div>
+    <div class="ch-en">METHODOLOGY</div>
+  </div>
+  <div class="ch-line"></div>
+</div>
+
+<section id="methodology" class="section">
+  <div class="section-inner fade-section">
+    <div class="section-eyebrow">— DIAGNOSE · EXECUTE · VERIFY —</div>
+    <h2 class="section-title" data-en="Every Module · Verified Through Three Layers" data-zh="每 一 個 模 組 · 都 經 過 三 層 驗 證">每 一 個 模 組 · 都 經 過 三 層 驗 證</h2>
+    <p class="section-summary" data-en="STATON's core methodology stems from a structured framework of human behavior: &lt;strong style=&quot;color:var(--gold);&quot;&gt;Human Nature → Incentive → Allocation → Review → Correction&lt;/strong&gt;. We compress it into three repeatable operating layers — so change is no longer a proposal that fades after a workshop, but a system that runs itself." data-zh="STATON 的核心方法論，源自一條結構化的人性框架：&lt;strong style=&quot;color:var(--gold);&quot;&gt;人性 → 誘因 → 分配 → 檢查 → 修正&lt;/strong&gt;。我們把它濃縮成三層可被反覆操作的工序——讓改變不再是「上完課就忘」的提案，而是會自我運轉的系統。">STATON 的核心方法論，源自一條結構化的人性框架：<strong style="color:var(--gold);">人性 → 誘因 → 分配 → 檢查 → 修正</strong>。我們把它濃縮成三層可被反覆操作的工序——讓改變不再是「上完課就忘」的提案，而是會自我運轉的系統。</p>
+
+    <div class="method-wrap">
+      <div class="method-layers">
+        <div class="method-layer">
+          <div class="method-num-row">
+            <div class="method-num">01</div>
+            <div class="method-tag">LAYER ONE</div>
+          </div>
+          <div class="method-name" data-en="Diagnose Layer" data-zh="診 斷 層">診 斷 層</div>
+          <div class="method-en lang-zh-only">Diagnostic</div>
+          <div class="method-divider"></div>
+          <p class="method-desc" data-en="Understand first, then act. Through structured interviews, financial deconstruction, process mapping and pain-point discovery, we translate vague &quot;something feels off&quot; into concrete, addressable issues." data-zh="先理解，再動手。透過結構化訪談、財務拆解、流程地圖與痛點訪查，把模糊的「感覺有問題」轉譯為可被處理的具體議題。">先理解，再動手。透過結構化訪談、財務拆解、流程地圖與痛點訪查，把模糊的「感覺有問題」轉譯為可被處理的具體議題。</p>
+          <ul class="method-actions">
+            <li data-en="Operations Health Check" data-zh="經營現況體檢">經營現況體檢</li>
+            <li data-en="Financial Deconstruction" data-zh="財務結構拆解">財務結構拆解</li>
+            <li data-en="Process Mapping" data-zh="流程地圖繪製">流程地圖繪製</li>
+            <li data-en="Pain Point Prioritization" data-zh="關鍵痛點優先序">關鍵痛點優先序</li>
+          </ul>
+        </div>
+
+        <div class="method-layer featured">
+          <div class="method-num-row">
+            <div class="method-num">02</div>
+            <div class="method-tag">LAYER TWO</div>
+          </div>
+          <div class="method-name" data-en="Execute Layer" data-zh="執 行 層">執 行 層</div>
+          <div class="method-en lang-zh-only">Execution</div>
+          <div class="method-divider"></div>
+          <p class="method-desc" data-en="Design operable systems and tools. Every proposal lands as a document, workflow, form or KPI — with named owners and timelines — so change moves from the meeting room to the workstation." data-zh="設計可被操作的制度與工具。所有提案都會落地為文件、流程、表單或 KPI，並指派具體負責人與時間表，讓改變從會議桌走到工位上。">設計可被操作的制度與工具。所有提案都會落地為文件、流程、表單或 KPI，並指派具體負責人與時間表，讓改變從會議桌走到工位上。</p>
+          <ul class="method-actions">
+            <li data-en="Systems &amp;amp; SOP Design" data-zh="制度與 SOP 設計">制度與 SOP 設計</li>
+            <li data-en="Forms &amp;amp; Tools Deployment" data-zh="表單與工具落地">表單與工具落地</li>
+            <li data-en="Role Allocation" data-zh="角色分工與任命">角色分工與任命</li>
+            <li data-en="Implementation Timeline" data-zh="導入時程規劃">導入時程規劃</li>
+          </ul>
+        </div>
+
+        <div class="method-layer">
+          <div class="method-num-row">
+            <div class="method-num">03</div>
+            <div class="method-tag">LAYER THREE</div>
+          </div>
+          <div class="method-name" data-en="Verify Layer" data-zh="驗 證 層">驗 證 層</div>
+          <div class="method-en lang-zh-only">Verification</div>
+          <div class="method-divider"></div>
+          <p class="method-desc" data-en="Change must be measured, or it reverts. We install periodic check-points and quantitative indicators, embed feedback into the system, and give it the capacity to self-correct." data-zh="改變要被衡量，才不會回到原點。我們建立週期性的檢查節點與量化指標，把回饋寫進制度，讓系統具備自我修正能力。">改變要被衡量，才不會回到原點。我們建立週期性的檢查節點與量化指標，把回饋寫進制度，讓系統具備自我修正能力。</p>
+          <ul class="method-actions">
+            <li data-en="KPI Monitoring Dashboard" data-zh="KPI 監控儀表板">KPI 監控儀表板</li>
+            <li data-en="Recurring Review Meetings" data-zh="週期性檢核會議">週期性檢核會議</li>
+            <li data-en="Continuous Refinement" data-zh="制度滾動修正">制度滾動修正</li>
+            <li data-en="Quantified Outcome Reports" data-zh="成果量化報告">成果量化報告</li>
+          </ul>
+        </div>
+
+        <div class="method-arrow a1">→</div>
+        <div class="method-arrow a2">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 05 — LEADERSHIP ============ -->
+<div class="chapter-divider">
+  <div class="ch-line"></div>
+  <div class="ch-content">
+    <div class="ch-num">CHAPTER 05</div>
+    <div class="ch-title lang-zh-only">顧 問 團 隊</div>
+    <div class="ch-en">LEADERSHIP</div>
+  </div>
+  <div class="ch-line"></div>
+</div>
+
+<section id="leadership" class="section">
+  <div class="section-inner fade-section">
+    <div class="section-eyebrow" data-en="— THE PEOPLE BEHIND THE SYSTEM —" data-zh="— THE PEOPLE BEHIND THE SYSTEM · &lt;span class=&quot;zh-cluster&quot;&gt;制度背後的人&lt;/span&gt; —">— THE PEOPLE BEHIND THE SYSTEM · <span class="zh-cluster">制度背後的人</span> —</div>
+    <h2 class="section-title" data-en="A Cross-Disciplinary Team of Strategic Partners" data-zh="一 群 跨 領 域 的 經 營 夥 伴">一 群 跨 領 域 的 經 營 夥 伴</h2>
+    <p class="section-summary" data-en="STATON is not a one-person consultancy. Led by the founder, it brings together strategic partners spanning accounting, tax, law, capital, marketing and industry operations. Behind every consulting module stands a domain expert with a decade or more of professional experience, working alongside you." data-zh="STATON 不是個人顧問工作室，而是由創辦人領銜，結合會計、稅務、法律、資本、行銷與產業實戰的策略合夥人共同組成。每一個顧問模組背後，都有對應領域、十年以上資歷的專業夥伴與你並肩作戰。">STATON 不是個人顧問工作室，而是由創辦人領銜，結合會計、稅務、法律、資本、行銷與產業實戰的策略合夥人共同組成。每一個顧問模組背後，都有對應領域、十年以上資歷的專業夥伴與你並肩作戰。</p>
+
+    <div class="leadership-wrap">
+
+      <div class="lead-partners">
+
+        <!-- Ⅰ · ZENG, YI-CHENG (Founder-CEO) -->
+        <div class="lead-card">
+          <div class="lead-photo">
+            <div class="lead-photo-num">Ⅰ</div>
+            <img src="zeng-yi-cheng.jpg" alt="ZENG, YI-CHENG · Founder &amp; CEO">
+          </div>
+          <div class="lead-meta">
+            <div class="lead-role">Founder &amp; CEO</div>
+            <div class="lead-name-en">ZENG, YI-CHENG</div>
+            <div class="lead-divider"></div>
+            <ul class="lead-creds">
+              <li>10+ Years as CFO for SMEs</li>
+              <li>100+ Consulting Cases | NT$600M+ Value</li>
+              <li>Taiwan CPA Examination – Passed</li>
+              <li>U.S. CPA Examination – Passed</li>
+              <li>Taiwan Bookkeeper Examination – Passed</li>
+              <li>Taiwan Lawyer Examination – Stage I Passed</li>
+            </ul>
+            <div class="lead-loc">Taipei</div>
+          </div>
+        </div>
+
+        <!-- Ⅱ · CHIOU, RUI-XIANG -->
+        <div class="lead-card">
+          <div class="lead-photo">
+            <div class="lead-photo-num">Ⅱ</div>
+            <img src="chiou-rui-xiang.jpg" alt="CHIOU, RUI-XIANG · Legal Strategy Partner">
+          </div>
+          <div class="lead-meta">
+            <div class="lead-role">Legal Strategy Partner</div>
+            <div class="lead-name-en">CHIOU, RUI-XIANG</div>
+            <div class="lead-divider"></div>
+            <ul class="lead-creds">
+              <li>Founder, XR Law Firm</li>
+              <li>35+ Years in Judiciary &amp; Legal Practice</li>
+              <li>Specialized in Civil &amp; Corporate Commercial Law</li>
+              <li>Former Judge at District, High &amp; Supreme Courts</li>
+              <li>Ex-President of District Court &amp; Judicial Officer Association</li>
+            </ul>
+            <div class="lead-loc">Taoyuan</div>
+          </div>
+        </div>
+
+        <!-- Ⅲ · LIN, KUN-DA -->
+        <div class="lead-card">
+          <div class="lead-photo">
+            <div class="lead-photo-num">Ⅲ</div>
+            <img src="lin-kun-da.jpg" alt="LIN, KUN-DA · Capital &amp; Equity Strategy Partner">
+          </div>
+          <div class="lead-meta">
+            <div class="lead-role">Capital &amp; Equity Strategy Partner</div>
+            <div class="lead-name-en">LIN, KUN-DA</div>
+            <div class="lead-divider"></div>
+            <ul class="lead-creds">
+              <li>30+ Years in Accounting, Capital Structuring &amp; Financial Strategy</li>
+              <li>Focus on Equity Structure Design · Capital Planning · Business Structuring</li>
+              <li>Shareholding Architecture · Investment &amp; Funding Strategy · Governance Frameworks</li>
+              <li>Extensive Experience in Advising SMEs on Ownership Design, Capital Strategy &amp; Long-term Financial Planning</li>
+            </ul>
+            <div class="lead-loc">New Taipei City</div>
+          </div>
+        </div>
+
+        <!-- Ⅳ · CHANG, YU-CHIEH -->
+        <div class="lead-card">
+          <div class="lead-photo">
+            <div class="lead-photo-num">Ⅳ</div>
+            <img src="chang-yu-chieh.jpg" alt="CHANG, YU-CHIEH · Accounting &amp; Tax Strategy Partner">
+          </div>
+          <div class="lead-meta">
+            <div class="lead-role">Accounting &amp; Tax Strategy Partner</div>
+            <div class="lead-name-en">CHANG, YU-CHIEH</div>
+            <div class="lead-divider"></div>
+            <ul class="lead-creds">
+              <li>Founder, YiJie Certified Bookkeeper Firm</li>
+              <li>Senior Bookkeeping &amp; Tax Planning Advisor</li>
+              <li>12+ Years of Professional Practice</li>
+              <li>Specialized in Corporate Accounting Systems &amp; Tax Optimization</li>
+            </ul>
+            <div class="lead-loc">Taichung</div>
+          </div>
+        </div>
+
+        <!-- Ⅴ · CHIANG, SHU-YUN -->
+        <div class="lead-card">
+          <div class="lead-photo">
+            <div class="lead-photo-num">Ⅴ</div>
+            <img src="chiang-shu-yun.jpg" alt="CHIANG, SHU-YUN · Marketing Strategy Partner">
+          </div>
+          <div class="lead-meta">
+            <div class="lead-role">Marketing Strategy Partner</div>
+            <div class="lead-name-en">CHIANG, SHU-YUN</div>
+            <div class="lead-divider"></div>
+            <ul class="lead-creds">
+              <li>Founder, HA Lab</li>
+              <li>Co-founder, Teascovery</li>
+              <li>15+ Years in Brand &amp; Marketing</li>
+              <li>Focus on Product Innovation</li>
+              <li>Government Marketing Subsidies · Re-Branding Strategy</li>
+              <li>Experience in Managing Leading Domestic Marketing Brands</li>
+            </ul>
+            <div class="lead-loc">Taipei</div>
+          </div>
+        </div>
+
+        <!-- Ⅵ · YEN, CHIH-LING -->
+        <div class="lead-card">
+          <div class="lead-photo">
+            <div class="lead-photo-num">Ⅵ</div>
+            <img src="yen-chih-ling.jpg" alt="YEN, CHIH-LING · Legal Compliance &amp; Litigation Partner">
+          </div>
+          <div class="lead-meta">
+            <div class="lead-role">Legal Compliance &amp; Litigation Partner</div>
+            <div class="lead-name-en">YEN, CHIH-LING</div>
+            <div class="lead-divider"></div>
+            <ul class="lead-creds">
+              <li>6+ Years in Legal Practice</li>
+              <li>Specialized in Criminal, Civil &amp; Corporate Compliance</li>
+              <li>Handled Multiple High-Profile Criminal &amp; Administrative Cases</li>
+              <li>Experienced in Bilingual Contract Review &amp; Drafting</li>
+            </ul>
+            <div class="lead-loc">Taipei</div>
+          </div>
+        </div>
+
+        <!-- Ⅶ · CHEN, KUAN-LIN -->
+        <div class="lead-card">
+          <div class="lead-photo">
+            <div class="lead-photo-num">Ⅶ</div>
+            <img src="chen-kuan-lin.jpg" alt="CHEN, KUAN-LIN · Food Industry Strategy Partner">
+          </div>
+          <div class="lead-meta">
+            <div class="lead-role">Food Industry Strategy Partner</div>
+            <div class="lead-name-en">CHEN, KUAN-LIN</div>
+            <div class="lead-divider"></div>
+            <ul class="lead-creds">
+              <li>Founder, Long Hao Foods</li>
+              <li>Annual Revenue Exceeding NT$100 Million</li>
+              <li>President, Taiwan Chain and Franchise Association</li>
+            </ul>
+            <div class="lead-loc">Miaoli</div>
+          </div>
+        </div>
+
+        <!-- Ⅷ · Coming Soon -->
+        <div class="lead-card lead-card-soon">
+          <div class="lead-photo lead-photo-soon">
+            <div class="lead-photo-num">Ⅷ</div>
+            <div class="lead-soon-mark">
+              <span class="lead-soon-en">STATON</span>
+              <span class="lead-soon-zh lang-zh-only">仕 坦 登</span>
+            </div>
+          </div>
+          <div class="lead-meta">
+            <div class="lead-role">Coming Soon</div>
+            <div class="lead-name-en">— TBA —</div>
+            <div class="lead-divider"></div>
+            <p class="lead-soon-desc" data-en="STATON's Strategic Partner Network is expanding.&lt;br&gt;New advisors joining soon." data-zh="STATON 策略合夥網絡持續擴張中&lt;br&gt;Strategic Network Expanding.">STATON 策略合夥網絡持續擴張中<br>Strategic Network Expanding.</p>
+          </div>
+        </div>
+
+        <!-- Ⅸ · Coming Soon -->
+        <div class="lead-card lead-card-soon">
+          <div class="lead-photo lead-photo-soon">
+            <div class="lead-photo-num">Ⅸ</div>
+            <div class="lead-soon-mark">
+              <span class="lead-soon-en">STATON</span>
+              <span class="lead-soon-zh lang-zh-only">仕 坦 登</span>
+            </div>
+          </div>
+          <div class="lead-meta">
+            <div class="lead-role">Coming Soon</div>
+            <div class="lead-name-en">— TBA —</div>
+            <div class="lead-divider"></div>
+            <p class="lead-soon-desc" data-en="STATON's Strategic Partner Network is expanding.&lt;br&gt;New advisors joining soon." data-zh="STATON 策略合夥網絡持續擴張中&lt;br&gt;Strategic Network Expanding.">STATON 策略合夥網絡持續擴張中<br>Strategic Network Expanding.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Legal Counsel Footnote -->
+      <div class="lead-counsel">
+        <div class="lead-counsel-text" data-en="STATON's standing legal counsel is provided by &lt;strong&gt;H&amp;amp;W LAW&lt;/strong&gt;.&lt;br&gt;
+          Every system we design embeds a built-in legal-risk review mechanism." data-zh="本公司常年法律顧問由 &lt;strong&gt;H&amp;amp;W LAW 伯衡法律事務所&lt;/strong&gt; 提供，&lt;br&gt;
+          所有制度設計皆內建法律風險審查機制。">本公司常年法律顧問由 <strong>H&amp;W LAW 伯衡法律事務所</strong> 提供，<br>
+          所有制度設計皆內建法律風險審查機制。</div>
+        <div class="lead-counsel-tag">— STRATEGIC LEGAL ALLIANCE —</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 06 — IMPACT / NUMBERS ============ -->
+<div class="chapter-divider">
+  <div class="ch-line"></div>
+  <div class="ch-content">
+    <div class="ch-num">CHAPTER 06</div>
+    <div class="ch-title lang-zh-only">影 響 力 數 據</div>
+    <div class="ch-en">IMPACT</div>
+  </div>
+  <div class="ch-line"></div>
+</div>
+
+<section id="impact" class="section">
+  <div class="section-inner fade-section">
+    <div class="section-eyebrow" data-en="— BY THE NUMBERS —" data-zh="— BY THE NUMBERS · &lt;span class=&quot;zh-cluster&quot;&gt;以數字為證&lt;/span&gt; —">— BY THE NUMBERS · <span class="zh-cluster">以數字為證</span> —</div>
+    <h2 class="section-title" data-en="Translating Consulting Into Measurable Impact" data-zh="把 顧 問 工 作 · 量 化 為 可 衡 量 的 影 響">把 顧 問 工 作 · 量 化 為 可 衡 量 的 影 響</h2>
+    <p class="section-summary" data-en="We believe the value of consulting must ultimately be expressed in numbers you can examine. Below is STATON's service scope, long-term vision and professional background." data-zh="我們相信，顧問服務的價值，最終要體現為可被檢視的數字。以下是 STATON 的服務範疇、長期願景與專業背景。">我們相信，顧問服務的價值，最終要體現為可被檢視的數字。以下是 STATON 的服務範疇、長期願景與專業背景。</p>
+
+    <div class="stats-row" id="statsRow">
+      <div class="stat-card">
+        <div class="stat-label" data-en="VISION" data-zh="VISION · &lt;span class=&quot;zh-cluster&quot;&gt;長期願景&lt;/span&gt;">VISION · <span class="zh-cluster">長期願景</span></div>
+        <div class="stat-value-row">
+          <span class="stat-value">100000</span>
+          <span class="stat-unit" data-en="SMEs" data-zh="家">家</span>
+        </div>
+        <div class="stat-desc" data-en="SMEs we aim to bring into systematic operation, long-term" data-zh="中小企業導入系統化經營的長期目標">中小企業導入系統化經營的長期目標</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label" data-en="MODULES" data-zh="MODULES · &lt;span class=&quot;zh-cluster&quot;&gt;顧問模組&lt;/span&gt;">MODULES · <span class="zh-cluster">顧問模組</span></div>
+        <div class="stat-value-row">
+          <span class="stat-value">8</span>
+          <span class="stat-unit" data-en="Modules" data-zh="大">大</span>
+        </div>
+        <div class="stat-desc" data-en="Six core modules + IPO &amp; M&amp;A advanced advisory" data-zh="六大顧問模組 + IPO / M&amp;A 資本化進階顧問">六大顧問模組 + IPO / M&amp;A 資本化進階顧問</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label" data-en="FRAMEWORK" data-zh="FRAMEWORK · &lt;span class=&quot;zh-cluster&quot;&gt;三層架構&lt;/span&gt;">FRAMEWORK · <span class="zh-cluster">三層架構</span></div>
+        <div class="stat-value-row">
+          <span class="stat-value">3</span>
+          <span class="stat-unit" data-en="Layers" data-zh="層">層</span>
+        </div>
+        <div class="stat-desc" data-en="Closed-loop methodology: Diagnose / Execute / Verify" data-zh="診斷 / 執行 / 驗證的閉環方法論">診斷 / 執行 / 驗證的閉環方法論</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label" data-en="EXPERIENCE" data-zh="EXPERIENCE · &lt;span class=&quot;zh-cluster&quot;&gt;專業背景&lt;/span&gt;">EXPERIENCE · <span class="zh-cluster">專業背景</span></div>
+        <div class="stat-value-row">
+          <span class="stat-value">10</span>
+          <span class="stat-unit" data-en="Yrs+" data-zh="年+">年+</span>
+        </div>
+        <div class="stat-desc" data-en="Across CPA firms, e-commerce finance and consulting practice" data-zh="橫跨會計師事務所、電商財務與顧問實務">橫跨會計師事務所、電商財務與顧問實務</div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;">
+      <div class="diff-grid">
+        <div class="diff-item">
+          <div class="diff-num">— 01 —</div>
+          <div class="diff-title" data-en="Strategic Legal Alliance" data-zh="與 法 律 事 務 所 策 略 結 盟">與 法 律 事 務 所 策 略 結 盟</div>
+          <div class="diff-en lang-zh-only">Strategic Legal Alliance</div>
+          <p class="diff-desc" data-en="STATON's standing legal counsel is H&amp;amp;W LAW. Every system we design embeds a built-in legal-risk review — weaving finance, operations and law into a single safety net." data-zh="本公司由 H&amp;W LAW 伯衡法律事務所提供常年法律顧問支援，所有制度設計皆內含法律風險審查，把財務、營運與法律編織成同一張安全網。">本公司由 H&W LAW 伯衡法律事務所提供常年法律顧問支援，所有制度設計皆內含法律風險審查，把財務、營運與法律編織成同一張安全網。</p>
+        </div>
+        <div class="diff-item">
+          <div class="diff-num">— 02 —</div>
+          <div class="diff-title" data-en="Big-4 Trained Methodology" data-zh="會 計 師 事 務 所 級 別 的 專 業 訓 練">會 計 師 事 務 所 級 別 的 專 業 訓 練</div>
+          <div class="diff-en lang-zh-only">Big-4 Trained Methodology</div>
+          <p class="diff-desc" data-en="The founder is Ernst &amp;amp; Young trained, translating Big-4 standardized project-management thinking into a consulting language that SMEs can absorb and afford." data-zh="創辦人具備 Ernst &amp; Young 安永聯合會計師事務所經歷，將四大會計師事務所的標準化專案管理思維，轉譯為中小企業可承受的顧問語言。">創辦人具備 Ernst & Young 安永聯合會計師事務所經歷，將四大會計師事務所的標準化專案管理思維，轉譯為中小企業可承受的顧問語言。</p>
+        </div>
+        <div class="diff-item">
+          <div class="diff-num">— 03 —</div>
+          <div class="diff-title" data-en="Systems, Not Suggestions" data-zh="系 統 設 計 而 非 點 狀 建 議">系 統 設 計 而 非 點 狀 建 議</div>
+          <div class="diff-en lang-zh-only">Systems, Not Suggestions</div>
+          <p class="diff-desc" data-en="We don't deliver slides and leave. Every project lands as operable documents, forms, workflows and KPI monitoring — with named owners — so change is built into the organization." data-zh="我們不交付投影片就離場。每個專案都會落地為可被操作的文件、表單、流程與 KPI 監控機制，並指派具體負責人，讓改變被內建在組織中。">我們不交付投影片就離場。每個專案都會落地為可被操作的文件、表單、流程與 KPI 監控機制，並指派具體負責人，讓改變被內建在組織中。</p>
+        </div>
+        <div class="diff-item">
+          <div class="diff-num">— 04 —</div>
+          <div class="diff-title" data-en="SME-First Perspective" data-zh="中 小 企 業 經 營 者 思 維">中 小 企 業 經 營 者 思 維</div>
+          <div class="diff-en lang-zh-only">SME-First Perspective</div>
+          <p class="diff-desc" data-en="The founder is also an operator. We understand the real cash-flow, talent and decision-cadence constraints of SMEs — and design tailored solutions rather than impose enterprise templates." data-zh="創辦人本身亦為事業經營者，深度理解中小企業在現金流、人才、決策節奏上的真實限制。我們不套用大企業模板，而是設計合身的解法。">創辦人本身亦為事業經營者，深度理解中小企業在現金流、人才、決策節奏上的真實限制。我們不套用大企業模板，而是設計合身的解法。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 07 — PROCESS ============ -->
+<div class="chapter-divider">
+  <div class="ch-line"></div>
+  <div class="ch-content">
+    <div class="ch-num">CHAPTER 07</div>
+    <div class="ch-title lang-zh-only">服 務 流 程</div>
+    <div class="ch-en">ENGAGEMENT FLOW</div>
+  </div>
+  <div class="ch-line"></div>
+</div>
+
+<section id="process" class="section">
+  <div class="section-inner fade-section">
+    <div class="section-eyebrow" data-en="— FIVE STEPS · CONTACT TO DELIVERY —" data-zh="— FIVE STEPS · &lt;span class=&quot;zh-cluster&quot;&gt;從接觸到交付&lt;/span&gt; —">— FIVE STEPS · <span class="zh-cluster">從接觸到交付</span> —</div>
+    <h2 class="section-title" data-en="Five Milestones · A Transparent Consulting Path" data-zh="五 個 節 點 · 一 條 透 明 的 顧 問 路 徑">五 個 節 點 · 一 條 透 明 的 顧 問 路 徑</h2>
+    <p class="section-summary" data-en="Every consulting engagement deserves a clear start, mid-points and finish. STATON anchors every project at five fixed milestones, so at any moment you know exactly where we are and what comes next." data-zh="每一段顧問關係，都有清楚的起點、節點與終點。STATON 以五個固定節點，確保你在任何時刻都知道「我們在哪裡、下一步是什麼」。">每一段顧問關係，都有清楚的起點、節點與終點。STATON 以五個固定節點，確保你在任何時刻都知道「我們在哪裡、下一步是什麼」。</p>
+
+    <div class="process-wrap">
+      <div class="process-track"></div>
+      <div class="process-stages">
+        <div class="process-stage">
+          <div class="process-num">— ONE —</div>
+          <div class="process-dot"></div>
+          <div class="process-name lang-zh-only">初 訪 諮 詢</div>
+          <div class="process-en">Consultation</div>
+          <p class="process-desc" data-en="A complimentary 60-minute conversation to understand your current operations, pain points and expectations — and to mutually confirm fit." data-zh="免費 60 分鐘對談，理解你的經營現況、痛點與期待，雙方確認合作可能性。">免費 60 分鐘對談，理解你的經營現況、痛點與期待，雙方確認合作可能性。</p>
+        </div>
+        <div class="process-stage">
+          <div class="process-num">— TWO —</div>
+          <div class="process-dot"></div>
+          <div class="process-name lang-zh-only">經 營 體 檢</div>
+          <div class="process-en">Diagnosis</div>
+          <p class="process-desc" data-en="2–4 weeks of deep investigation and data analysis, delivering a written diagnostic report with prioritized recommendations." data-zh="2–4 週深度訪查與資料分析，產出書面診斷報告與優先序建議。">2–4 週深度訪查與資料分析，產出書面診斷報告與優先序建議。</p>
+        </div>
+        <div class="process-stage">
+          <div class="process-num">— THREE —</div>
+          <div class="process-dot"></div>
+          <div class="process-name lang-zh-only">方 案 設 計</div>
+          <div class="process-en">Blueprint</div>
+          <p class="process-desc" data-en="Concrete modules, timeline, KPIs and resource allocation designed by priority — yielding an executable blueprint." data-zh="依優先序設計具體模組、時程、KPI 與資源配置，產出可執行的藍圖。">依優先序設計具體模組、時程、KPI 與資源配置，產出可執行的藍圖。</p>
+        </div>
+        <div class="process-stage">
+          <div class="process-num">— FOUR —</div>
+          <div class="process-dot"></div>
+          <div class="process-name lang-zh-only">落 地 執 行</div>
+          <div class="process-en">Execution</div>
+          <p class="process-desc" data-en="Hands-on implementation: bring systems live, train teams, fine-tune details — ensuring the system actually runs." data-zh="陪伴式導入，協助制度上線、訓練同仁、調校細節，確保系統真的運轉起來。">陪伴式導入，協助制度上線、訓練同仁、調校細節，確保系統真的運轉起來。</p>
+        </div>
+        <div class="process-stage">
+          <div class="process-num">— FIVE —</div>
+          <div class="process-dot"></div>
+          <div class="process-name lang-zh-only">滾 動 驗 證</div>
+          <div class="process-en">Verification</div>
+          <p class="process-desc" data-en="Monthly / quarterly reviews. We refine the system based on data feedback so it builds the capacity to self-evolve." data-zh="每月 / 每季回顧，依數據反饋修正系統，讓制度具備自我進化的能力。">每月 / 每季回顧，依數據反饋修正系統，讓制度具備自我進化的能力。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING / CTA ============ -->
+<section id="booking" class="closing">
+  <div class="closing-inner">
+    <div class="closing-tag">START YOUR JOURNEY</div>
+    <h2 class="closing-headline" data-en="Stop relying on individuals.&lt;br&gt;
+      Start relying on&lt;span class=&quot;accent&quot;&gt; systems.&lt;/span&gt;" data-zh="讓 經 營 不 再 仰 賴 個 人，&lt;br&gt;
+      而 是 仰 賴&lt;span class=&quot;accent&quot;&gt; 系 統。&lt;/span&gt;">讓 經 營 不 再 仰 賴 個 人，<br>
+      而 是 仰 賴<span class="accent"> 系 統。</span></h2>
+    <p class="closing-body" data-en="Whether your business is starting, scaling or transforming,&lt;br&gt;
+      we welcome an unpressured initial conversation.&lt;br&gt;
+      &lt;span style=&quot;color:var(--gold);&quot;&gt;Understand you first. Commit only then.&lt;/span&gt;" data-zh="無論你的事業正處於起步、擴張或轉型的階段，&lt;br&gt;
+      我們都樂於與你進行一場無壓力的初訪對談。&lt;br&gt;
+      &lt;span style=&quot;color:var(--gold);&quot;&gt;先理解你，再給承諾。&lt;/span&gt;">無論你的事業正處於起步、擴張或轉型的階段，<br>
+      我們都樂於與你進行一場無壓力的初訪對談。<br>
+      <span style="color:var(--gold);">先理解你，再給承諾。</span></p>
+
+    <div class="closing-actions">
+      <a href="https://page.line.me/793dzpgn?oat_content=url&amp;openQrModal=true" target="_blank" rel="noopener noreferrer" class="btn-primary" data-en="BOOKING →" data-zh="預 約 諮 詢 BOOKING →">預 約 諮 詢 BOOKING →</a>
+      <a href="#systems" class="btn-ghost" data-en="OUR SERVICES" data-zh="了 解 服 務 SERVICES">了 解 服 務 SERVICES</a>
+    </div>
+
+    <div class="closing-meta">
+      <div class="closing-meta-item">
+        <div class="closing-meta-label">— OFFICE —</div>
+        <div class="closing-meta-value" data-en="Taiwan · Taipei" data-zh="臺 灣 · 臺 北">臺 灣 · 臺 北</div>
+      </div>
+      <div class="closing-meta-item closing-meta-lang" id="footerLangToggle" role="button" tabindex="0" aria-label="Switch language">
+        <div class="closing-meta-label">— LANGUAGE —</div>
+        <div class="closing-meta-value">
+          <span class="lt-active">中文</span><span class="lt-sep">·</span><span class="lt-other">English</span>
+        </div>
+      </div>
+      <div class="closing-meta-item">
+        <div class="closing-meta-label">— RESPONSE —</div>
+        <div class="closing-meta-value" data-en="Reply within 48 hours" data-zh="48 小 時 內 回 覆">48 小 時 內 回 覆</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-brand-name">STATON</div>
+      <div class="footer-brand-zh" data-en="Management Consulting LTD." data-zh="仕 坦 登 企 業 管 理 顧 問">仕 坦 登 企 業 管 理 顧 問</div>
+      <p class="footer-brand-text" data-en="Verifiable operating systems designed for SMEs. From organizational design, operations, management reporting, finance, branding to compliance — and from operations into IPO &amp; M&amp;amp;A capitalization advisory — your long-term partner in business." data-zh="為中小企業設計可被驗證的經營系統。從組織架構、營運優化、管報、財務、品牌到法遵的六大模組，再到 IPO 與 M&amp;amp;A 的資本化顧問，做你長期的經營夥伴。">為中小企業設計可被驗證的經營系統。從組織架構、營運優化、管報、財務、品牌到法遵的六大模組，再到 IPO 與 M&amp;A 的資本化顧問，做你長期的經營夥伴。</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>SERVICES</h4>
+      <ul>
+        <li><a href="#systems" data-en="Organizational Structure Design" data-zh="組織架構設計">組織架構設計</a></li>
+        <li><a href="#systems" data-en="Business Operations Optimization" data-zh="營運優化">營運優化</a></li>
+        <li><a href="#systems" data-en="Customized Management Reporting" data-zh="客製化管報">客製化管報</a></li>
+        <li><a href="#systems" data-en="Financial Planning &amp; Management" data-zh="財務規劃">財務規劃</a></li>
+        <li><a href="#systems" data-en="Brand Strategy &amp; Marketing" data-zh="行銷品牌策略">行銷品牌策略</a></li>
+        <li><a href="#systems" data-en="Legal Risk &amp; Compliance" data-zh="法律遵循">法律遵循</a></li>
+        <li><a href="#capital" style="color:var(--gold);" data-en="IPO &amp; M&amp;A Advisory" data-zh="IPO &amp; M&amp;A 進階顧問">IPO &amp; M&amp;A 進階顧問</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>NAVIGATION</h4>
+      <ul>
+        <li><a href="#philosophy" data-en="Philosophy" data-zh="經營主張">經營主張</a></li>
+        <li><a href="#methodology" data-en="Methodology" data-zh="三層方法論">三層方法論</a></li>
+        <li><a href="#leadership" data-en="Leadership" data-zh="顧問團隊">顧問團隊</a></li>
+        <li><a href="#impact" data-en="Impact" data-zh="影響力數據">影響力數據</a></li>
+        <li><a href="#process" data-en="Process" data-zh="服務流程">服務流程</a></li>
+        <li><a href="#booking" data-en="Booking" data-zh="預約諮詢">預約諮詢</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>CONTACT</h4>
+      <p class="footer-meta" data-en="&lt;strong&gt;STATON Management Consulting LTD.&lt;/strong&gt;&lt;br&gt;
+        Tax ID: 60595769&lt;br&gt;&lt;br&gt;
+        Legal counsel&lt;br&gt;
+        H&amp;W LAW" data-zh="&lt;strong&gt;STATON Management Consulting&lt;/strong&gt;&lt;br&gt;
+        仕坦登企業管理顧問有限公司&lt;br&gt;
+        統一編號：60595769&lt;br&gt;&lt;br&gt;
+        本站法律顧問&lt;br&gt;
+        H&amp;W LAW 伯衡法律事務所"><strong>STATON Management Consulting</strong><br>
+        仕坦登企業管理顧問有限公司<br>
+        統一編號：60595769<br><br>
+        本站法律顧問<br>
+        H&W LAW 伯衡法律事務所</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>Copyright © 2026 STATON Management Consulting LTD. All rights reserved.</span>
+    <div class="footer-social">
+      <a href="https://www.facebook.com/statonconsultant" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+      <a href="https://www.instagram.com/staton_tw/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+      <a href="https://x.com/staton_tw" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================
+// ============ THREE.JS PARTICLE SCENE =======
+// ============================================
+function initHeroScene() {
+  const canvas = document.getElementById('artCanvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x000e2f, 6, 18);
+
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+  camera.position.set(0, 0, 7.5);
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x000814, 1);
+
+  // ========== 主粒子系統：球體 + 多形狀變換 ==========
+  const N = 6500; // 增加粒子數量提升「滿」感
+  const baseRadius = 2.6;
+  const goldenAngle = Math.PI * (Math.sqrt(5) - 1);
+
+  const positions = new Float32Array(N * 3);
+  const colors = new Float32Array(N * 3);
+  const targetPositions = new Float32Array(N * 3);
+
+  // 形狀生成器：球體
+  function genSphere(N, r) {
+    const out = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      const yNorm = 1 - (i / (N - 1)) * 2;
+      const radiusAtY = Math.sqrt(1 - yNorm * yNorm);
+      const theta = goldenAngle * i;
+      const rr = r + (Math.random() - 0.5) * 0.36;
+      out[i*3]   = Math.cos(theta) * radiusAtY * rr;
+      out[i*3+1] = yNorm * rr;
+      out[i*3+2] = Math.sin(theta) * radiusAtY * rr;
+    }
+    return out;
+  }
+
+  // 形狀生成器：環形（代表系統循環）
+  function genTorus(N, R, r) {
+    const out = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      const u = (i / N) * Math.PI * 2;
+      const v = goldenAngle * i;
+      const rr = r + (Math.random() - 0.5) * 0.4;
+      out[i*3]   = (R + rr * Math.cos(v)) * Math.cos(u);
+      out[i*3+1] = rr * Math.sin(v);
+      out[i*3+2] = (R + rr * Math.cos(v)) * Math.sin(u);
+    }
+    return out;
+  }
+
+  // 形狀生成器：螺旋（代表成長軌跡）
+  function genHelix(N, r, h) {
+    const out = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      const t = i / N;
+      const angle = t * Math.PI * 8;
+      const radius = r * (1 - t * 0.3) + (Math.random() - 0.5) * 0.3;
+      out[i*3]   = Math.cos(angle) * radius;
+      out[i*3+1] = (t - 0.5) * h;
+      out[i*3+2] = Math.sin(angle) * radius;
+    }
+    return out;
+  }
+
+  // 形狀生成器：方陣（代表系統架構）
+  function genGrid(N, size) {
+    const out = new Float32Array(N * 3);
+    const sideN = Math.ceil(Math.cbrt(N));
+    for (let i = 0; i < N; i++) {
+      const x = i % sideN;
+      const y = Math.floor(i / sideN) % sideN;
+      const z = Math.floor(i / (sideN * sideN));
+      out[i*3]   = (x / sideN - 0.5) * size + (Math.random() - 0.5) * 0.15;
+      out[i*3+1] = (y / sideN - 0.5) * size + (Math.random() - 0.5) * 0.15;
+      out[i*3+2] = (z / sideN - 0.5) * size * 0.5 + (Math.random() - 0.5) * 0.15;
+    }
+    return out;
+  }
+
+  // 形狀生成器：波（代表市場波動）
+  function genWave(N, w, h) {
+    const out = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      const t = i / N;
+      const x = (t - 0.5) * w + (Math.random() - 0.5) * 0.1;
+      const phase = t * Math.PI * 12;
+      const y = Math.sin(phase) * h * (0.6 + Math.random() * 0.4);
+      const z = Math.cos(phase * 0.7) * h * 0.4 + (Math.random() - 0.5) * 0.4;
+      out[i*3] = x; out[i*3+1] = y; out[i*3+2] = z;
+    }
+    return out;
+  }
+
+  const SHAPES = [
+    { name: '凝 聚', gen: () => genSphere(N, baseRadius) },
+    { name: '系 統', gen: () => genTorus(N, baseRadius * 0.9, baseRadius * 0.4) },
+    { name: '成 長', gen: () => genHelix(N, baseRadius, baseRadius * 2.2) },
+    { name: '架 構', gen: () => genGrid(N, baseRadius * 2.4) },
+    { name: '韻 律', gen: () => genWave(N, baseRadius * 4, baseRadius * 0.9) },
+    { name: '凝 聚', gen: () => genSphere(N, baseRadius) },
+  ];
+
+  let currentShapeData = SHAPES[0].gen();
+  for (let i = 0; i < N * 3; i++) {
+    positions[i] = currentShapeData[i];
+    targetPositions[i] = currentShapeData[i];
+  }
+  window.__currentShapeName = SHAPES[0].name;
+
+  // 顏色配方（金色 70% / 暖白 25% / 高光 5%）
+  for (let i = 0; i < N; i++) {
+    const roll = Math.random();
+    let h, s, l;
+    if (roll < 0.70) {
+      h = (35 + Math.random() * 15) / 360;
+      s = 0.85 + Math.random() * 0.15;
+      l = 0.40 + Math.random() * 0.25;
+    } else if (roll < 0.95) {
+      h = (38 + Math.random() * 8) / 360;
+      s = 0.15 + Math.random() * 0.25;
+      l = 0.65 + Math.random() * 0.20;
+    } else {
+      h = 50 / 360; s = 1; l = 0.78;
+    }
+    const color = new THREE.Color().setHSL(h, s, l);
+    colors[i*3] = color.r; colors[i*3+1] = color.g; colors[i*3+2] = color.b;
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+  function makeParticleTexture() {
+    const c = document.createElement('canvas');
+    c.width = c.height = 64;
+    const ctx = c.getContext('2d');
+    const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    g.addColorStop(0, 'rgba(255,255,255,1)');
+    g.addColorStop(0.3, 'rgba(255,255,255,0.85)');
+    g.addColorStop(0.7, 'rgba(255,255,255,0.2)');
+    g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, 64, 64);
+    return new THREE.CanvasTexture(c);
+  }
+
+  const points = new THREE.Points(geo, new THREE.PointsMaterial({
+    size: 0.058, vertexColors: true, map: makeParticleTexture(),
+    transparent: true, opacity: 0.95, sizeAttenuation: true,
+    blending: THREE.AdditiveBlending, depthWrite: false,
+  }));
+  scene.add(points);
+
+  // ========== Layer 2：Bokeh 散景（大、模糊、漂浮）==========
+  // 加大密度
+  const bokehCount = 120;
+  const bokehGeo = new THREE.BufferGeometry();
+  const bokehPos = new Float32Array(bokehCount * 3);
+  const bokehColors = new Float32Array(bokehCount * 3);
+  const bokehSeeds = new Float32Array(bokehCount);
+
+  for (let i = 0; i < bokehCount; i++) {
+    bokehPos[i*3]   = (Math.random() - 0.5) * 16;
+    bokehPos[i*3+1] = (Math.random() - 0.5) * 12;
+    bokehPos[i*3+2] = (Math.random() - 0.5) * 5 - 1;
+    bokehSeeds[i]   = Math.random() * 100;
+
+    const roll = Math.random();
+    let h, s, l;
+    if (roll < 0.40) {
+      h = (38 + Math.random() * 8) / 360;
+      s = 0.10 + Math.random() * 0.15;
+      l = 0.75 + Math.random() * 0.15;
+    } else {
+      h = (35 + Math.random() * 15) / 360;
+      s = 0.70 + Math.random() * 0.20;
+      l = 0.55 + Math.random() * 0.20;
+    }
+    const c = new THREE.Color().setHSL(h, s, l);
+    bokehColors[i*3] = c.r; bokehColors[i*3+1] = c.g; bokehColors[i*3+2] = c.b;
+  }
+
+  bokehGeo.setAttribute('position', new THREE.BufferAttribute(bokehPos, 3));
+  bokehGeo.setAttribute('color', new THREE.BufferAttribute(bokehColors, 3));
+
+  const bokeh = new THREE.Points(bokehGeo, new THREE.PointsMaterial({
+    size: 0.26,
+    vertexColors: true,
+    map: makeParticleTexture(),
+    transparent: true,
+    opacity: 0.42,
+    sizeAttenuation: true,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  }));
+  scene.add(bokeh);
+
+  // ========== Layer 3：上升餘燼（密集向上飄）==========
+  const emberCount = 600; // 加倍
+  const emberGeo = new THREE.BufferGeometry();
+  const emberPos = new Float32Array(emberCount * 3);
+  const emberColors = new Float32Array(emberCount * 3);
+  const emberSpeeds = new Float32Array(emberCount);
+
+  for (let i = 0; i < emberCount; i++) {
+    emberPos[i*3]   = (Math.random() - 0.5) * 16;
+    emberPos[i*3+1] = (Math.random() - 0.5) * 12;
+    emberPos[i*3+2] = (Math.random() - 0.5) * 5 - 0.5;
+    emberSpeeds[i]  = 0.003 + Math.random() * 0.012;
+
+    const roll = Math.random();
+    let h, s, l;
+    if (roll < 0.85) {
+      h = (35 + Math.random() * 15) / 360;
+      s = 0.85 + Math.random() * 0.15;
+      l = 0.45 + Math.random() * 0.25;
+    } else {
+      h = 50 / 360; s = 1; l = 0.78;
+    }
+    const c = new THREE.Color().setHSL(h, s, l);
+    emberColors[i*3] = c.r; emberColors[i*3+1] = c.g; emberColors[i*3+2] = c.b;
+  }
+
+  emberGeo.setAttribute('position', new THREE.BufferAttribute(emberPos, 3));
+  emberGeo.setAttribute('color', new THREE.BufferAttribute(emberColors, 3));
+
+  const embers = new THREE.Points(emberGeo, new THREE.PointsMaterial({
+    size: 0.05,
+    vertexColors: true,
+    map: makeParticleTexture(),
+    transparent: true,
+    opacity: 0.75,
+    sizeAttenuation: true,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  }));
+  scene.add(embers);
+
+  // ========== Layer 4：遠景星塵（極小、不動、整體氛圍）==========
+  const dustCount = 800;
+  const dustGeo = new THREE.BufferGeometry();
+  const dustPos = new Float32Array(dustCount * 3);
+  const dustColors = new Float32Array(dustCount * 3);
+
+  for (let i = 0; i < dustCount; i++) {
+    dustPos[i*3]   = (Math.random() - 0.5) * 30;
+    dustPos[i*3+1] = (Math.random() - 0.5) * 20;
+    dustPos[i*3+2] = -3 - Math.random() * 8;
+
+    const c = new THREE.Color().setHSL(40/360, 0.3, 0.5 + Math.random() * 0.3);
+    dustColors[i*3] = c.r; dustColors[i*3+1] = c.g; dustColors[i*3+2] = c.b;
+  }
+
+  dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+  dustGeo.setAttribute('color', new THREE.BufferAttribute(dustColors, 3));
+
+  const dust = new THREE.Points(dustGeo, new THREE.PointsMaterial({
+    size: 0.025,
+    vertexColors: true,
+    map: makeParticleTexture(),
+    transparent: true,
+    opacity: 0.5,
+    sizeAttenuation: true,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  }));
+  scene.add(dust);
+
+  // ========== 互動：滑鼠視差 ==========
+  let targetTiltX = 0, targetTiltY = 0, tiltX = 0, tiltY = 0;
+
+  // ========== 滾動進度 ==========
+  let scrollProgress = 0;
+  let smoothScroll = 0;
+  let lastShapeIdx = 0;
+  const flashEl = document.getElementById('shapeFlash');
+
+  function getEffectiveScrollMax() {
+    const closing = document.querySelector('.closing');
+    if (closing) {
+      const rect = closing.getBoundingClientRect();
+      const closingBottomY = window.scrollY + rect.bottom;
+      return Math.max(1, closingBottomY - window.innerHeight + 80);
+    }
+    return Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+  }
+  window.__getEffectiveScrollMax = getEffectiveScrollMax;
+
+  function onScroll() {
+    const total = getEffectiveScrollMax();
+    scrollProgress = Math.max(0, Math.min(1, window.scrollY / total));
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  function onMouseMove(e) {
+    const x = (e.clientX / window.innerWidth) * 2 - 1;
+    const y = -(e.clientY / window.innerHeight) * 2 + 1;
+    targetTiltX = y * 0.18;
+    targetTiltY = x * 0.18;
+  }
+  window.addEventListener('mousemove', onMouseMove, { passive: true });
+
+  function onResize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  }
+  window.addEventListener('resize', onResize);
+
+  // ========== 動畫迴圈 ==========
+  let time = 0;
+  let lastShape = 0;
+  let shapeBlend = 0;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.012;
+
+    // 滾動驅動的形狀切換（共 5 個段落）
+    smoothScroll += (scrollProgress - smoothScroll) * 0.05;
+    const shapeF = smoothScroll * (SHAPES.length - 1);
+    const shapeIdx = Math.floor(shapeF);
+    const shapeT = shapeF - shapeIdx;
+
+    // 偵測形狀切換
+    if (shapeIdx !== lastShapeIdx && shapeIdx < SHAPES.length) {
+      const newShape = SHAPES[Math.min(shapeIdx, SHAPES.length - 1)];
+      const newTarget = newShape.gen();
+      for (let i = 0; i < N * 3; i++) targetPositions[i] = newTarget[i];
+      window.__currentShapeName = newShape.name;
+      lastShapeIdx = shapeIdx;
+
+      // 觸發閃光
+      if (flashEl) {
+        flashEl.classList.add('active');
+        setTimeout(() => flashEl.classList.remove('active'), 400);
+      }
+    }
+
+    // 球體呼吸 + 趨近目標
+    const breathe = Math.sin(time * 0.5) * 0.04;
+    const posArr = geo.attributes.position.array;
+    for (let i = 0; i < N; i++) {
+      const ix = i*3, iy = i*3+1, iz = i*3+2;
+      // 趨近目標位置（lerp）
+      posArr[ix] += (targetPositions[ix] * (1 + breathe) - posArr[ix]) * 0.04;
+      posArr[iy] += (targetPositions[iy] * (1 + breathe) - posArr[iy]) * 0.04;
+      posArr[iz] += (targetPositions[iz] * (1 + breathe) - posArr[iz]) * 0.04;
+    }
+    geo.attributes.position.needsUpdate = true;
+
+    // 主物體旋轉
+    points.rotation.y += 0.0015;
+    points.rotation.x = Math.sin(time * 0.2) * 0.05;
+
+    // Bokeh 漂浮
+    const bokehArr = bokehGeo.attributes.position.array;
+    for (let i = 0; i < bokehCount; i++) {
+      const ix = i*3, iy = i*3+1;
+      const seed = bokehSeeds[i];
+      bokehArr[ix] += Math.sin(time * 0.3 + seed) * 0.0035;
+      bokehArr[iy] += Math.cos(time * 0.25 + seed * 1.3) * 0.0025;
+    }
+    bokehGeo.attributes.position.needsUpdate = true;
+
+    // 餘燼上升
+    const emberArr = emberGeo.attributes.position.array;
+    for (let i = 0; i < emberCount; i++) {
+      const iy = i*3+1;
+      emberArr[iy] += emberSpeeds[i];
+      emberArr[i*3] += Math.sin(time * 0.5 + i) * 0.0009;
+      if (emberArr[iy] > 7) {
+        emberArr[iy] = -7;
+        emberArr[i*3] = (Math.random() - 0.5) * 16;
+      }
+    }
+    emberGeo.attributes.position.needsUpdate = true;
+
+    // 遠景星塵微微閃爍（透過旋轉模擬）
+    dust.rotation.z += 0.00008;
+
+    // 滑鼠視差
+    tiltX += (targetTiltX - tiltX) * 0.05;
+    tiltY += (targetTiltY - tiltY) * 0.05;
+    scene.rotation.x = tiltX * 0.3;
+    scene.rotation.y = tiltY * 0.3;
+
+    renderer.render(scene, camera);
+  }
+  animate();
+}
+
+// ========== 滾動進場觀察器 ==========
+function setupScrollReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('reveal');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
+  document.querySelectorAll('.fade-section').forEach((el) => obs.observe(el));
+}
+
+// ========== 統計數字計數動畫 ==========
+function setupCounters() {
+  const statsEl = document.querySelector('#statsRow');
+  if (!statsEl) return;
+  // Pre-reset all stat values to 0, and reserve final width to prevent shake
+  statsEl.querySelectorAll('.stat-value').forEach((el) => {
+    const target = parseInt(el.textContent.trim(), 10);
+    if (!isNaN(target)) {
+      el.dataset.target = String(target);
+      // Measure the final value's rendered width BEFORE resetting to 0
+      el.textContent = target.toLocaleString();
+      const finalWidth = el.getBoundingClientRect().width;
+      el.style.minWidth = Math.ceil(finalWidth) + 'px';
+      el.style.display = 'inline-block';
+      el.style.textAlign = 'left';
+      el.textContent = '0';
+    }
+  });
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll('.stat-value').forEach((el) => {
+        if (el.dataset.animated) return;
+        const target = parseInt(el.dataset.target, 10);
+        if (isNaN(target)) return;
+        el.dataset.animated = 'true';
+        animateCounter(el, target);
+      });
+      obs.unobserve(e.target);
+    });
+  }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+  obs.observe(statsEl);
+}
+
+function animateCounter(el, target) {
+  const duration = 3600;
+  const start = performance.now();
+  function tick(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(target * eased).toLocaleString();
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// ========== Watchmaker Bezel 進度刻度盤 ==========
+function setupParticleProgressBar() {
+  const rail = document.getElementById('spRail');
+  const railFill = document.getElementById('spRailFill');
+  const spPctNum = document.getElementById('spPctNum');
+  const spChapter = document.getElementById('spChapter');
+  const spSectionName = document.getElementById('spSectionName');
+  const spSectionZh = document.getElementById('spSectionZh');
+  const spSectionEn = document.getElementById('spSectionEn');
+  if (!rail || !railFill || !spPctNum || !spChapter) return;
+
+  const SECTIONS = [
+    { zh: '序 章', en: 'PROLOGUE',    anchor: '.hero',         roman: 'Ⅰ' },
+    { zh: '主 張', en: 'PHILOSOPHY',  anchor: '#philosophy',   roman: 'Ⅱ' },
+    { zh: '服 務', en: 'SERVICES',    anchor: '#systems',      roman: 'Ⅲ' },
+    { zh: '進 階', en: 'CAPITAL',     anchor: '#capital',      roman: 'Ⅳ' },
+    { zh: '方 法', en: 'METHODOLOGY', anchor: '#methodology',  roman: 'Ⅴ' },
+    { zh: '團 隊', en: 'LEADERSHIP',  anchor: '#leadership',   roman: 'Ⅵ' },
+    { zh: '數 據', en: 'IMPACT',      anchor: '#impact',       roman: 'Ⅶ' },
+    { zh: '流 程', en: 'PROCESS',     anchor: '#process',      roman: 'Ⅷ' },
+    { zh: '預 約', en: 'BOOKING',     anchor: '#booking',      roman: 'Ⅸ' },
+  ];
+
+  // Inject markers along the rail (horizontal)
+  const markers = [];
+  SECTIONS.forEach((sec, i) => {
+    const pos = (i / (SECTIONS.length - 1)) * 100;
+    const m = document.createElement('div');
+    m.className = 'sp-marker';
+    m.style.left = pos + '%';
+    m.dataset.idx = i;
+
+    const panel = document.createElement('div');
+    panel.className = 'sp-marker-panel';
+    const zh = document.createElement('span');
+    zh.className = 'sp-marker-zh';
+    zh.textContent = sec.zh;
+    const en = document.createElement('span');
+    en.className = 'sp-marker-en';
+    en.textContent = sec.en;
+    panel.appendChild(zh);
+    panel.appendChild(en);
+    m.appendChild(panel);
+
+    m.addEventListener('click', () => {
+      const target = document.querySelector(sec.anchor);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    rail.appendChild(m);
+    markers.push(m);
+  });
+
+  let lastChapterIdx = -1;
+
+  function update() {
+    const total = (window.__getEffectiveScrollMax && window.__getEffectiveScrollMax())
+      || Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const pct = Math.max(0, Math.min(1, window.scrollY / total));
+
+    // Percentage display
+    spPctNum.textContent = String(Math.round(pct * 100)).padStart(2, '0');
+
+    // Rail fill (horizontal width)
+    railFill.style.width = (pct * 100) + '%';
+
+    // Determine current section by viewport position
+    const viewportAnchor = window.scrollY + window.innerHeight * 0.35;
+    let currentIdx = 0;
+    SECTIONS.forEach((sec, i) => {
+      const target = document.querySelector(sec.anchor);
+      if (target) {
+        const top = target.getBoundingClientRect().top + window.scrollY;
+        if (top <= viewportAnchor) currentIdx = i;
+      }
+    });
+
+    markers.forEach((m, i) => {
+      m.classList.toggle('passed', i < currentIdx);
+      m.classList.toggle('active', i === currentIdx);
+    });
+
+    if (currentIdx !== lastChapterIdx) {
+      // Chapter swap with subtle fade
+      spChapter.classList.add('changing');
+      if (spSectionName) spSectionName.classList.add('changing');
+      setTimeout(() => {
+        spChapter.textContent = SECTIONS[currentIdx].roman;
+        if (spSectionZh) spSectionZh.textContent = SECTIONS[currentIdx].zh.replace(/ /g, '');
+        if (spSectionEn) spSectionEn.textContent = SECTIONS[currentIdx].en;
+        spChapter.classList.remove('changing');
+        if (spSectionName) spSectionName.classList.remove('changing');
+      }, 220);
+      lastChapterIdx = currentIdx;
+    }
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+}
+
+// ========== 章節標題拆字動畫 ==========
+function setupChapterTitleFX() {
+  document.querySelectorAll('.chapter-divider .ch-title').forEach(title => {
+    const text = title.textContent.trim();
+    title.innerHTML = '';
+    let charIdx = 0;
+    Array.from(text).forEach((ch) => {
+      if (ch === ' ' || ch === '\u3000' || ch === '\xa0') {
+        title.appendChild(document.createTextNode(ch));
+      } else {
+        const span = document.createElement('span');
+        span.className = 'ch-char';
+        span.textContent = ch;
+        const delay = (0.3 + charIdx * 0.13) + 's';
+        span.style.transitionDelay = delay;
+        title.appendChild(span);
+        charIdx++;
+      }
+    });
+  });
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      } else {
+        entry.target.classList.remove('in-view');
+      }
+    });
+  }, {
+    threshold: [0.25],
+    rootMargin: '-15% 0px -15% 0px',
+  });
+  document.querySelectorAll('.chapter-divider').forEach(c => obs.observe(c));
+}
+
+// ========== 語言切換 EN ⇄ 中 ==========
+function setupLangToggle() {
+  const btn = document.getElementById('langToggle');
+  if (!btn) return;
+  const STORAGE_KEY = 'staton-lang';
+  const ltActive = btn.querySelector('.lt-active');
+  const ltOther  = btn.querySelector('.lt-other');
+
+  // 頁尾切換按鈕（與頂部共用同一個 toggle 邏輯）
+  const footerBtn = document.getElementById('footerLangToggle');
+  const footerActive = footerBtn ? footerBtn.querySelector('.lt-active') : null;
+  const footerOther  = footerBtn ? footerBtn.querySelector('.lt-other')  : null;
+
+  function apply(lang) {
+    document.documentElement.lang = lang === 'en' ? 'en' : 'zh-Hant';
+    document.body.dataset.lang = lang;
+    document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+      const v = lang === 'en' ? el.dataset.en : el.dataset.zh;
+      if (v != null) {
+        // Preserve <br> tokens written as \n in attributes
+        if (v.includes('\\n')) {
+          el.innerHTML = v.split('\\n').map(s => s.replace(/</g,'&lt;')).join('<br>');
+        } else if (v.includes('<')) {
+          el.innerHTML = v;
+        } else {
+          el.textContent = v;
+        }
+      }
+    });
+    if (ltActive && ltOther) {
+      if (lang === 'en') { ltActive.textContent = 'EN'; ltOther.textContent = '中'; }
+      else               { ltActive.textContent = '中'; ltOther.textContent = 'EN'; }
+    }
+    if (footerActive && footerOther) {
+      if (lang === 'en') { footerActive.textContent = 'English'; footerOther.textContent = '中文'; }
+      else               { footerActive.textContent = '中文';    footerOther.textContent = 'English'; }
+    }
+    try { localStorage.setItem(STORAGE_KEY, lang); } catch(e) {}
+  }
+
+  let initial = 'en';
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === 'zh' || saved === 'en') initial = saved;
+  } catch(e) {}
+  apply(initial);
+
+  const toggle = () => {
+    const current = document.body.dataset.lang || 'en';
+    apply(current === 'en' ? 'zh' : 'en');
+  };
+
+  btn.addEventListener('click', toggle);
+
+  if (footerBtn) {
+    footerBtn.addEventListener('click', toggle);
+    footerBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  }
+}
+
+// ========== 行動版抽屜選單 ==========
+function setupMobileDrawer() {
+  const burger = document.getElementById('navBurger');
+  const drawer = document.getElementById('mobileDrawer');
+  if (!burger || !drawer) return;
+
+  const dismissTargets = drawer.querySelectorAll('[data-drawer-dismiss]');
+  const navLinks = drawer.querySelectorAll('.mobile-drawer-nav a');
+
+  function open() {
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('drawer-open');
+  }
+  function close() {
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('drawer-open');
+  }
+
+  burger.addEventListener('click', () => {
+    if (drawer.classList.contains('is-open')) close();
+    else open();
+  });
+
+  // 點 X、點背景遮罩都會關閉
+  dismissTargets.forEach(t => t.addEventListener('click', close));
+
+  // 點任一選單連結後自動關閉，讓平滑捲動順利進行
+  navLinks.forEach(a => a.addEventListener('click', () => {
+    // 微延遲關閉，讓 hash 變更與滾動先觸發
+    setTimeout(close, 80);
+  }));
+
+  // ESC 鍵關閉
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
+  });
+
+  // 視窗放大到桌面寬度時自動關閉，避免狀態殘留
+  const mq = window.matchMedia('(min-width: 901px)');
+  mq.addEventListener('change', (e) => { if (e.matches) close(); });
+}
+
+// ========== 方法論三層架構 · 滾動驅動高亮 ==========
+function setupMethodologyProgress() {
+  const section = document.getElementById('methodology');
+  if (!section) return;
+  const layers = section.querySelectorAll('.method-layer');
+  if (layers.length < 3) return;
+
+  let userHovering = false;
+  let lastIdx = -1;
+
+  function setActive(idx) {
+    if (idx === lastIdx) return;
+    layers.forEach((l, i) => l.classList.toggle('featured', i === idx));
+    lastIdx = idx;
+  }
+
+  // 依 #methodology 區塊相對視窗位置，計算當前應高亮哪一層
+  function updateOnScroll() {
+    if (userHovering) return;
+    const rect = section.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // 區塊頂在視窗底 (rect.top = vh) → progress 0
+    // 區塊底在視窗頂 (rect.bottom = 0)   → progress 1
+    const denom = vh + rect.height;
+    const passed = vh - rect.top;
+    const progress = Math.max(0, Math.min(0.999, passed / denom));
+    // 切成三段：0~0.33 → 01, 0.33~0.66 → 02, 0.66~1 → 03
+    const idx = Math.floor(progress * 3);
+    setActive(idx);
+  }
+
+  // Hover 任一層 → 立刻切到該層；離開後恢復滾動驅動
+  layers.forEach((l, i) => {
+    l.addEventListener('mouseenter', () => {
+      userHovering = true;
+      setActive(i);
+    });
+    l.addEventListener('mouseleave', () => {
+      userHovering = false;
+      updateOnScroll();
+    });
+    // 觸控裝置：點擊任一層也會切換
+    l.addEventListener('click', () => {
+      userHovering = true;
+      setActive(i);
+      // 1.5 秒後恢復滾動驅動
+      clearTimeout(l._restoreTimer);
+      l._restoreTimer = setTimeout(() => {
+        userHovering = false;
+        updateOnScroll();
+      }, 1500);
+    });
+  });
+
+  window.addEventListener('scroll', updateOnScroll, { passive: true });
+  window.addEventListener('resize', updateOnScroll, { passive: true });
+  updateOnScroll();
+}
+
+// ========== 啟動 ==========
+window.addEventListener('load', () => {
+  const safeRun = (name, fn) => {
+    try { fn(); } catch (err) { console.error('[STATON]', name, 'failed:', err); }
+  };
+  safeRun('initHeroScene', initHeroScene);
+  safeRun('setupScrollReveal', setupScrollReveal);
+  safeRun('setupCounters', setupCounters);
+  safeRun('setupParticleProgressBar', setupParticleProgressBar);
+  safeRun('setupChapterTitleFX', setupChapterTitleFX);
+  safeRun('setupLangToggle', setupLangToggle);
+  safeRun('setupMobileDrawer', setupMobileDrawer);
+  safeRun('setupMethodologyProgress', setupMethodologyProgress);
+});
+</script>
+
+</body>
+</html>
