@@ -123,6 +123,58 @@ section, header, footer, .nav-bar, .scroll-progress {
   letter-spacing: 0.4em;
 }
 
+/* 頂部 LINE 按鈕 */
+.nav-cta-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: 12px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(6, 199, 85, 0.55);
+  border-radius: 100px;
+  color: #06C755;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.22em;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.nav-cta-line::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #06C755;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(6, 199, 85, 0.6);
+  animation: navLinePulse 1.8s ease-in-out infinite;
+}
+.nav-cta-line:hover {
+  background: #06C755;
+  border-color: #06C755;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(6, 199, 85, 0.35);
+}
+.nav-cta-line:hover::before {
+  background: #fff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+}
+@keyframes navLinePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(1.35); }
+}
+@media (max-width: 900px) {
+  .nav-cta-line {
+    margin-left: 8px;
+    padding: 6px 12px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+  }
+  .nav-cta-line::before { width: 5px; height: 5px; }
+}
+
 /* Language toggle pill */
 .lang-toggle {
   margin-left: 14px;
@@ -156,6 +208,40 @@ section, header, footer, .nav-bar, .scroll-progress {
 .lang-toggle .lt-other {
   font-weight: 400;
 }
+
+/* 品牌中文字（仕坦登企管顧問）獨立 class，便於響應式控制 */
+.nav-brand-zh {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  font-weight: 500;
+}
+
+/* === 中等螢幕：14" 筆電（901-1280px）壓縮 nav，避免水平溢出 === */
+@media (max-width: 1280px) {
+  .nav-bar { padding: 18px 28px; }
+  .nav-brand { font-size: 16px; letter-spacing: 0.24em; }
+  .nav-brand-zh { font-size: 12.5px; letter-spacing: 0.14em; }
+  .nav-brand .dot { margin: 0 3px; }
+  .nav-links { gap: 18px; font-size: 10.5px; letter-spacing: 0.22em; }
+  .nav-cta { padding: 9px 16px; font-size: 10.5px; letter-spacing: 0.24em; }
+  .nav-cta-line {
+    margin-left: 8px;
+    padding: 7px 13px;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    gap: 6px;
+  }
+  .nav-cta-line::before { width: 5px; height: 5px; }
+  .lang-toggle {
+    margin-left: 10px;
+    padding: 6px 12px;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+  }
+  .lang-toggle .lt-sep { margin: 0 5px; }
+}
+
 @media (max-width: 900px) {
   .nav-bar { padding: 16px 16px; gap: 8px; }
   .nav-links { display: none; }
@@ -2292,9 +2378,15 @@ body[data-lang="zh"] .closing-headline .accent {
   text-decoration: none;
   transition: all 0.3s;
 }
+.footer-social a svg { display: block; }
 .footer-social a:hover {
   border-color: var(--gold);
   color: var(--gold);
+}
+.footer-social a.footer-social-line:hover {
+  border-color: #06C755;
+  color: #06C755;
+  background: rgba(6, 199, 85, 0.08);
 }
 @media (max-width: 900px) {
   .footer { padding: 48px 24px 24px; }
@@ -2302,6 +2394,257 @@ body[data-lang="zh"] .closing-headline .accent {
 }
 @media (max-width: 540px) {
   .footer-inner { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   LINE CTA POPUP MODAL
+   ============================================================ */
+.line-cta-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 8, 31, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+.line-cta-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.line-cta-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(155deg, #0a1d4a 0%, #000e2f 60%, #00081f 100%);
+  border: 1px solid rgba(244, 183, 2, 0.32);
+  border-radius: 4px;
+  padding: 56px 44px 44px;
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(244, 183, 2, 0.08),
+    inset 0 1px 0 rgba(253, 250, 243, 0.06);
+  transform: translateY(24px) scale(0.96);
+  transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+}
+.line-cta-overlay.is-open .line-cta-modal {
+  transform: translateY(0) scale(1);
+}
+
+/* 上方裝飾雙色條帶（呼應封面標準） */
+.line-cta-modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold) 38%, var(--navy) 38%, var(--navy) 100%);
+  z-index: 3;
+}
+
+/* 右上裝飾光暈 */
+.line-cta-modal::after {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(244, 183, 2, 0.18) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 粒子畫布 */
+.line-cta-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease 0.3s;
+}
+.line-cta-overlay.is-open .line-cta-canvas {
+  opacity: 0.9;
+}
+
+.line-cta-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--cream-line);
+  background: rgba(253, 250, 243, 0.04);
+  color: var(--cream-text);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.25s ease;
+  z-index: 2;
+}
+.line-cta-close:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(244, 183, 2, 0.08);
+  transform: rotate(90deg);
+}
+
+.line-cta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: #06C755;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  border-radius: 2px;
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 1;
+}
+.line-cta-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  animation: lineCtaPulse 1.8s ease-in-out infinite;
+}
+@keyframes lineCtaPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(1.4); }
+}
+
+.line-cta-eyebrow {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.line-cta-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--cream);
+  line-height: 1.4;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
+}
+.line-cta-title::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: var(--gold);
+  margin-top: 16px;
+}
+
+.line-cta-desc {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--cream-text);
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.line-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.line-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 28px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.line-cta-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.5) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+.line-cta-primary:hover {
+  background: #fac938;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(244, 183, 2, 0.35);
+}
+.line-cta-primary:hover::before {
+  transform: translateX(100%);
+}
+
+.line-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  background: transparent;
+  border: 1px solid var(--cream-line);
+  color: var(--cream-mute);
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+.line-cta-secondary:hover {
+  border-color: var(--cream-text);
+  color: var(--cream);
+}
+
+@media (max-width: 540px) {
+  .line-cta-modal {
+    padding: 48px 28px 32px;
+    max-width: 100%;
+  }
+  .line-cta-title { font-size: 22px; }
+  .line-cta-desc  { font-size: 14px; }
+  .line-cta-primary { padding: 14px 24px; font-size: 14px; }
 }
 
 </style>
@@ -2317,6 +2660,21 @@ body[data-lang="zh"] .closing-headline .accent {
 </head>
 <body data-lang="en">
 
+<!-- ============ LINE CTA POPUP ============ -->
+<div class="line-cta-overlay" id="lineCtaOverlay" aria-hidden="true">
+  <div class="line-cta-modal" role="dialog" aria-modal="true" aria-labelledby="lineCtaTitle">
+    <canvas class="line-cta-canvas" id="lineCtaCanvas" aria-hidden="true"></canvas>
+    <button type="button" class="line-cta-close" id="lineCtaClose" aria-label="Close">×</button>
+    <div class="line-cta-badge">LINE</div>
+    <div class="line-cta-eyebrow" data-en="— STAY CONNECTED —" data-zh="— 保 持 聯 繫 —">— STAY CONNECTED —</div>
+    <h2 class="line-cta-title" id="lineCtaTitle" data-en="Add STATON on LINE" data-zh="加 入 STATON 官 方 LINE">Add STATON on LINE</h2>
+    <p class="line-cta-desc" data-en="Gain perspectives on corporate governance, asset allocation and tax-structure planning — and schedule exclusive advisory conversations with us." data-zh="掌 握 企 業 治 理、資 產 配 置 與 稅 務 架 構 規 劃 觀 點，並 預 約 專 屬 顧 問 交 流。">Gain perspectives on corporate governance, asset allocation and tax-structure planning — and schedule exclusive advisory conversations with us.</p>
+    <div class="line-cta-actions">
+      <a href="https://lin.ee/hpcSgzX" target="_blank" rel="noopener noreferrer" class="line-cta-primary" id="lineCtaPrimary" data-en="Add LINE →" data-zh="立 即 加 入 LINE →">Add LINE →</a>
+    </div>
+  </div>
+</div>
+
 <!-- ============ GLOBAL PARTICLE CANVAS ============ -->
 <canvas id="artCanvas"></canvas>
 <div class="shape-flash" id="shapeFlash"></div>
@@ -2328,7 +2686,7 @@ body[data-lang="zh"] .closing-headline .accent {
     <span></span>
     <span></span>
   </button>
-  <div class="nav-brand">STATON<span class="dot lang-zh-only">·</span><span class="lang-zh-only" style="font-family:'Noto Serif TC',serif;font-size:14px;letter-spacing:0.25em;">仕坦登</span></div>
+  <div class="nav-brand">STATON<span class="dot lang-zh-only">·</span><span class="lang-zh-only nav-brand-zh">仕坦登企管顧問</span></div>
   <div class="nav-links">
     <a href="#philosophy">PHILOSOPHY</a>
     <a href="#systems">SERVICES</a>
@@ -2338,6 +2696,7 @@ body[data-lang="zh"] .closing-headline .accent {
     <a href="#process">PROCESS</a>
   </div>
   <a href="#booking" class="nav-cta">BOOKING</a>
+  <a href="https://lin.ee/hpcSgzX" target="_blank" rel="noopener noreferrer" class="nav-cta-line" aria-label="Add STATON on LINE">LINE</a>
   <button id="langToggle" class="lang-toggle" aria-label="Switch language">
     <span class="lt-active">EN</span><span class="lt-sep">·</span><span class="lt-other">中</span>
   </button>
@@ -3157,6 +3516,11 @@ body[data-lang="zh"] .closing-headline .accent {
   <div class="footer-bottom">
     <span>Copyright © 2026 STATON Management Consulting LTD. All rights reserved.</span>
     <div class="footer-social">
+      <a href="https://lin.ee/hpcSgzX" target="_blank" rel="noopener noreferrer" aria-label="LINE" class="footer-social-line">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+        </svg>
+      </a>
       <a href="https://www.facebook.com/statonconsultant" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
       <a href="https://www.instagram.com/staton_tw/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
       <a href="https://x.com/staton_tw" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a>
@@ -3816,6 +4180,10 @@ function setupLangToggle() {
   const toggle = () => {
     const current = document.body.dataset.lang || 'en';
     apply(current === 'en' ? 'zh' : 'en');
+    // 切換語言時重新喚出 LINE CTA（若已關閉）
+    if (typeof window.__statonOpenLineCta === 'function') {
+      window.__statonOpenLineCta();
+    }
   };
 
   btn.addEventListener('click', toggle);
@@ -3936,6 +4304,169 @@ function setupMethodologyProgress() {
   updateOnScroll();
 }
 
+// ========== LINE CTA 彈跳視窗 ==========
+function setupLineCta() {
+  const overlay  = document.getElementById('lineCtaOverlay');
+  if (!overlay) return;
+  const closeBtn   = document.getElementById('lineCtaClose');
+  const primaryBtn = document.getElementById('lineCtaPrimary');
+  const canvas     = document.getElementById('lineCtaCanvas');
+
+  // -------- 粒子系統 --------
+  const particles = createLineCtaParticles(canvas);
+
+  function open() {
+    if (overlay.classList.contains('is-open')) return;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    particles.start();
+  }
+  function close() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    particles.stop();
+  }
+
+  // 延遲 1800ms 開啟，讓 Hero 動畫先就定位
+  setTimeout(open, 1800);
+
+  // 僅保留：X 關閉鈕 + 點主 CTA 後自動關閉
+  // （已移除背景點擊關閉、ESC 鍵關閉，避免誤觸）
+  if (closeBtn)   closeBtn.addEventListener('click', close);
+  if (primaryBtn) primaryBtn.addEventListener('click', () => setTimeout(close, 150));
+
+  // 視窗縮放時重新計算粒子畫布
+  window.addEventListener('resize', () => {
+    if (overlay.classList.contains('is-open')) particles.resize();
+  });
+
+  // 暴露給全域：切換語言時可重新喚出
+  window.__statonOpenLineCta = open;
+}
+
+// ---------- LINE CTA 粒子畫布（金色微塵 + 星座連線）----------
+function createLineCtaParticles(canvas) {
+  if (!canvas) return { start(){}, stop(){}, resize(){} };
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let particles = [];
+  let rafId = null;
+  let w = 0, h = 0;
+  let running = false;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    w = rect.width;
+    h = rect.height;
+    canvas.width  = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    seed();
+  }
+
+  function seed() {
+    if (w === 0 || h === 0) return;
+    // 依面積決定粒子數，密度適中（小視窗約 36 顆、大視窗約 60 顆）
+    const count = Math.max(28, Math.min(70, Math.floor((w * h) / 5200)));
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 0.6 + Math.random() * 1.6,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: -(0.12 + Math.random() * 0.35), // 緩慢上升
+        phase: Math.random() * Math.PI * 2,
+        twinkleSpeed: 1.2 + Math.random() * 1.6,
+        baseAlpha: 0.35 + Math.random() * 0.55
+      });
+    }
+  }
+
+  function step() {
+    if (!running) return;
+    ctx.clearRect(0, 0, w, h);
+    const t = performance.now() * 0.001;
+
+    // 先畫連線（星座效果）
+    ctx.lineWidth = 0.6;
+    const maxDist = 70;
+    const maxDistSq = maxDist * maxDist;
+    for (let i = 0; i < particles.length; i++) {
+      const a = particles[i];
+      for (let j = i + 1; j < particles.length; j++) {
+        const b = particles[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const dSq = dx * dx + dy * dy;
+        if (dSq < maxDistSq) {
+          const alpha = (1 - dSq / maxDistSq) * 0.18;
+          ctx.strokeStyle = `rgba(244, 183, 2, ${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // 再畫粒子
+    for (const p of particles) {
+      // 緩慢漂浮 + 微幅左右擺動
+      p.x += p.vx + Math.sin(t + p.phase) * 0.18;
+      p.y += p.vy;
+
+      // 邊界回收：上邊出去就從下邊重生
+      if (p.y < -10) {
+        p.y = h + 10;
+        p.x = Math.random() * w;
+      }
+      if (p.x < -10)     p.x = w + 10;
+      if (p.x > w + 10)  p.x = -10;
+
+      // 閃爍透明度
+      const twinkle = 0.55 + 0.45 * Math.sin(t * p.twinkleSpeed + p.phase);
+      const alpha   = p.baseAlpha * twinkle;
+
+      // 外層光暈
+      const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+      glow.addColorStop(0,    `rgba(244, 183, 2, ${alpha * 0.9})`);
+      glow.addColorStop(0.35, `rgba(244, 183, 2, ${alpha * 0.32})`);
+      glow.addColorStop(1,    'rgba(244, 183, 2, 0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 核心亮點（米色，更精緻）
+      ctx.fillStyle = `rgba(253, 250, 243, ${Math.min(1, alpha * 1.4)})`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 0.55, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    rafId = requestAnimationFrame(step);
+  }
+
+  return {
+    start() {
+      if (running) return;
+      running = true;
+      resize();
+      step();
+    },
+    stop() {
+      running = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+      if (w > 0 && h > 0) ctx.clearRect(0, 0, w, h);
+    },
+    resize
+  };
+}
+
 // ========== 啟動 ==========
 window.addEventListener('load', () => {
   const safeRun = (name, fn) => {
@@ -3949,6 +4480,7 @@ window.addEventListener('load', () => {
   safeRun('setupLangToggle', setupLangToggle);
   safeRun('setupMobileDrawer', setupMobileDrawer);
   safeRun('setupMethodologyProgress', setupMethodologyProgress);
+  safeRun('setupLineCta', setupLineCta);
 });
 </script>
 
