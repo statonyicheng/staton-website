@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+<!-- Google tag (gtag.js) — STATON GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7RSYRJHF3R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7RSYRJHF3R');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>STATON ｜ 仕坦登企業管理顧問 — From Insight to Execution</title>
@@ -4179,7 +4187,11 @@ function setupLangToggle() {
 
   const toggle = () => {
     const current = document.body.dataset.lang || 'en';
-    apply(current === 'en' ? 'zh' : 'en');
+    const next = current === 'en' ? 'zh' : 'en';
+    apply(next);
+    if (typeof gtag === 'function') {
+      gtag('event', 'language_switch', { from_lang: current, to_lang: next });
+    }
     // 切換語言時重新喚出 LINE CTA（若已關閉）
     if (typeof window.__statonOpenLineCta === 'function') {
       window.__statonOpenLineCta();
@@ -4467,6 +4479,28 @@ function createLineCtaParticles(canvas) {
   };
 }
 
+// ========== GA4 自訂事件追蹤 ==========
+function setupAnalytics() {
+  if (typeof gtag !== 'function') return;
+
+  // 以事件代理一次涵蓋全站 4 個 LINE 連結（導覽列／彈窗／預約區／頁尾）
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href*="lin.ee"], a[href*="line.me"]');
+    if (!link) return;
+    // 依連結位置判斷來源，方便後台區分轉換點
+    let source = 'other';
+    if (link.classList.contains('btn-primary'))        source = 'booking_section';
+    else if (link.classList.contains('nav-cta-line'))  source = 'nav_bar';
+    else if (link.classList.contains('line-cta-primary')) source = 'cta_popup';
+    else if (link.classList.contains('footer-social-line')) source = 'footer';
+    gtag('event', 'line_booking_click', {
+      link_source: source,
+      link_url: link.href,
+      page_lang: document.body.dataset.lang || 'en'
+    });
+  });
+}
+
 // ========== 啟動 ==========
 window.addEventListener('load', () => {
   const safeRun = (name, fn) => {
@@ -4481,6 +4515,7 @@ window.addEventListener('load', () => {
   safeRun('setupMobileDrawer', setupMobileDrawer);
   safeRun('setupMethodologyProgress', setupMethodologyProgress);
   safeRun('setupLineCta', setupLineCta);
+  safeRun('setupAnalytics', setupAnalytics);
 });
 </script>
 
