@@ -1421,7 +1421,9 @@ body[data-lang="zh"] .phil-statement {
   font-size: 12.5px;
   letter-spacing: 0.08em;
   color: var(--cream-text);
-  background: rgba(253, 250, 243, 0.03);
+  background: rgba(0, 8, 31, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border: 1px solid var(--line-soft);
   border-radius: 100px;
   padding: 7px 16px;
@@ -1430,6 +1432,7 @@ body[data-lang="zh"] .phil-statement {
   white-space: nowrap;
 }
 .case-filter:hover {
+  background: rgba(10, 29, 74, 0.7);
   border-color: var(--gold);
   color: var(--cream);
 }
