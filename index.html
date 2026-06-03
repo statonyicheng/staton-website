@@ -2059,12 +2059,159 @@ body[data-lang="zh"] .phil-statement {
   color: var(--cream-text);
   line-height: 1.7;
 }
+/* Process group labels (two stacked flows within one section) */
+.process-group-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 64px;
+}
+.process-group-label-2 { margin-top: 88px; }
+.pgl-zh {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--cream);
+}
+.pgl-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+}
+body[data-lang="en"] .pgl-en {
+  font-family: 'Playfair Display', serif;
+  font-style: normal;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+}
+.process-group-label::before,
+.process-group-label::after {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(244, 183, 2, 0.5));
+  align-self: center;
+}
+.process-group-label::after { transform: scaleX(-1); }
+.process-group-sub {
+  margin-top: 16px !important;
+  margin-bottom: -8px;
+}
+/* 4-stage variant — even spacing across four columns */
+.process-stages-4 { grid-template-columns: repeat(4, 1fr); }
+
 @media (max-width: 900px) {
   .process-stages { grid-template-columns: 1fr; gap: 32px; }
+  .process-stages-4 { grid-template-columns: 1fr; }
   .process-track { display: none; }
   .process-stage { display: flex; align-items: flex-start; gap: 20px; text-align: left; }
   .process-dot { margin: 4px 0 0 0; flex-shrink: 0; }
   .process-num { display: none; }
+  .process-group-label::before,
+  .process-group-label::after { width: 24px; }
+}
+
+/* ========== Convergence Map (Core Edge) ========== */
+.conv {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+.conv-stage {
+  position: relative;
+  aspect-ratio: 600 / 360;
+  width: 100%;
+}
+.conv-svg { width: 100%; height: 100%; overflow: visible; }
+.conv-link {
+  stroke: rgba(244, 183, 2, 0.28);
+  stroke-width: 1.5;
+  transition: stroke 0.4s ease, stroke-width 0.4s ease;
+}
+.conv-link.is-lit { stroke: var(--gold); stroke-width: 2.5; }
+.conv-core-ring {
+  fill: none;
+  stroke: rgba(244, 183, 2, 0.35);
+  stroke-width: 1;
+  animation: convPulse 3s ease-in-out infinite;
+  transform-origin: 300px 180px;
+}
+@keyframes convPulse { 0%,100% { opacity: 0.4; r: 62px; } 50% { opacity: 0.8; r: 66px; } }
+.conv-core { fill: rgba(244, 183, 2, 0.08); stroke: var(--gold); stroke-width: 1.5; }
+.conv-core-zh {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 18px; font-weight: 700; fill: var(--gold); letter-spacing: 0.08em;
+}
+.conv-core-en {
+  font-family: 'Playfair Display', serif;
+  font-size: 12px; font-weight: 600; fill: var(--gold); letter-spacing: 0.12em; opacity: 0.85;
+}
+body[data-lang="en"] .conv-core-zh { display: none; }
+body[data-lang="en"] .conv-core-en { font-size: 17px; }
+
+.conv-node {
+  position: absolute;
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 12px 18px;
+  background: rgba(0, 14, 47, 0.7);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s ease;
+}
+.conv-node:hover { transform: translateY(-2px); border-color: rgba(244, 183, 2, 0.55); }
+.conv-node.is-active {
+  border-color: var(--gold);
+  background: rgba(244, 183, 2, 0.1);
+  box-shadow: 0 6px 24px rgba(244, 183, 2, 0.12);
+}
+.conv-node-tl { top: 6%; left: 0; }
+.conv-node-bl { bottom: 6%; left: 0; }
+.conv-node-tr { top: 6%; right: 0; }
+.conv-node-br { bottom: 6%; right: 0; }
+.cn-zh { font-size: 15px; font-weight: 600; letter-spacing: 0.08em; color: var(--cream); }
+.cn-en {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 12px; letter-spacing: 0.1em; color: var(--gold);
+}
+.conv-node.is-active .cn-zh { color: var(--gold); }
+body[data-lang="en"] .cn-en { font-family: 'Playfair Display', serif; font-style: normal; font-size: 14px; font-weight: 600; color: var(--cream); }
+.conv-node.is-active .cn-en { color: var(--gold); }
+
+.conv-detail {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  background: rgba(0, 14, 47, 0.5);
+  border-radius: 0;
+  padding: 32px 34px;
+  min-height: 180px;
+  backdrop-filter: blur(14px);
+}
+.conv-detail-pane { display: none; }
+.conv-detail-pane.is-active { display: block; animation: convFade 0.5s ease; }
+@keyframes convFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.cd-tag {
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); font-weight: 600; margin-bottom: 16px;
+}
+.cd-text { font-size: 15px; line-height: 2; color: var(--cream-text); margin: 0; }
+
+@media (max-width: 860px) {
+  .conv { grid-template-columns: 1fr; gap: 24px; }
+  .conv-stage { max-width: 460px; margin: 0 auto; }
+  .cn-zh { font-size: 13px; }
+  .conv-node { padding: 9px 13px; }
+  .conv-detail { padding: 24px; min-height: 0; }
 }
 
 /* ========== Differentiators ========== */
@@ -2115,8 +2262,157 @@ body[data-lang="zh"] .phil-statement {
   color: var(--cream-text);
   line-height: 1.95;
 }
+.diff-vs {
+  font-size: 12.5px;
+  color: var(--cream-mute);
+  line-height: 1.85;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(244, 183, 2, 0.22);
+  position: relative;
+}
 @media (max-width: 768px) {
   .diff-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== Vertical Comparison ========== */
+.vcmp {
+  margin-top: 56px;
+  border: 1px solid var(--line);
+  background: rgba(0, 8, 31, 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+/* Shared 3-column track: dimension | STATON | Typical */
+.vcmp-head,
+.vcmp-row {
+  display: grid;
+  grid-template-columns: 168px 1fr 1fr;
+}
+.vcmp-head { border-bottom: 1px solid var(--line); }
+.vcmp-row { border-bottom: 1px solid var(--line); }
+.vcmp:last-child .vcmp-row:last-child,
+.vcmp .vcmp-row:last-child { border-bottom: none; }
+
+/* Header row */
+.vcmp-head-dim { background: rgba(0, 14, 47, 0.65); }
+.vcmp-head-us,
+.vcmp-head-them {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(0, 14, 47, 0.65);
+}
+.vcmp-head-us { border-left: 3px solid var(--gold); background: rgba(244, 183, 2, 0.06); }
+.vcmp-head-them { border-left: 1px solid var(--line); }
+.vh-zh { font-size: 17px; font-weight: 600; letter-spacing: 0.12em; color: var(--cream); }
+.vh-en { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; letter-spacing: 0.04em; color: var(--cream); }
+.vcmp-head-us .vh-zh,
+.vcmp-head-us .vh-en { color: var(--gold); }
+.vh-sub { font-size: 10.5px; letter-spacing: 0.04em; color: var(--cream-mute); margin-top: 2px; line-height: 1.5; }
+
+/* Dimension label cell (left) */
+.vcmp-dim {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(244, 183, 2, 0.04);
+  border-right: 1px solid var(--line);
+}
+.vd-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--gold);
+  opacity: 0.75;
+}
+.vd-zh { font-size: 16px; font-weight: 600; letter-spacing: 0.1em; color: var(--cream); }
+.vd-en { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 600; color: var(--cream-mute); }
+
+/* Content cells */
+.vcmp-cell {
+  padding: 24px 24px;
+  transition: background 0.35s ease;
+}
+.vcmp-cell p { font-size: 13.5px; line-height: 1.9; margin: 0; }
+.vcmp-cell-us {
+  background: rgba(244, 183, 2, 0.05);
+  border-left: 3px solid var(--gold);
+}
+.vcmp-cell-us p { color: var(--cream-text); }
+.vcmp-cell-them {
+  border-left: 1px solid var(--line);
+}
+.vcmp-cell-them p { color: var(--cream-mute); }
+.vcmp-row:hover .vcmp-cell-us { background: rgba(244, 183, 2, 0.1); }
+.vcmp-row:hover .vcmp-dim { background: rgba(244, 183, 2, 0.08); }
+
+@media (max-width: 768px) {
+  .vcmp-head { grid-template-columns: 1fr 1fr; }
+  .vcmp-head-dim { display: none; }
+  .vcmp-row { grid-template-columns: 1fr; }
+  .vcmp-dim {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .vcmp-cell-them { border-left: 3px solid var(--cream-line); }
+}
+
+/* Synthesis band below the comparison */
+.vcmp-synth {
+  margin-top: 40px;
+  padding: 44px 48px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  background:
+    radial-gradient(120% 140% at 100% 0%, rgba(244, 183, 2, 0.06), transparent 60%),
+    rgba(0, 14, 47, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  position: relative;
+}
+.vcmp-synth-mark {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold);
+  font-size: 28px;
+  line-height: 1;
+  opacity: 0.6;
+  margin-bottom: 14px;
+}
+.vcmp-synth-lead {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  margin: 0 0 18px;
+  font-weight: 600;
+}
+.vcmp-synth-body {
+  font-size: 14.5px;
+  line-height: 2;
+  color: var(--cream-text);
+  margin: 0 0 22px;
+  max-width: 62em;
+}
+.vcmp-synth-punch {
+  font-size: 17px;
+  line-height: 1.95;
+  font-weight: 600;
+  color: var(--cream);
+  margin: 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  max-width: 60em;
+}
+.vcmp-synth-punch::first-line { color: var(--gold); }
+@media (max-width: 768px) {
+  .vcmp-synth { padding: 32px 24px; }
+  .vcmp-synth-body { font-size: 13.5px; }
+  .vcmp-synth-punch { font-size: 15px; }
 }
 
 /* ========== Leadership Team ========== */
@@ -3968,9 +4264,14 @@ body[data-lang="zh"] .closing-headline .accent {
 
 <section id="process" class="section">
   <div class="section-inner fade-section">
-    <div class="section-eyebrow" data-en="— FIVE STEPS · CONTACT TO DELIVERY —" data-zh="— FIVE STEPS · &lt;span class=&quot;zh-cluster&quot;&gt;從接觸到交付&lt;/span&gt; —">— FIVE STEPS · <span class="zh-cluster">從接觸到交付</span> —</div>
-    <h2 class="section-title" data-en="Five Milestones · A Transparent Consulting Path" data-zh="五 個 節 點 · 一 條 透 明 的 顧 問 路 徑">五 個 節 點 · 一 條 透 明 的 顧 問 路 徑</h2>
-    <p class="section-summary" data-en="Every consulting engagement deserves a clear start, mid-points and finish. STATON anchors every project at five fixed milestones, so at any moment you know exactly where we are and what comes next." data-zh="每一段顧問關係，都有清楚的起點、節點與終點。STATON 以五個固定節點，確保你在任何時刻都知道「我們在哪裡、下一步是什麼」。">每一段顧問關係，都有清楚的起點、節點與終點。STATON 以五個固定節點，確保你在任何時刻都知道「我們在哪裡、下一步是什麼」。</p>
+    <div class="section-eyebrow" data-en="— ENGAGEMENT FLOW · CONTACT TO DELIVERY —" data-zh="— ENGAGEMENT FLOW · &lt;span class=&quot;zh-cluster&quot;&gt;從接觸到交付&lt;/span&gt; —">— ENGAGEMENT FLOW · <span class="zh-cluster">從接觸到交付</span> —</div>
+    <h2 class="section-title" data-en="A Transparent Consulting Path · From Engagement to Books" data-zh="一 條 透 明 的 顧 問 路 徑 · 從 合 作 到 帳 務">一 條 透 明 的 顧 問 路 徑 · 從 合 作 到 帳 務</h2>
+    <p class="section-summary" data-en="Every consulting engagement deserves a clear start, mid-points and finish. STATON anchors each project at fixed milestones — and runs a core accounting workflow beneath them — so at any moment you know exactly where we are and what comes next." data-zh="每一段顧問關係，都有清楚的起點、節點與終點。STATON 以固定節點錨定每個專案，並在其下運行核心帳務流程，確保你在任何時刻都知道「我們在哪裡、下一步是什麼」。">每一段顧問關係，都有清楚的起點、節點與終點。STATON 以固定節點錨定每個專案，並在其下運行核心帳務流程，確保你在任何時刻都知道「我們在哪裡、下一步是什麼」。</p>
+
+    <div class="process-group-label">
+      <span class="pgl-zh lang-zh-only">合 作 生 命 週 期</span>
+      <span class="pgl-en" data-en="Engagement Lifecycle" data-zh="Engagement Lifecycle">Engagement Lifecycle</span>
+    </div>
 
     <div class="process-wrap">
       <div class="process-track"></div>
@@ -4011,6 +4312,184 @@ body[data-lang="zh"] .closing-headline .accent {
           <p class="process-desc" data-en="Monthly / quarterly reviews. We refine the system based on data feedback so it builds the capacity to self-evolve." data-zh="每月 / 每季回顧，依數據反饋修正系統，讓制度具備自我進化的能力。">每月 / 每季回顧，依數據反饋修正系統，讓制度具備自我進化的能力。</p>
         </div>
       </div>
+    </div>
+
+    <div class="process-group-label process-group-label-2">
+      <span class="pgl-zh lang-zh-only">核 心 競 爭 優 勢</span>
+      <span class="pgl-en" data-en="Our Core Competitive Edge" data-zh="Our Core Competitive Edge">Our Core Competitive Edge</span>
+    </div>
+    <p class="section-summary process-group-sub" data-en="Most consultancies start from one corner. STATON's edge is convergence — a CPA, a CFO, a lawyer and an SME owner at the same table. Tap each pillar to see what it brings." data-zh="多數管顧只從一個角落出發。仕坦登的優勢在於「匯聚」——會計師、財務長、律師、中小企業主同坐一桌。點擊每個支柱，看它帶來什麼。">多數管顧只從一個角落出發。仕坦登的優勢在於「匯聚」——會計師、財務長、律師、中小企業主同坐一桌。點擊每個支柱，看它帶來什麼。</p>
+
+    <div class="conv" id="convMap">
+      <div class="conv-stage">
+        <svg class="conv-svg" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <line class="conv-link" data-k="cpa"   x1="140" y1="70"  x2="300" y2="180"/>
+          <line class="conv-link" data-k="cfo"   x1="140" y1="290" x2="300" y2="180"/>
+          <line class="conv-link" data-k="law"   x1="460" y1="70"  x2="300" y2="180"/>
+          <line class="conv-link" data-k="sme"   x1="460" y1="290" x2="300" y2="180"/>
+          <circle class="conv-core-ring" cx="300" cy="180" r="62"/>
+          <circle class="conv-core" cx="300" cy="180" r="50"/>
+          <text class="conv-core-zh" x="300" y="174" text-anchor="middle">仕坦登</text>
+          <text class="conv-core-en" x="300" y="196" text-anchor="middle">STATON</text>
+        </svg>
+
+        <button class="conv-node conv-node-tl" data-k="cpa" type="button">
+          <span class="cn-zh lang-zh-only">會 計 師</span>
+          <span class="cn-en" data-en="CPA" data-zh="CPA">CPA</span>
+        </button>
+        <button class="conv-node conv-node-bl" data-k="cfo" type="button">
+          <span class="cn-zh lang-zh-only">財 務 長</span>
+          <span class="cn-en" data-en="CFO" data-zh="CFO">CFO</span>
+        </button>
+        <button class="conv-node conv-node-tr" data-k="law" type="button">
+          <span class="cn-zh lang-zh-only">律 師</span>
+          <span class="cn-en" data-en="Lawyer" data-zh="Lawyer">Lawyer</span>
+        </button>
+        <button class="conv-node conv-node-br" data-k="sme" type="button">
+          <span class="cn-zh lang-zh-only">中 小 企 業 主</span>
+          <span class="cn-en" data-en="SME Owner" data-zh="SME Owner">SME Owner</span>
+        </button>
+      </div>
+
+      <div class="conv-detail" id="convDetail">
+        <div class="conv-detail-pane is-active" data-k="cpa">
+          <div class="cd-tag" data-en="The accounting foundation" data-zh="會計根基">會計根基</div>
+          <p class="cd-text" data-en="A CPA anchors the books, tax and compliance to a single professional standard — so every number is reconciled and trustworthy, not improvised case by case." data-zh="會計師把帳務、稅務與法遵錨定在同一套專業標準上——每一個數字都對得起來、可被信任，而非個案臨場拼湊。">會計師把帳務、稅務與法遵錨定在同一套專業標準上——每一個數字都對得起來、可被信任，而非個案臨場拼湊。</p>
+        </div>
+        <div class="conv-detail-pane" data-k="cfo">
+          <div class="cd-tag" data-en="The operating lens" data-zh="營運視角">營運視角</div>
+          <p class="cd-text" data-en="A CFO's perspective turns reports into decisions — connecting cash flow, operations and resource allocation to where the business is actually headed." data-zh="財務長視角把報表轉化為決策——把資金、營運與資源配置，連回事業真正要去的方向。">財務長視角把報表轉化為決策——把資金、營運與資源配置，連回事業真正要去的方向。</p>
+        </div>
+        <div class="conv-detail-pane" data-k="law">
+          <div class="cd-tag" data-en="The risk safety net" data-zh="風險防護網">風險防護網</div>
+          <p class="cd-text" data-en="A lawyer weaves legal-risk review into every system — contracts, liability and compliance handled before they become problems, not after." data-zh="律師把法律風險審查織進每一套制度——合約、責任與法遵在問題發生前就被處理，而非事後補救。">律師把法律風險審查織進每一套制度——合約、責任與法遵在問題發生前就被處理，而非事後補救。</p>
+        </div>
+        <div class="conv-detail-pane" data-k="sme">
+          <div class="cd-tag" data-en="The resonance" data-zh="實戰共鳴">實戰共鳴</div>
+          <p class="cd-text" data-en="An SME owner's hands-on experience is what most firms lack — we understand the real cash, talent and decision constraints, so solutions actually land." data-zh="中小企業主的實戰經驗，正是多數管顧所缺——我們理解現金、人才與決策上的真實限制，方案才能真正落地。">中小企業主的實戰經驗，正是多數管顧所缺——我們理解現金、人才與決策上的真實限制，方案才能真正落地。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-group-label process-group-label-2">
+      <span class="pgl-zh lang-zh-only">仕 坦 登 與 一 般 管 顧 之 差 異</span>
+      <span class="pgl-en" data-en="Staton vs. Typical Firms — A Side-by-Side" data-zh="Staton vs. Typical Firms — A Side-by-Side">Staton vs. Typical Firms — A Side-by-Side</span>
+    </div>
+    <p class="section-summary process-group-sub" data-en="Read each row across: the same dimension, two very different philosophies. STATON runs the gold lane — accounting-led, data-driven, owner-aligned." data-zh="每一列橫向對讀：同一個構面，兩種截然不同的經營哲學。STATON 走的是金色軌道——以會計為本、以數據驅動、與業主同向。">每一列橫向對讀：同一個構面，兩種截然不同的經營哲學。STATON 走的是金色軌道——以會計為本、以數據驅動、與業主同向。</p>
+
+    <div class="vcmp">
+      <!-- Lane header row -->
+      <div class="vcmp-head">
+        <div class="vcmp-head-dim"></div>
+        <div class="vcmp-head-us">
+          <span class="vh-zh lang-zh-only">仕 坦 登</span>
+          <span class="vh-en" data-en="STATON" data-zh="STATON">STATON</span>
+          <span class="vh-sub" data-en="The accounting-led partner" data-zh="以會計為本的顧問夥伴">以會計為本的顧問夥伴</span>
+        </div>
+        <div class="vcmp-head-them">
+          <span class="vh-zh lang-zh-only">一 般 管 顧</span>
+          <span class="vh-en" data-en="Typical Firms" data-zh="Typical Firms">Typical Firms</span>
+          <span class="vh-sub" data-en="System / course vendors" data-zh="系統與課程的賣方">系統與課程的賣方</span>
+        </div>
+      </div>
+
+      <!-- Row 01 -->
+      <div class="vcmp-row">
+        <div class="vcmp-dim">
+          <span class="vd-num">01</span>
+          <span class="vd-zh lang-zh-only">專 精 領 域</span>
+          <span class="vd-en" data-en="Field of Focus" data-zh="Field of Focus">Field of Focus</span>
+        </div>
+        <div class="vcmp-cell vcmp-cell-us">
+          <p data-en="Finance &amp; accounting at the core. Tax books and management books are integrated into one unified ledger, delivered end-to-end — so every number you see is reconciled and trustworthy." data-zh="以財稅會計為本。稅務帳與管理帳整合為一套帳，一條龍交付——你看到的每一個數字，都是對得起來、可被信任的。">以財稅會計為本。稅務帳與管理帳整合為一套帳，一條龍交付——你看到的每一個數字，都是對得起來、可被信任的。</p>
+        </div>
+        <div class="vcmp-cell vcmp-cell-them">
+          <p data-en="Usually specialize in HR planning, selling systems, or selling courses — finance sits at the edge of their offering, not the centre." data-zh="多半專精於人資規劃、賣系統、賣課程——財稅只是邊陲服務，而非核心。">多半專精於人資規劃、賣系統、賣課程——財稅只是邊陲服務，而非核心。</p>
+        </div>
+      </div>
+
+      <!-- Row 02 -->
+      <div class="vcmp-row">
+        <div class="vcmp-dim">
+          <span class="vd-num">02</span>
+          <span class="vd-zh lang-zh-only">專 業 背 景</span>
+          <span class="vd-en" data-en="Background" data-zh="Background">Background</span>
+        </div>
+        <div class="vcmp-cell vcmp-cell-us">
+          <p data-en="Led by a CPA with Big-4 training. Finance, tax and regulatory compliance are held to a single, professional standard — not improvised case by case." data-zh="由具四大訓練的 CPA 會計師主導。財務、稅務與法規合規，皆以同一套專業標準把關，而非個案臨場拼湊。">由具四大訓練的 CPA 會計師主導。財務、稅務與法規合規，皆以同一套專業標準把關，而非個案臨場拼湊。</p>
+        </div>
+        <div class="vcmp-cell vcmp-cell-them">
+          <p data-en="Typically fronted by lecturers, trainers or software vendors. Financial and tax expertise is rarely the team's true backbone." data-zh="檯面上多為講師、培訓師或系統業者，財稅專業少有作為團隊真正的骨幹。">檯面上多為講師、培訓師或系統業者，財稅專業少有作為團隊真正的骨幹。</p>
+        </div>
+      </div>
+
+      <!-- Row 03 -->
+      <div class="vcmp-row">
+        <div class="vcmp-dim">
+          <span class="vd-num">03</span>
+          <span class="vd-zh lang-zh-only">服 務 範 疇</span>
+          <span class="vd-en" data-en="Scope" data-zh="Scope">Scope</span>
+        </div>
+        <div class="vcmp-cell vcmp-cell-us">
+          <p data-en="Full coverage — from tax-book filing, to management-book reports, to the operational decisions those reports inform. One continuous chain, no hand-off gaps." data-zh="全程涵蓋——從稅務帳申報、管理帳報表，到報表所支撐的營運決策。一條連續的價值鏈，沒有交接斷點。">全程涵蓋——從稅務帳申報、管理帳報表，到報表所支撐的營運決策。一條連續的價值鏈，沒有交接斷點。</p>
+        </div>
+        <div class="vcmp-cell vcmp-cell-them">
+          <p data-en="Single-point delivery: install a system, run a workshop, or hand over a plan. The pieces rarely connect into one coherent whole." data-zh="偏單點交付：導入一套系統、開一場課、交一份規劃。各塊之間往往難以串成一致的整體。">偏單點交付：導入一套系統、開一場課、交一份規劃。各塊之間往往難以串成一致的整體。</p>
+        </div>
+      </div>
+
+      <!-- Row 04 -->
+      <div class="vcmp-row">
+        <div class="vcmp-dim">
+          <span class="vd-num">04</span>
+          <span class="vd-zh lang-zh-only">核 心 目 的</span>
+          <span class="vd-en" data-en="Purpose" data-zh="Purpose">Purpose</span>
+        </div>
+        <div class="vcmp-cell vcmp-cell-us">
+          <p data-en="Turn data-driven reports into better operational decisions and continuous optimization. The report is a starting point, not the deliverable." data-zh="把數據化報表轉化為更好的營運決策與持續優化。報表是起點，而非交付的終點。">把數據化報表轉化為更好的營運決策與持續優化。報表是起點，而非交付的終點。</p>
+        </div>
+        <div class="vcmp-cell vcmp-cell-them">
+          <p data-en="The transaction is the goal: once the product, course or system is sold, the engagement has essentially achieved its purpose." data-zh="成交本身就是目的：產品、課程或系統一旦售出，這段關係的任務基本上就算達成了。">成交本身就是目的：產品、課程或系統一旦售出，這段關係的任務基本上就算達成了。</p>
+        </div>
+      </div>
+
+      <!-- Row 05 -->
+      <div class="vcmp-row">
+        <div class="vcmp-dim">
+          <span class="vd-num">05</span>
+          <span class="vd-zh lang-zh-only">人 員 配 置</span>
+          <span class="vd-en" data-en="Staffing" data-zh="Staffing">Staffing</span>
+        </div>
+        <div class="vcmp-cell vcmp-cell-us">
+          <p data-en="We coach your in-house accountant to produce analysis-ready reports — or assign our own personnel to build the capability when you have none." data-zh="若你有內部會計，我們指導其產出可分析的報表；若沒有，我們指派人員協助建置這個能力。">若你有內部會計，我們指導其產出可分析的報表；若沒有，我們指派人員協助建置這個能力。</p>
+        </div>
+        <div class="vcmp-cell vcmp-cell-them">
+          <p data-en="Tools and knowledge are handed over, but landing them depends entirely on the client's own people and follow-through." data-zh="工具與知識交付了，但能否落地，全仰賴客戶自己的人力與後續執行。">工具與知識交付了，但能否落地，全仰賴客戶自己的人力與後續執行。</p>
+        </div>
+      </div>
+
+      <!-- Row 06 -->
+      <div class="vcmp-row">
+        <div class="vcmp-dim">
+          <span class="vd-num">06</span>
+          <span class="vd-zh lang-zh-only">後 續 陪 伴</span>
+          <span class="vd-en" data-en="Partnership" data-zh="Partnership">Partnership</span>
+        </div>
+        <div class="vcmp-cell vcmp-cell-us">
+          <p data-en="A standing relationship: we keep reviewing resource allocation and annual-target attainment with you, month after month, quarter after quarter." data-zh="一段長期關係：我們持續與你檢視資源分配與年度目標達成，月復一月、季復一季。">一段長期關係：我們持續與你檢視資源分配與年度目標達成，月復一月、季復一季。</p>
+        </div>
+        <div class="vcmp-cell vcmp-cell-them">
+          <p data-en="The project ends at delivery. Long-term tracking and accountability for outcomes are usually outside the scope." data-zh="專案在交付的那一刻結束。長期追蹤與對成果負責，通常不在服務範圍內。">專案在交付的那一刻結束。長期追蹤與對成果負責，通常不在服務範圍內。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="vcmp-synth">
+      <div class="vcmp-synth-mark">＊</div>
+      <p class="vcmp-synth-lead" data-en="Why most firms can't serve SMEs well" data-zh="為什麼多數管顧，難以真正服務中小企業">為什麼多數管顧，難以真正服務中小企業</p>
+      <p class="vcmp-synth-body" data-en="Traditional consultancies tend to start from one corner. Some are founded by industry lecturers or single-domain advisors who only sell courses or a narrow service. Others come out of accounting firms — but a pure-accounting background stays fixed on the books and rarely resonates with an SME, because accountants seldom have hands-on SME operating experience. And consultancies built around an ex-CFO lineage usually lack the CPA foundation, or the broader entrepreneurial perspective." data-zh="傳統管顧公司，往往只從一個角落出發。一部分由特定業界講師或顧問起家，只賣課程或單一領域項目；另一部分則由會計師事務所或理專出身——若是會計師背景，僅專注在帳務上，難以真正與中小企業產生共鳴，因為會計師多半沒有中小企業的實務經驗；而若是財務長體系出身的管理顧問，又往往缺乏會計師背景，或缺少更宏觀的企業經營視野。">傳統管顧公司，往往只從一個角落出發。一部分由特定業界講師或顧問起家，只賣課程或單一領域項目；另一部分則由會計師事務所或理專出身——若是會計師背景，僅專注在帳務上，難以真正與中小企業產生共鳴，因為會計師多半沒有中小企業的實務經驗；而若是財務長體系出身的管理顧問，又往往缺乏會計師背景，或缺少更宏觀的企業經營視野。</p>
+      <p class="vcmp-synth-punch" data-en="Only STATON brings a CPA, a CFO, a lawyer and an SME owner to the same table — the multi-disciplinary resource it takes to give an SME the service that actually fits." data-zh="唯有仕坦登，團隊同時具備會計師、財務長、律師、中小企業主等多重資源——才能給中小企業最合適的服務。">唯有仕坦登，團隊同時具備會計師、財務長、律師、中小企業主等多重資源——才能給中小企業最合適的服務。</p>
     </div>
   </div>
 </section>
@@ -5245,6 +5724,28 @@ function setupCursorParticles() {
 }
 
 // ========== 案例篩選 + 熱力圖連動 ==========
+function setupConvergence() {
+  const map = document.getElementById('convMap');
+  if (!map) return;
+  const nodes = Array.from(map.querySelectorAll('.conv-node'));
+  const links = Array.from(map.querySelectorAll('.conv-link'));
+  const panes = Array.from(map.querySelectorAll('.conv-detail-pane'));
+  if (!nodes.length) return;
+
+  function activate(key) {
+    nodes.forEach(n => n.classList.toggle('is-active', n.dataset.k === key));
+    links.forEach(l => l.classList.toggle('is-lit', l.dataset.k === key));
+    panes.forEach(p => p.classList.toggle('is-active', p.dataset.k === key));
+  }
+
+  nodes.forEach(n => {
+    n.addEventListener('click', () => activate(n.dataset.k));
+    n.addEventListener('mouseenter', () => activate(n.dataset.k));
+  });
+
+  activate('cpa');
+}
+
 function setupCaseFilter() {
   const filters = Array.from(document.querySelectorAll('.case-filter'));
   const cards   = Array.from(document.querySelectorAll('.case-card'));
@@ -5329,6 +5830,7 @@ window.addEventListener('load', () => {
   safeRun('setupAnalytics', setupAnalytics);
   safeRun('setupCursorParticles', setupCursorParticles);
   safeRun('setupCaseFilter', setupCaseFilter);
+  safeRun('setupConvergence', setupConvergence);
 });
 </script>
 
