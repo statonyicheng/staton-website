@@ -41,6 +41,62 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+/* ===== Conic Beam Border（邊框流光） ===== */
+@property --cbeam-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes cbeam-spin {
+  to { --cbeam-angle: 360deg; }
+}
+/* 流光環本體：用 conic-gradient + mask 切出邊框環 */
+.cbeam-host { position: relative; }
+.cbeam-border {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;                 /* 邊框寬度 */
+  pointer-events: none;
+  z-index: 6;
+  background: conic-gradient(
+    from var(--cbeam-angle),
+    transparent 0deg,
+    transparent 60deg,
+    rgba(244, 183, 2, 0.15) 95deg,
+    var(--gold) 120deg,
+    var(--gold-soft) 128deg,
+    var(--gold) 136deg,
+    rgba(244, 183, 2, 0.15) 165deg,
+    transparent 200deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  animation: cbeam-spin 4s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(244, 183, 2, 0.45));
+}
+@media (prefers-reduced-motion: reduce) {
+  .cbeam-border { animation: none; }
+}
+/* 卡片版流光：滑鼠移入或點擊（.is-lit）即亮 */
+.diff-item .cbeam-border {
+  opacity: 0;
+  padding: 2px;
+  transition: opacity 0.4s ease;
+}
+.diff-item:hover .cbeam-border,
+.diff-item.is-lit .cbeam-border { opacity: 1; }
+.diff-item.cbeam-host { overflow: hidden; }
+.diff-item.cbeam-host > *:not(.cbeam-border) { position: relative; z-index: 2; }
 body {
   font-family: 'Noto Serif TC', 'Source Han Serif TC', serif;
   background: var(--navy);
@@ -3147,7 +3203,7 @@ body[data-lang="zh"] .closing-headline .accent {
   width: 100%;
   max-width: 480px;
   background: linear-gradient(155deg, #0a1d4a 0%, #000e2f 60%, #00081f 100%);
-  border: 1px solid rgba(244, 183, 2, 0.32);
+  border: 1px solid rgba(244, 183, 2, 0.14);
   border-radius: 4px;
   padding: 56px 44px 44px;
   box-shadow:
@@ -3162,16 +3218,9 @@ body[data-lang="zh"] .closing-headline .accent {
   transform: translateY(0) scale(1);
 }
 
-/* 上方裝飾雙色條帶（呼應封面標準） */
+/* 上方裝飾雙色條帶 — 已由 Conic Beam 邊框流光取代 */
 .line-cta-modal::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--gold) 0%, var(--gold) 38%, var(--navy) 38%, var(--navy) 100%);
-  z-index: 3;
+  content: none;
 }
 
 /* 右上裝飾光暈 */
@@ -3385,7 +3434,8 @@ body[data-lang="zh"] .closing-headline .accent {
 
 <!-- ============ LINE CTA POPUP ============ -->
 <div class="line-cta-overlay" id="lineCtaOverlay" aria-hidden="true">
-  <div class="line-cta-modal" role="dialog" aria-modal="true" aria-labelledby="lineCtaTitle">
+  <div class="line-cta-modal cbeam-host" role="dialog" aria-modal="true" aria-labelledby="lineCtaTitle">
+    <span class="cbeam-border" aria-hidden="true"></span>
     <canvas class="line-cta-canvas" id="lineCtaCanvas" aria-hidden="true"></canvas>
     <button type="button" class="line-cta-close" id="lineCtaClose" aria-label="Close">×</button>
     <div class="line-cta-badge">LINE</div>
@@ -3649,11 +3699,70 @@ body[data-lang="zh"] .closing-headline .accent {
   </div>
 </section>
 
-<!-- ============ CHAPTER 03 — CASE STUDIES 案例分享 ============ -->
+<!-- ============ CHAPTER 03 — CAPITAL ADVISORY (IPO / M&A) ============ -->
 <div class="chapter-divider">
   <div class="ch-line"></div>
   <div class="ch-content">
     <div class="ch-num">CHAPTER 03</div>
+    <div class="ch-title lang-zh-only">資 本 化 顧 問</div>
+    <div class="ch-en">CAPITAL ADVISORY</div>
+  </div>
+  <div class="ch-line"></div>
+</div>
+
+<section id="capital" class="section">
+  <div class="section-inner fade-section">
+    <div class="section-eyebrow">— BEYOND OPERATIONS · IPO &amp; M&amp;A —</div>
+    <h2 class="section-title" data-en="Beyond Operations · Capitalization &amp; Value Maximization" data-zh="不 只 協 助 經 營 · 更 實 現 資 本 化 與 價 值 最 大 化">不 只 協 助 經 營 · 更 實 現 資 本 化 與 價 值 最 大 化</h2>
+    <p class="section-summary" data-en="Once a business clears the threshold of stable operations, the next horizon is the capital markets and strategic M&amp;A. STATON assembles cross-disciplinary teams with CPAs, securities firms and lawyers, helping you build a complete IPO or M&amp;A roadmap, integrate resources, control costs, and translate growth into shareholder value." data-zh="當企業跨越穩定經營門檻，下一個關卡是「資本市場」與「策略性併購」。STATON 與會計師、券商、律師組成跨專業協作團隊，協助企業在 IPO 或 M&amp;A 旅程中，建立完整 Roadmap、整合資源、控管成本，把成長翻譯為股東價值。">當企業跨越穩定經營門檻，下一個關卡是「資本市場」與「策略性併購」。STATON 與會計師、券商、律師組成跨專業協作團隊，協助企業在 IPO 或 M&amp;A 旅程中，建立完整 Roadmap、整合資源、控管成本，把成長翻譯為股東價值。</p>
+
+    <div class="capital-grid">
+      <div class="capital-card glass-card">
+        <div class="capital-tag">ADVANCED · ONE</div>
+        <div class="capital-title-row">
+          <div class="capital-mark">IPO</div>
+          <div class="capital-bar"></div>
+        </div>
+        <div class="capital-name" data-en="Capital Market Advisory" data-zh="資 本 市 場 顧 問">資 本 市 場 顧 問</div>
+        <div class="capital-en lang-zh-only">IPO &amp; Capital Market Advisory</div>
+        <p class="capital-desc" data-en="Help companies in the growth stage move toward public listing. From strategic planning and timeline management to team integration — building an organizational backbone that can withstand public-market scrutiny." data-zh="協助企業從成長階段邁向資本市場 IPO，從策略規劃、時程管理到團隊整合，逐步打造能承受公開市場檢驗的組織體質。">協助企業從成長階段邁向資本市場 IPO，從策略規劃、時程管理到團隊整合，逐步打造能承受公開市場檢驗的組織體質。</p>
+        <ul class="capital-list">
+          <li><span class="cl-num">01</span><span class="cl-text" data-en="&lt;strong&gt;Capital Market Strategy&lt;/strong&gt;　Evaluate the optimal IPO venue (Taiwan, U.S. or others), and design a listing path that fits your stage." data-zh="&lt;strong&gt;資本市場策略規劃&lt;/strong&gt;　評估最適 IPO 地點（臺灣、美國或其他市場），設計符合企業階段的上市路徑。"><strong>資本市場策略規劃</strong>　評估最適 IPO 地點（臺灣、美國或其他市場），設計符合企業階段的上市路徑。</span></li>
+          <li><span class="cl-num">02</span><span class="cl-text" data-en="&lt;strong&gt;IPO Timeline &amp;amp; Milestones&lt;/strong&gt;　Build a complete IPO roadmap with clear key milestones — internal controls, financials, compliance." data-zh="&lt;strong&gt;上市時程與里程碑管理&lt;/strong&gt;　建立完整 IPO Roadmap，明確 Key Milestones（內控、財報、法遵）。"><strong>上市時程與里程碑管理</strong>　建立完整 IPO Roadmap，明確 Key Milestones（內控、財報、法遵）。</span></li>
+          <li><span class="cl-num">03</span><span class="cl-text" data-en="&lt;strong&gt;Professional Team Selection&lt;/strong&gt;　Help screen and onboard underwriters, accountants and lawyers; build cross-disciplinary collaboration." data-zh="&lt;strong&gt;專業團隊遴選與整合&lt;/strong&gt;　協助遴選券商、會計師、律師，建立跨專業團隊協作機制。"><strong>專業團隊遴選與整合</strong>　協助遴選券商、會計師、律師，建立跨專業團隊協作機制。</span></li>
+          <li><span class="cl-num">04</span><span class="cl-text" data-en="&lt;strong&gt;Cost &amp;amp; Resource Planning&lt;/strong&gt;　Estimate total IPO costs (underwriting, advisory, compliance) and ensure resources are deployed effectively." data-zh="&lt;strong&gt;成本與資源配置規劃&lt;/strong&gt;　預估 IPO 整體費用（承銷費、顧問費、法遵成本），確保資源有效投入。"><strong>成本與資源配置規劃</strong>　預估 IPO 整體費用（承銷費、顧問費、法遵成本），確保資源有效投入。</span></li>
+          <li><span class="cl-num">05</span><span class="cl-text" data-en="&lt;strong&gt;Internal Alignment&lt;/strong&gt;　Coordinate departments and key personnel; build organization-wide IPO consensus and execution cadence." data-zh="&lt;strong&gt;內部整合與組織準備&lt;/strong&gt;　協調各部門與關鍵人員，建立 IPO 共識與執行節奏。"><strong>內部整合與組織準備</strong>　協調各部門與關鍵人員，建立 IPO 共識與執行節奏。</span></li>
+        </ul>
+      </div>
+
+      <div class="capital-card glass-card">
+        <div class="capital-tag">ADVANCED · TWO</div>
+        <div class="capital-title-row">
+          <div class="capital-mark">M&amp;A</div>
+          <div class="capital-bar"></div>
+        </div>
+        <div class="capital-name" data-en="Mergers &amp; Acquisitions" data-zh="併 購 顧 問">併 購 顧 問</div>
+        <div class="capital-en lang-zh-only">Mergers &amp; Acquisitions Advisory</div>
+        <p class="capital-desc" data-en="Accelerate growth via M&amp;A — optimize resource allocation and lift overall enterprise value. From target screening to deal structuring and closing execution, we provide end-to-end advisory." data-zh="透過併購策略加速成長、優化資源配置，並提升整體企業價值。從前期標的篩選，到交易架構設計與交割執行，提供全程顧問支援。">透過併購策略加速成長、優化資源配置，並提升整體企業價值。從前期標的篩選，到交易架構設計與交割執行，提供全程顧問支援。</p>
+        <ul class="capital-list">
+          <li><span class="cl-num">01</span><span class="cl-text" data-en="&lt;strong&gt;Identify M&amp;amp;A Targets&lt;/strong&gt;　Analyze industry and market; screen suitable acquirers or investors to lift transaction success rates." data-zh="&lt;strong&gt;識別潛在併購對象&lt;/strong&gt;　分析產業與市場，篩選合適之收購者或投資方，提升交易成功機率。"><strong>識別潛在併購對象</strong>　分析產業與市場，篩選合適之收購者或投資方，提升交易成功機率。</span></li>
+          <li><span class="cl-num">02</span><span class="cl-text" data-en="&lt;strong&gt;Deal Timeline &amp;amp; Process&lt;/strong&gt;　Build a complete roadmap covering initial contact, due diligence, term negotiation and closing." data-zh="&lt;strong&gt;規劃併購時程與流程&lt;/strong&gt;　建立完整 Roadmap，掌握初步接觸、盡職調查、條件談判及交割執行關鍵節點。"><strong>規劃併購時程與流程</strong>　建立完整 Roadmap，掌握初步接觸、盡職調查、條件談判及交割執行關鍵節點。</span></li>
+          <li><span class="cl-num">03</span><span class="cl-text" data-en="&lt;strong&gt;Tax &amp;amp; Deal Structure&lt;/strong&gt;　Design optimal tax arrangements and deal structure (share or asset purchase) — reducing cost, raising net benefit." data-zh="&lt;strong&gt;設計稅務與交易架構&lt;/strong&gt;　規劃最適稅務安排與交易結構（股權或資產收購），降低交易成本並提升整體效益。"><strong>設計稅務與交易架構</strong>　規劃最適稅務安排與交易結構（股權或資產收購），降低交易成本並提升整體效益。</span></li>
+        </ul>
+        <div class="capital-quote">
+          <span class="lang-zh-only">「對的買家、對的價格、對的時點。」<br></span>
+          <span class="capital-quote-en">— Right Buyer · Right Price · Right Timing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 04 — CASE STUDIES 案例分享 ============ -->
+<div class="chapter-divider">
+  <div class="ch-line"></div>
+  <div class="ch-content">
+    <div class="ch-num">CHAPTER 04</div>
     <div class="ch-title lang-zh-only">案 例 分 享</div>
     <div class="ch-en">CASE STUDIES</div>
   </div>
@@ -3869,11 +3978,11 @@ body[data-lang="zh"] .closing-headline .accent {
   </div>
 </section>
 
-<!-- ============ CHAPTER 04 — METHODOLOGY ============ -->
+<!-- ============ CHAPTER 05 — METHODOLOGY ============ -->
 <div class="chapter-divider">
   <div class="ch-line"></div>
   <div class="ch-content">
-    <div class="ch-num">CHAPTER 04</div>
+    <div class="ch-num">CHAPTER 05</div>
     <div class="ch-title lang-zh-only">三 層 方 法 論</div>
     <div class="ch-en">METHODOLOGY</div>
   </div>
@@ -3946,11 +4055,11 @@ body[data-lang="zh"] .closing-headline .accent {
   </div>
 </section>
 
-<!-- ============ CHAPTER 05 — LEADERSHIP ============ -->
+<!-- ============ CHAPTER 06 — LEADERSHIP ============ -->
 <div class="chapter-divider">
   <div class="ch-line"></div>
   <div class="ch-content">
-    <div class="ch-num">CHAPTER 05</div>
+    <div class="ch-num">CHAPTER 06</div>
     <div class="ch-title lang-zh-only">顧 問 團 隊</div>
     <div class="ch-en">LEADERSHIP</div>
   </div>
@@ -4165,11 +4274,11 @@ body[data-lang="zh"] .closing-headline .accent {
   </div>
 </section>
 
-<!-- ============ CHAPTER 06 — IMPACT / NUMBERS ============ -->
+<!-- ============ CHAPTER 07 — IMPACT / NUMBERS ============ -->
 <div class="chapter-divider">
   <div class="ch-line"></div>
   <div class="ch-content">
-    <div class="ch-num">CHAPTER 06</div>
+    <div class="ch-num">CHAPTER 07</div>
     <div class="ch-title lang-zh-only">影 響 力 數 據</div>
     <div class="ch-en">IMPACT</div>
   </div>
@@ -4222,25 +4331,29 @@ body[data-lang="zh"] .closing-headline .accent {
 
     <div style="margin-top:48px;">
       <div class="diff-grid">
-        <div class="diff-item">
+        <div class="diff-item cbeam-host">
+          <span class="cbeam-border cbeam-card" aria-hidden="true"></span>
           <div class="diff-num">— 01 —</div>
           <div class="diff-title" data-en="Strategic Legal Alliance" data-zh="與 法 律 事 務 所 策 略 結 盟">與 法 律 事 務 所 策 略 結 盟</div>
           <div class="diff-en lang-zh-only">Strategic Legal Alliance</div>
           <p class="diff-desc" data-en="STATON's standing legal counsel is H&amp;amp;W LAW. Every system we design embeds a built-in legal-risk review — weaving finance, operations and law into a single safety net." data-zh="本公司由 H&amp;W LAW 伯衡法律事務所提供常年法律顧問支援，所有制度設計皆內含法律風險審查，把財務、營運與法律編織成同一張安全網。">本公司由 H&W LAW 伯衡法律事務所提供常年法律顧問支援，所有制度設計皆內含法律風險審查，把財務、營運與法律編織成同一張安全網。</p>
         </div>
-        <div class="diff-item">
+        <div class="diff-item cbeam-host">
+          <span class="cbeam-border cbeam-card" aria-hidden="true"></span>
           <div class="diff-num">— 02 —</div>
           <div class="diff-title" data-en="Big-4 Trained Methodology" data-zh="會 計 師 事 務 所 級 別 的 專 業 訓 練">會 計 師 事 務 所 級 別 的 專 業 訓 練</div>
           <div class="diff-en lang-zh-only">Big-4 Trained Methodology</div>
           <p class="diff-desc" data-en="The founder is Ernst &amp;amp; Young trained, translating Big-4 standardized project-management thinking into a consulting language that SMEs can absorb and afford." data-zh="創辦人具備 Ernst &amp; Young 安永聯合會計師事務所經歷，將四大會計師事務所的標準化專案管理思維，轉譯為中小企業可承受的顧問語言。">創辦人具備 Ernst & Young 安永聯合會計師事務所經歷，將四大會計師事務所的標準化專案管理思維，轉譯為中小企業可承受的顧問語言。</p>
         </div>
-        <div class="diff-item">
+        <div class="diff-item cbeam-host">
+          <span class="cbeam-border cbeam-card" aria-hidden="true"></span>
           <div class="diff-num">— 03 —</div>
           <div class="diff-title" data-en="Systems, Not Suggestions" data-zh="系 統 設 計 而 非 點 狀 建 議">系 統 設 計 而 非 點 狀 建 議</div>
           <div class="diff-en lang-zh-only">Systems, Not Suggestions</div>
           <p class="diff-desc" data-en="We don't deliver slides and leave. Every project lands as operable documents, forms, workflows and KPI monitoring — with named owners — so change is built into the organization." data-zh="我們不交付投影片就離場。每個專案都會落地為可被操作的文件、表單、流程與 KPI 監控機制，並指派具體負責人，讓改變被內建在組織中。">我們不交付投影片就離場。每個專案都會落地為可被操作的文件、表單、流程與 KPI 監控機制，並指派具體負責人，讓改變被內建在組織中。</p>
         </div>
-        <div class="diff-item">
+        <div class="diff-item cbeam-host">
+          <span class="cbeam-border cbeam-card" aria-hidden="true"></span>
           <div class="diff-num">— 04 —</div>
           <div class="diff-title" data-en="SME-First Perspective" data-zh="中 小 企 業 經 營 者 思 維">中 小 企 業 經 營 者 思 維</div>
           <div class="diff-en lang-zh-only">SME-First Perspective</div>
@@ -4251,11 +4364,11 @@ body[data-lang="zh"] .closing-headline .accent {
   </div>
 </section>
 
-<!-- ============ CHAPTER 07 — PROCESS ============ -->
+<!-- ============ CHAPTER 08 — PROCESS ============ -->
 <div class="chapter-divider">
   <div class="ch-line"></div>
   <div class="ch-content">
-    <div class="ch-num">CHAPTER 07</div>
+    <div class="ch-num">CHAPTER 08</div>
     <div class="ch-title lang-zh-only">服 務 流 程</div>
     <div class="ch-en">ENGAGEMENT FLOW</div>
   </div>
@@ -4540,7 +4653,7 @@ body[data-lang="zh"] .closing-headline .accent {
     <div class="footer-col">
       <div class="footer-brand-name">STATON</div>
       <div class="footer-brand-zh" data-en="Management Consulting LTD." data-zh="仕 坦 登 企 業 管 理 顧 問">仕 坦 登 企 業 管 理 顧 問</div>
-      <p class="footer-brand-text" data-en="Verifiable operating systems designed for SMEs. From organizational design, operations, management reporting, finance, branding to compliance — and from operations into IPO &amp; M&amp;amp;A capitalization advisory — your long-term partner in business." data-zh="為中小企業設計可被驗證的經營系統。從組織架構、營運優化、管報、財務、品牌到法遵的六大模組，再到 IPO 與 M&amp;amp;A 的資本化顧問，做你長期的經營夥伴。">為中小企業設計可被驗證的經營系統。從組織架構、營運優化、管報、財務、品牌到法遵的六大模組，再到 IPO 與 M&amp;A 的資本化顧問，做你長期的經營夥伴。</p>
+      <p class="footer-brand-text" data-en="Verifiable operating systems designed for SMEs. From organizational design, operations, management reporting, finance, branding to compliance — and from operations into IPO &amp; M&amp;A capitalization advisory — your long-term partner in business." data-zh="為中小企業設計可被驗證的經營系統。從組織架構、營運優化、管報、財務、品牌到法遵的六大模組，再到 IPO 與 M&amp;A 的資本化顧問，做你長期的經營夥伴。">為中小企業設計可被驗證的經營系統。從組織架構、營運優化、管報、財務、品牌到法遵的六大模組，再到 IPO 與 M&amp;A 的資本化顧問，做你長期的經營夥伴。</p>
     </div>
 
     <div class="footer-col">
@@ -4552,6 +4665,7 @@ body[data-lang="zh"] .closing-headline .accent {
         <li><a href="#systems" data-en="Financial Planning &amp; Management" data-zh="財務規劃">財務規劃</a></li>
         <li><a href="#systems" data-en="Brand Strategy &amp; Marketing" data-zh="行銷品牌策略">行銷品牌策略</a></li>
         <li><a href="#systems" data-en="Legal Risk &amp; Compliance" data-zh="法律遵循">法律遵循</a></li>
+        <li><a href="#capital" style="color:var(--gold);" data-en="IPO &amp; M&amp;A Advisory" data-zh="IPO &amp; M&amp;A 進階顧問">IPO &amp; M&amp;A 進階顧問</a></li>
         <li><a href="#cases" style="color:var(--gold);" data-en="Case Studies" data-zh="案例分享">案例分享</a></li>
       </ul>
     </div>
@@ -5831,6 +5945,19 @@ window.addEventListener('load', () => {
   safeRun('setupCursorParticles', setupCursorParticles);
   safeRun('setupCaseFilter', setupCaseFilter);
   safeRun('setupConvergence', setupConvergence);
+  safeRun('setupDiffBeam', function setupDiffBeam(){
+    document.querySelectorAll('.diff-item.cbeam-host').forEach(function(card){
+      card.addEventListener('click', function(){
+        card.classList.toggle('is-lit');
+      });
+    });
+    // 點空白處關閉全部
+    document.addEventListener('click', function(e){
+      if (!e.target.closest('.diff-item.cbeam-host')){
+        document.querySelectorAll('.diff-item.is-lit').forEach(function(c){ c.classList.remove('is-lit'); });
+      }
+    });
+  });
 });
 </script>
 
