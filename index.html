@@ -1,6 +1,69 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STATON ｜ 仕坦登企業管理顧問 — From Insight to Execution</title>
+<meta name="description" content="STATON 仕坦登企業管理顧問 — 為中小企業設計可被驗證的經營系統。組織架構、營運優化、客製化管報、財務規劃、行銷品牌、法律遵循六大顧問模組，加上 IPO 與 M&A 資本化進階顧問，從診斷、執行到驗證的全程顧問夥伴。">
+
+<!-- ============ SEO · CANONICAL & SOCIAL SHARING ============ -->
+<!-- TODO: 將 https://www.staton.tw 全部替換為實際網域 -->
+<link rel="canonical" href="https://www.staton.tw/">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph（LINE / Facebook 分享預覽，務必準備 1200x630 的 og-image.jpg 放在網站根目錄） -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STATON 仕坦登企業管理顧問">
+<meta property="og:title" content="STATON ｜ 仕坦登企業管理顧問 — From Insight to Execution">
+<meta property="og:description" content="為中小企業設計可被驗證的經營系統。六大顧問模組 × IPO/M&A 資本化顧問，從診斷、執行到驗證的全程經營夥伴。">
+<meta property="og:url" content="https://www.staton.tw/">
+<meta property="og:image" content="https://www.staton.tw/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:locale:alternate" content="en_US">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@staton_tw">
+<meta name="twitter:title" content="STATON ｜ 仕坦登企業管理顧問">
+<meta name="twitter:description" content="為中小企業設計可被驗證的經營系統。六大顧問模組 × IPO/M&A 資本化顧問。">
+<meta name="twitter:image" content="https://www.staton.tw/og-image.jpg">
+
+<!-- ============ STRUCTURED DATA · JSON-LD ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "STATON 仕坦登企業管理顧問有限公司",
+  "alternateName": "STATON Management Consulting LTD.",
+  "url": "https://www.staton.tw/",
+  "logo": "https://www.staton.tw/favicon-96x96.png",
+  "image": "https://www.staton.tw/og-image.jpg",
+  "description": "為中小企業設計可被驗證的經營系統：組織架構、營運優化、客製化管報、財務規劃、行銷品牌、法律遵循六大顧問模組，加上 IPO 與 M&A 資本化進階顧問。",
+  "taxID": "60595769",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Taipei",
+    "addressCountry": "TW"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "曾毅晟",
+    "alternateName": "ZENG, YI-CHENG",
+    "jobTitle": "Founder & CEO"
+  },
+  "areaServed": "TW",
+  "knowsAbout": ["組織架構設計", "營運優化", "客製化管理報表", "財務規劃", "行銷品牌策略", "法律遵循", "IPO 上市櫃輔導", "併購顧問"],
+  "sameAs": [
+    "https://lin.ee/hpcSgzX",
+    "https://www.facebook.com/statonconsultant",
+    "https://www.instagram.com/staton_tw/",
+    "https://x.com/staton_tw"
+  ]
+}
+</script>
+
 <!-- Google tag (gtag.js) — STATON GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7RSYRJHF3R"></script>
 <script>
@@ -9,15 +72,11 @@
   gtag('js', new Date());
   gtag('config', 'G-7RSYRJHF3R');
 </script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STATON ｜ 仕坦登企業管理顧問 — From Insight to Execution</title>
-<meta name="description" content="STATON 仕坦登企業管理顧問 — 為中小企業設計可被驗證的經營系統。組織架構、營運優化、客製化管報、財務規劃、行銷品牌、法律遵循六大顧問模組，加上 IPO 與 M&A 資本化進階顧問，從診斷、執行到驗證的全程顧問夥伴。">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <style>
 :root {
@@ -110,13 +169,21 @@ body {
 
 ::selection { background: var(--gold); color: var(--navy); }
 
-/* 全站文字不可選取：避免左鍵拖曳建立互動效果時誤選文字 */
+/* 全站文字預設不可選取：避免左鍵拖曳建立互動效果時誤選文字 */
 body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
+}
+/* 但內文段落與聯絡資訊開放選取：潛在客戶需要複製統編、公司名稱與服務內容 */
+.section p, .phil-statement, .footer-meta, .footer-brand-text,
+.section-summary, .footer a, .footer-bottom span {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 /* 表單欄位仍可正常選取與輸入 */
 input, textarea, select, [contenteditable="true"] {
@@ -1458,6 +1525,10 @@ body[data-lang="zh"] .phil-statement {
   letter-spacing: 0.32em;
   color: var(--gold);
 }
+/* IPO / M&A 卡片：套用與 LINE 彈窗相同的 Conic Beam 邊框流光 */
+.capital-card.cbeam-host { border-radius: 4px; }
+.capital-card .cbeam-border { padding: 1.5px; }
+.capital-card.cbeam-host > *:not(.cbeam-border) { position: relative; z-index: 2; }
 @media (max-width: 900px) {
   .capital-grid { grid-template-columns: 1fr; gap: 24px; }
   .capital-card { padding: 36px 28px 32px; }
@@ -2172,102 +2243,207 @@ body[data-lang="en"] .pgl-en {
   .process-group-label::after { width: 24px; }
 }
 
-/* ========== Convergence Map (Core Edge) ========== */
-.conv {
-  margin-top: 48px;
+/* ========== STATON Formula（3+1 經營管理公式） ========== */
+.formula { margin-top: 48px; }
+
+/* 公式主句 */
+.formula-equation {
+  text-align: center;
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(15px, 2vw, 21px);
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 0.06em;
+  margin-bottom: 40px;
+}
+.formula-equation span { border-bottom: 1px solid rgba(244, 183, 2, 0.35); padding-bottom: 14px; }
+
+.formula-main {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: 1fr 300px;
   gap: 32px;
   align-items: center;
 }
-.conv-stage {
-  position: relative;
-  aspect-ratio: 600 / 360;
-  width: 100%;
+.formula-stage { position: relative; width: 100%; aspect-ratio: 900 / 500; }
+.formula-svg { width: 100%; height: 100%; overflow: visible; }
+.formula-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 3;
 }
-.conv-svg { width: 100%; height: 100%; overflow: visible; }
-.conv-link {
-  stroke: rgba(244, 183, 2, 0.28);
-  stroke-width: 1.5;
-  transition: stroke 0.4s ease, stroke-width 0.4s ease;
-}
-.conv-link.is-lit { stroke: var(--gold); stroke-width: 2.5; }
-.conv-core-ring {
-  fill: none;
-  stroke: rgba(244, 183, 2, 0.35);
-  stroke-width: 1;
-  animation: convPulse 3s ease-in-out infinite;
-  transform-origin: 300px 180px;
-}
-@keyframes convPulse { 0%,100% { opacity: 0.4; r: 62px; } 50% { opacity: 0.8; r: 66px; } }
-.conv-core { fill: rgba(244, 183, 2, 0.08); stroke: var(--gold); stroke-width: 1.5; }
-.conv-core-zh {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 18px; font-weight: 700; fill: var(--gold); letter-spacing: 0.08em;
-}
-.conv-core-en {
+
+/* 線框元件（程式生成）：球體經緯線 · 收斂節點 · 擴張錐 */
+.fw-outline { fill: none; stroke: rgba(244, 183, 2, 0.5); stroke-width: 1.3; }
+.fw-line { fill: none; stroke: rgba(244, 183, 2, 0.22); stroke-width: 0.9; }
+.fw-flowline { fill: none; stroke-width: 1; }
+.fpart.is-lit .fw-flowline { stroke-width: 1.3; }
+/* 大球內部機芯齒輪（強調經營系統會自己運轉） */
+.fw-gear { fill: rgba(244, 183, 2, 0.03); stroke: rgba(244, 183, 2, 0.42); stroke-width: 1.1; }
+.fw-gear-inner { fill: none; stroke: rgba(244, 183, 2, 0.26); stroke-width: 0.8; }
+.fw-gear-chaton { fill: none; stroke: rgba(244, 183, 2, 0.6); stroke-width: 0.9; }
+.fw-gear-jewel { fill: rgba(196, 30, 58, 0.9); }
+.fw-gear-spin { animation: fwGearSpin linear infinite; }
+@keyframes fwGearSpin { to { transform: rotate(360deg); } }
+.fpart.is-lit .fw-gear { stroke: rgba(244, 183, 2, 0.7); }
+/* 分離殼帽（掀開的外殼，強調剖視） */
+.fw-flowline-static { fill: none; stroke: rgba(244, 183, 2, 0.3); stroke-width: 0.9; }
+.fpart.is-lit .fw-flowline-static { stroke: rgba(244, 183, 2, 0.5); }
+@media (prefers-reduced-motion: reduce) { .fw-gear-spin { animation: none; } }
+.fw-cone { stroke: rgba(244, 183, 2, 0.12); stroke-width: 0.8; }
+.fw-medal { fill: rgba(10, 29, 74, 0.95); stroke: var(--gold); stroke-width: 1.4; }
+.fw-op {
   font-family: 'Playfair Display', serif;
-  font-size: 12px; font-weight: 600; fill: var(--gold); letter-spacing: 0.12em; opacity: 0.85;
+  font-size: 26px; font-weight: 600; fill: var(--gold);
+  pointer-events: none;
 }
-body[data-lang="en"] .conv-core-zh { display: none; }
-body[data-lang="en"] .conv-core-en { font-size: 17px; }
+.fw-cap-zh { font-family: 'Noto Serif TC', serif; font-size: 13px; font-weight: 600; fill: var(--cream); letter-spacing: 0.14em; }
+.fw-hoverable { cursor: pointer; }
+.fw-hi { transition: transform 0.22s ease; transform-box: fill-box; transform-origin: center; }
+.fw-hoverable:hover .fw-hi { transform: scale(1.14); }
+.fw-cap-en { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 11px; fill: var(--gold); opacity: 0.9; letter-spacing: 0.16em; }
+body[data-lang="en"] .fw-cap-en { font-family: 'Playfair Display', serif; font-style: normal; font-weight: 600; font-size: 12.5px; }
+body[data-lang="en"] .fw-band-en { font-family: 'Playfair Display', serif; font-style: normal; font-weight: 600; font-size: 13px; }
 
-.conv-node {
-  position: absolute;
-  display: flex; flex-direction: column; gap: 2px;
-  padding: 12px 18px;
-  background: rgba(0, 14, 47, 0.7);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  cursor: pointer;
-  font-family: inherit;
-  text-align: center;
-  backdrop-filter: blur(8px);
-  transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s ease;
-}
-.conv-node:hover { transform: translateY(-2px); border-color: rgba(244, 183, 2, 0.55); }
-.conv-node.is-active {
-  border-color: var(--gold);
-  background: rgba(244, 183, 2, 0.1);
-  box-shadow: 0 6px 24px rgba(244, 183, 2, 0.12);
-}
-.conv-node-tl { top: 6%; left: 0; }
-.conv-node-bl { bottom: 6%; left: 0; }
-.conv-node-tr { top: 6%; right: 0; }
-.conv-node-br { bottom: 6%; right: 0; }
-.cn-zh { font-size: 15px; font-weight: 600; letter-spacing: 0.08em; color: var(--cream); }
-.cn-en {
-  font-family: 'Cormorant Garamond', serif; font-style: italic;
-  font-size: 12px; letter-spacing: 0.1em; color: var(--gold);
-}
-.conv-node.is-active .cn-zh { color: var(--gold); }
-body[data-lang="en"] .cn-en { font-family: 'Playfair Display', serif; font-style: normal; font-size: 14px; font-weight: 600; color: var(--cream); }
-.conv-node.is-active .cn-en { color: var(--gold); }
+/* 部位點亮 */
+.fpart { transition: opacity 0.4s ease; }
+.fpart.is-lit .fw-outline { stroke: var(--gold); filter: drop-shadow(0 0 8px rgba(244, 183, 2, 0.35)); }
+.fpart.is-lit .fw-line { stroke: rgba(244, 183, 2, 0.32); }
+.fpart.is-lit .fw-cone { stroke: rgba(244, 183, 2, 0.3); }
+.fpart.is-lit .fw-medal { filter: drop-shadow(0 0 10px rgba(244, 183, 2, 0.55)); }
 
-.conv-detail {
+/* 3+1 大字標（視覺左下） */
+.formula-badge { position: absolute; left: 1%; bottom: 3%; z-index: 2; pointer-events: none; }
+.fb-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px; font-weight: 600; color: var(--gold); line-height: 1;
+}
+.fb-zh { font-size: 14px; font-weight: 600; color: var(--cream); letter-spacing: 0.18em; margin-top: 8px; }
+.fb-en { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 12px; color: var(--cream-mute); letter-spacing: 0.1em; margin-top: 4px; }
+body[data-lang="en"] .fb-en { font-family: 'Playfair Display', serif; font-style: normal; font-size: 15px; color: var(--cream-text); line-height: 1.5; }
+
+/* 球體流金邊：移植 LINE 彈窗 cbeam 的漸層彗尾，繞球軌道旋轉 */
+.cbeam-orbit { animation: cbeamOrbit 4s linear infinite; }
+.cbeam-orbit.slow { animation-duration: 6.5s; animation-direction: reverse; }
+@keyframes cbeamOrbit { to { transform: rotate(360deg); } }
+.cb-haze {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  opacity: 0.22;
+  filter: blur(3px);
+}
+.cb-flow {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 5px rgba(244, 183, 2, 0.45));
+}
+@media (prefers-reduced-motion: reduce) {
+  .cbeam-orbit { animation: none; opacity: 0; }
+}
+
+/* 線上箭頭與沿線標籤 */
+.fw-arrow { fill: var(--gold); opacity: 0.75; }
+.fpart.is-lit .fw-arrow { opacity: 1; filter: drop-shadow(0 0 3px rgba(244, 183, 2, 0.6)); }
+.fw-band-fill { fill: #000e2f; stroke: none; }
+.fw-band-fill-strong { fill: #000e2f; stroke: none; }
+.fw-band-edge { fill: none; stroke: rgba(244, 183, 2, 0.55); stroke-width: 1.2; }
+.fw-band-inner { fill: none; stroke: rgba(244, 183, 2, 0.22); stroke-width: 0.8; }
+.fpart.is-lit .fw-band-edge { stroke: var(--gold); }
+.fw-band-zh { font-family: 'Noto Serif TC', serif; font-size: 14px; font-weight: 600; fill: var(--cream); letter-spacing: 0.3em; }
+.fw-band-en { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 10.5px; fill: var(--gold); opacity: 0.9; letter-spacing: 0.2em; }
+
+/* 結果面板（÷ 檢核） */
+.formula-result {
   border: 1px solid var(--line);
   border-left: 3px solid var(--gold);
   background: rgba(0, 14, 47, 0.5);
-  border-radius: 0;
-  padding: 32px 34px;
-  min-height: 180px;
+  padding: 26px 26px;
   backdrop-filter: blur(14px);
+  cursor: pointer;
+  transition: border-color 0.4s ease, background 0.4s ease;
+  font-family: inherit;
+  text-align: left;
 }
-.conv-detail-pane { display: none; }
-.conv-detail-pane.is-active { display: block; animation: convFade 0.5s ease; }
-@keyframes convFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-.cd-tag {
-  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gold); font-weight: 600; margin-bottom: 16px;
+.formula-result:hover,
+.formula-result:focus-visible,
+.formula-result.is-active {
+  border-color: var(--gold);
+  background: rgba(244, 183, 2, 0.05);
+  outline: none;
 }
-.cd-text { font-size: 15px; line-height: 2; color: var(--cream-text); margin: 0; }
+.fr-cap {
+  display: flex; flex-direction: column; gap: 2px;
+  padding-bottom: 12px; margin-bottom: 16px;
+  border-bottom: 1px solid rgba(244, 183, 2, 0.4);
+  font-size: 15px; font-weight: 700; color: var(--cream); letter-spacing: 0.14em;
+}
+.fr-cap-en { font-size: 10px; letter-spacing: 0.26em; color: var(--gold); opacity: 0.8; font-weight: 600; }
+.fr-head { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.fr-op {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px; color: var(--gold); line-height: 1;
+}
+.fr-title { display: flex; flex-direction: column; gap: 2px; }
+.fr-zh { font-size: 16px; font-weight: 600; color: var(--cream); letter-spacing: 0.1em; }
+.fr-en { font-size: 11px; letter-spacing: 0.24em; color: var(--gold); opacity: 0.85; }
+.fr-headline {
+  font-size: 20px; font-weight: 700; color: var(--gold);
+  line-height: 1.65; letter-spacing: 0.06em;
+  padding: 20px 0; border-bottom: 1px solid var(--line);
+}
+.fr-checks { list-style: none; margin: 18px 0 0; padding: 0; }
+.fr-checks li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 12.5px; color: var(--cream-text); line-height: 1.95;
+}
+.fr-checks li::before {
+  content: "✓";
+  position: absolute; left: 0;
+  color: var(--gold); font-weight: 700;
+}
+.fr-checks strong { color: var(--gold); font-weight: 700; }
 
-@media (max-width: 860px) {
-  .conv { grid-template-columns: 1fr; gap: 24px; }
-  .conv-stage { max-width: 460px; margin: 0 auto; }
-  .cn-zh { font-size: 13px; }
-  .conv-node { padding: 9px 13px; }
-  .conv-detail { padding: 24px; min-height: 0; }
+/* 步驟箭牌列 */
+.formula-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 40px;
+}
+.fstep {
+  position: relative;
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 18px 22px;
+  background: rgba(12, 26, 64, 0.75);
+  border: 1px solid var(--line);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+.fstep:hover, .fstep:focus-visible, .fstep.is-active {
+  background: rgba(244, 183, 2, 0.07);
+  border-color: rgba(244, 183, 2, 0.6);
+  outline: none;
+}
+.fs-step { font-size: 11px; letter-spacing: 0.22em; color: var(--gold); opacity: 0.85; }
+.fs-name { display: flex; align-items: baseline; gap: 10px; }
+.fs-op { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--gold); line-height: 1; }
+.fs-zh { font-size: 16px; font-weight: 600; color: var(--cream); letter-spacing: 0.06em; }
+.fstep.is-active .fs-zh, .fstep:hover .fs-zh { color: var(--gold); }
+.fs-en { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 11.5px; color: var(--gold); opacity: 0.85; letter-spacing: 0.14em; }
+body[data-lang="en"] .fs-en { font-family: 'Playfair Display', serif; font-style: normal; font-weight: 600; font-size: 13px; color: var(--cream); }
+body[data-lang="en"] .fstep.is-active .fs-en, body[data-lang="en"] .fstep:hover .fs-en { color: var(--gold); }
+.fs-desc { font-size: 13px; color: var(--cream-text); line-height: 1.95; padding-right: 14px; }
+
+@media (max-width: 960px) {
+  .formula-main { grid-template-columns: 1fr; }
+  .formula-steps { grid-template-columns: 1fr; }
+  .fstep { clip-path: none; }
 }
 
 /* ========== Differentiators ========== */
@@ -3536,7 +3712,7 @@ body[data-lang="zh"] .closing-headline .accent {
 
   <div class="hero-mark">
     <div class="hero-eyebrow">— MANAGEMENT CONSULTING FIRM —</div>
-    <div class="hero-en">STATON</div>
+    <h1 class="hero-en">STATON</h1>
     <div class="hero-divider"></div>
     <div class="hero-zh lang-zh-only">仕坦登企業管理顧問</div>
     <div class="hero-tagline-en">From Insight to Execution.</div>
@@ -3717,7 +3893,8 @@ body[data-lang="zh"] .closing-headline .accent {
     <p class="section-summary" data-en="Once a business clears the threshold of stable operations, the next horizon is the capital markets and strategic M&amp;A. STATON assembles cross-disciplinary teams with CPAs, securities firms and lawyers, helping you build a complete IPO or M&amp;A roadmap, integrate resources, control costs, and translate growth into shareholder value." data-zh="當企業跨越穩定經營門檻，下一個關卡是「資本市場」與「策略性併購」。STATON 與會計師、券商、律師組成跨專業協作團隊，協助企業在 IPO 或 M&amp;A 旅程中，建立完整 Roadmap、整合資源、控管成本，把成長翻譯為股東價值。">當企業跨越穩定經營門檻，下一個關卡是「資本市場」與「策略性併購」。STATON 與會計師、券商、律師組成跨專業協作團隊，協助企業在 IPO 或 M&amp;A 旅程中，建立完整 Roadmap、整合資源、控管成本，把成長翻譯為股東價值。</p>
 
     <div class="capital-grid">
-      <div class="capital-card glass-card">
+      <div class="capital-card glass-card cbeam-host">
+        <span class="cbeam-border" aria-hidden="true"></span>
         <div class="capital-tag">ADVANCED · ONE</div>
         <div class="capital-title-row">
           <div class="capital-mark">IPO</div>
@@ -3735,7 +3912,8 @@ body[data-lang="zh"] .closing-headline .accent {
         </ul>
       </div>
 
-      <div class="capital-card glass-card">
+      <div class="capital-card glass-card cbeam-host">
+        <span class="cbeam-border" aria-hidden="true"></span>
         <div class="capital-tag">ADVANCED · TWO</div>
         <div class="capital-title-row">
           <div class="capital-mark">M&amp;A</div>
@@ -4052,7 +4230,161 @@ body[data-lang="zh"] .closing-headline .accent {
         <div class="method-arrow a2">→</div>
       </div>
     </div>
-  </div>
+  
+    <div class="process-group-label process-group-label-2">
+      <span class="pgl-zh lang-zh-only">核 心 競 爭 優 勢</span>
+      <span class="pgl-en" data-en="Our Core Competitive Edge" data-zh="Our Core Competitive Edge">Our Core Competitive Edge</span>
+    </div>
+    <p class="section-summary process-group-sub" data-en="Most consultancies offer advice; STATON offers a formula. We distill management into a 3+1 equation — add systems, subtract waste, multiply incentives, then divide everything by verification. Each term can be optimized independently; the whole is verifiable." data-zh="多數管顧給的是建議，仕坦登給的是一條公式。我們把經營管理收斂成 3+1 的算式——加法制度、減法流程、乘法誘因，最後一切除以檢核。每一項可獨立優化，整體可被驗證。">多數管顧給的是建議，仕坦登給的是一條公式。我們把經營管理收斂成 3+1 的算式——加法制度、減法流程、乘法誘因，最後一切除以檢核。每一項可獨立優化，整體可被驗證。</p>
+
+    <div class="formula" id="convMap">
+      <!-- 公式主句 -->
+      <div class="formula-equation">
+        <span data-en="( System − Waste ) × Incentive ÷ Verification ＝ A business that runs itself" data-zh="（ 制 度 － 冗 餘 ）× 誘 因 ÷ 檢 核 ＝ 會 自 己 運 轉 的 經 營 系 統">（ 制 度 － 冗 餘 ）× 誘 因 ÷ 檢 核 ＝ 會 自 己 運 轉 的 經 營 系 統</span>
+      </div>
+
+      <div class="formula-main">
+        <!-- 線框視覺：小球（制度核）→ 收斂節點 → 擴張錐 → 大球（經營系統） -->
+        <div class="formula-stage">
+          <svg class="formula-svg" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet" role="img" aria-label="仕坦登 3+1 經營管理公式：制度減去冗餘、乘以誘因、除以檢核，成為會自己運轉的經營系統">
+            <g class="fpart" data-k="sys" id="fSmall">
+<defs>
+<linearGradient id="flowSmall" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="userSpaceOnUse" x1="68" y1="228" x2="276" y2="436">
+  <stop offset="0" stop-color="#f4b702" stop-opacity="0.12"/>
+  <stop offset="0.42" stop-color="#f4b702" stop-opacity="0.22"/>
+  <stop offset="0.5" stop-color="#fde9a8" stop-opacity="0.95"/>
+  <stop offset="0.58" stop-color="#f4b702" stop-opacity="0.22"/>
+  <stop offset="1" stop-color="#f4b702" stop-opacity="0.12"/>
+  <animateTransform attributeName="gradientTransform" type="translate" from="-260 -260" to="260 260" dur="3.6s" repeatCount="indefinite"/>
+</linearGradient>
+</defs>
+<circle cx="172" cy="332" r="104" fill="rgba(13,33,82,0.92)" stroke="none"/>
+<path d="M 246.9 273.5 L 243.4 269.3 L 239.8 265.3 L 235.9 261.4 L 231.9 257.7 L 227.7 254.3 L 223.4 251.0 L 218.9 248.0 L 214.4 245.2 L 209.6 242.7 L 204.8 240.4 L 199.9 238.3 L 194.9 236.5 L 189.9 235.0 L 184.8 233.7 L 179.7 232.7 L 174.5 232.0 L 169.4 231.5 L 164.2 231.3 L 159.1 231.4 L 154.0 231.8 L 148.9 232.4 L 144.0 233.3 L 139.1 234.5 L 134.2 236.0 L 129.5 237.7 L 124.9 239.7 L 120.5 241.9 L 116.1 244.4 L 112.0 247.1 L 108.0 250.0" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 236.0 414.0 L 239.9 410.8 L 243.5 407.4 L 247.0 403.8 L 250.2 400.0 L 253.2 396.0 L 256.0 391.9 L 258.6 387.5 L 260.9 383.1 L 263.0 378.5 L 264.9 373.7 L 266.5 368.9 L 267.8 363.9 L 268.9 358.9 L 269.7 353.8 L 270.2 348.6 L 270.5 343.4 L 270.5 338.1 L 270.2 332.8 L 269.7 327.6 L 268.9 322.3 L 267.8 317.1 L 266.4 311.9 L 264.8 306.8 L 263.0 301.7 L 260.9 296.7 L 258.5 291.8 L 256.0 287.0 L 253.2 282.4 L 250.1 277.9 L 246.9 273.5" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 246.9 273.5 L 244.3 269.1 L 241.6 264.9 L 238.7 260.8 L 235.6 257.0 L 232.3 253.3 L 228.9 249.9 L 225.3 246.7 L 221.5 243.7 L 217.6 241.0 L 213.6 238.5 L 209.5 236.3 L 205.3 234.3 L 201.0 232.6 L 196.6 231.2 L 192.1 230.1 L 187.6 229.2 L 183.1 228.6" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 156.4 434.8 L 160.9 435.4 L 165.5 435.7 L 170.1 435.7 L 174.7 435.4 L 179.4 434.9 L 183.9 434.1 L 188.5 433.0 L 193.0 431.6 L 197.4 429.9 L 201.8 428.0 L 206.1 425.8 L 210.3 423.3 L 214.4 420.6 L 218.4 417.7 L 222.3 414.5 L 226.0 411.1 L 229.5 407.5 L 233.0 403.6 L 236.2 399.6 L 239.3 395.4 L 242.1 391.0 L 244.8 386.5 L 247.3 381.8 L 249.6 377.0 L 251.7 372.0 L 253.5 366.9 L 255.2 361.8 L 256.6 356.5 L 257.7 351.2 L 258.7 345.9 L 259.4 340.5 L 259.8 335.0 L 260.1 329.6 L 260.0 324.2 L 259.8 318.8 L 259.3 313.4 L 258.5 308.1 L 257.5 302.8 L 256.3 297.7 L 254.9 292.6 L 253.2 287.6 L 251.3 282.8 L 249.2 278.1 L 246.9 273.5" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 246.9 273.5 L 245.6 269.6 L 244.2 265.8 L 242.6 262.3 L 240.7 258.9 L 238.7 255.7 L 236.5 252.8 L 234.1 250.0 L 231.6 247.5 L 228.9 245.2 L 226.0 243.2 L 223.0 241.4" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 121.0 422.6 L 124.2 424.2 L 127.5 425.5 L 130.9 426.6 L 134.4 427.4 L 138.0 427.9 L 141.8 428.2 L 145.6 428.2 L 149.4 427.9 L 153.4 427.4 L 157.3 426.6 L 161.4 425.6 L 165.4 424.3 L 169.5 422.7 L 173.6 420.9 L 177.7 418.9 L 181.7 416.6 L 185.8 414.1 L 189.8 411.3 L 193.7 408.4 L 197.6 405.2 L 201.4 401.8 L 205.1 398.3 L 208.8 394.5 L 212.3 390.6 L 215.8 386.6 L 219.1 382.3 L 222.3 378.0 L 225.3 373.5 L 228.2 368.9 L 231.0 364.2 L 233.6 359.4 L 236.0 354.5 L 238.2 349.6 L 240.3 344.6 L 242.2 339.6 L 243.8 334.6 L 245.3 329.6 L 246.6 324.5 L 247.7 319.5 L 248.6 314.6 L 249.2 309.6 L 249.7 304.8 L 249.9 300.0 L 249.9 295.3 L 249.7 290.7 L 249.3 286.2 L 248.7 281.8 L 247.9 277.6 L 246.9 273.5" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 246.9 273.5 L 247.1 270.7 L 247.1 268.0 L 246.9 265.6 L 246.5 263.3 L 245.9 261.2 L 245.1 259.2 L 244.2 257.5 L 243.0 256.0" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 102.4 409.3 L 104.0 410.4 L 105.8 411.2 L 107.7 411.9 L 109.9 412.3 L 112.2 412.6 L 114.6 412.6 L 117.2 412.3 L 120.0 411.9 L 122.9 411.2 L 125.9 410.3 L 129.1 409.2 L 132.4 407.9 L 135.8 406.4 L 139.3 404.7 L 142.9 402.8 L 146.5 400.7 L 150.3 398.4 L 154.1 395.9 L 157.9 393.2 L 161.8 390.4 L 165.7 387.4 L 169.6 384.3 L 173.6 381.0 L 177.5 377.6 L 181.4 374.1 L 185.3 370.4 L 189.2 366.6 L 193.0 362.8 L 196.7 358.8 L 200.4 354.8 L 204.0 350.8 L 207.5 346.6 L 210.9 342.5 L 214.2 338.3 L 217.4 334.0 L 220.5 329.8 L 223.4 325.6 L 226.2 321.4 L 228.9 317.3 L 231.4 313.1 L 233.7 309.1 L 235.9 305.0 L 237.8 301.1 L 239.6 297.3 L 241.3 293.5 L 242.7 289.8 L 243.9 286.3 L 245.0 282.9 L 245.8 279.6 L 246.4 276.5 L 246.9 273.5" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 246.9 273.5 L 248.5 272.2 L 249.9 271.1 L 251.2 270.2 L 252.2 269.4 L 252.9 268.8 L 253.5 268.3 L 253.8 268.1 L 254.0 268.0" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 90.0 396.0 L 90.2 395.9 L 90.5 395.7 L 91.1 395.2 L 91.8 394.6 L 92.8 393.8 L 94.1 392.9 L 95.5 391.8 L 97.1 390.5 L 99.0 389.1 L 101.0 387.5 L 103.3 385.7 L 105.7 383.8 L 108.3 381.8 L 111.1 379.6 L 114.1 377.3 L 117.2 374.8 L 120.4 372.3 L 123.8 369.6 L 127.4 366.9 L 131.0 364.0 L 134.8 361.1 L 138.7 358.0 L 142.6 354.9 L 146.7 351.8 L 150.8 348.6 L 155.0 345.3 L 159.2 342.0 L 163.4 338.7 L 167.7 335.4 L 172.0 332.0 L 176.3 328.6 L 180.6 325.3 L 184.8 322.0 L 189.0 318.7 L 193.2 315.4 L 197.3 312.2 L 201.4 309.1 L 205.3 306.0 L 209.2 302.9 L 213.0 300.0 L 216.6 297.1 L 220.2 294.4 L 223.6 291.7 L 226.8 289.2 L 229.9 286.7 L 232.9 284.4 L 235.7 282.2 L 238.3 280.2 L 240.7 278.3 L 243.0 276.5 L 245.0 274.9 L 246.9 273.5" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 246.9 273.5 L 249.7 274.0 L 252.2 274.6 L 254.6 275.4 L 256.7 276.3 L 258.6 277.4 L 260.3 278.6 L 261.7 280.0 L 262.9 281.5" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 80.2 380.8 L 79.5 379.0 L 79.1 377.1 L 78.9 375.0 L 79.0 372.9 L 79.4 370.6 L 80.0 368.2 L 80.8 365.7 L 81.9 363.1 L 83.3 360.5 L 84.8 357.7 L 86.7 354.9 L 88.7 352.0 L 91.0 349.1 L 93.5 346.1 L 96.3 343.1 L 99.2 340.1 L 102.3 337.0 L 105.7 333.9 L 109.2 330.9 L 112.9 327.8 L 116.7 324.7 L 120.7 321.6 L 124.8 318.6 L 129.1 315.6 L 133.5 312.7 L 138.0 309.8 L 142.5 307.0 L 147.2 304.2 L 151.9 301.5 L 156.7 298.9 L 161.5 296.4 L 166.4 294.0 L 171.3 291.7 L 176.1 289.5 L 181.0 287.4 L 185.8 285.5 L 190.6 283.6 L 195.4 281.9 L 200.1 280.4 L 204.7 279.0 L 209.2 277.7 L 213.6 276.6 L 217.9 275.6 L 222.1 274.8 L 226.1 274.1 L 230.0 273.6 L 233.7 273.3 L 237.3 273.1 L 240.7 273.1 L 243.9 273.2 L 246.9 273.5" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 246.9 273.5 L 250.4 275.7 L 253.7 278.0 L 256.7 280.4 L 259.5 283.0 L 262.1 285.7 L 264.5 288.6 L 266.6 291.6 L 268.4 294.6 L 270.0 297.8 L 271.3 301.1 L 272.3 304.5" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 71.7 359.5 L 71.0 356.1 L 70.5 352.6 L 70.3 349.0 L 70.4 345.4 L 70.7 341.8 L 71.4 338.1 L 72.3 334.4 L 73.5 330.7 L 74.9 327.0 L 76.7 323.3 L 78.7 319.7 L 80.9 316.1 L 83.4 312.5 L 86.1 309.0 L 89.1 305.5 L 92.3 302.1 L 95.7 298.8 L 99.3 295.6 L 103.2 292.5 L 107.2 289.5 L 111.4 286.6 L 115.7 283.8 L 120.2 281.2 L 124.9 278.7 L 129.7 276.3 L 134.6 274.1 L 139.6 272.1 L 144.6 270.2 L 149.8 268.5 L 155.0 267.0 L 160.3 265.6 L 165.6 264.5 L 170.9 263.5 L 176.3 262.7 L 181.6 262.1 L 186.9 261.7 L 192.1 261.4 L 197.3 261.4 L 202.4 261.6 L 207.5 261.9 L 212.4 262.5 L 217.2 263.2 L 221.9 264.2 L 226.5 265.3 L 230.9 266.6 L 235.2 268.0 L 239.3 269.7 L 243.2 271.5 L 246.9 273.5" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 246.9 273.5 L 250.5 277.0 L 254.0 280.7 L 257.2 284.5 L 260.2 288.5 L 262.9 292.5 L 265.4 296.7 L 267.7 301.0 L 269.6 305.3 L 271.4 309.7 L 272.8 314.2 L 274.0 318.8 L 274.8 323.3 L 275.4 327.9 L 275.8 332.5 L 275.8 337.1 L 275.5 341.7 L 275.0 346.3" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 68.5 322.3 L 69.0 317.7 L 69.8 313.2 L 70.9 308.7 L 72.3 304.3 L 73.9 300.0 L 75.9 295.7 L 78.0 291.6 L 80.5 287.5 L 83.2 283.6 L 86.1 279.8 L 89.3 276.2 L 92.7 272.7 L 96.3 269.4 L 100.1 266.3 L 104.1 263.3 L 108.3 260.5 L 112.7 257.9 L 117.2 255.5 L 121.9 253.4 L 126.7 251.4 L 131.7 249.7 L 136.8 248.1 L 141.9 246.9 L 147.2 245.8 L 152.5 245.0 L 157.8 244.4 L 163.2 244.1 L 168.7 244.0 L 174.1 244.1 L 179.5 244.5 L 184.9 245.2 L 190.3 246.0 L 195.6 247.1 L 200.9 248.5 L 206.1 250.0 L 211.1 251.8 L 216.1 253.8 L 221.0 256.1 L 225.7 258.5 L 230.3 261.1 L 234.7 263.9 L 238.9 267.0 L 243.0 270.1 L 246.9 273.5" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 163.1 435.6 L 160.8 435.3 L 158.5 434.8 L 156.0 434.2 L 153.5 433.3 L 150.9 432.3 L 148.2 431.1 L 145.4 429.7 L 142.6 428.2 L 139.8 426.5 L 136.9 424.6 L 134.0 422.6 L 131.0 420.4 L 128.1 418.1 L 125.1 415.7 L 122.1 413.1 L 119.2 410.4 L 116.2 407.6 L 113.3 404.6 L 110.4 401.6 L 107.6 398.5 L 104.8 395.3 L 102.1 392.0 L 99.4 388.7 L 96.8 385.3 L 94.3 381.9 L 91.9 378.4 L 89.6 374.9 L 87.3 371.4 L 85.2 367.8 L 83.2 364.3 L 81.3 360.8 L 79.5 357.3 L 77.8 353.8 L 76.3 350.4 L 74.9 347.0 L 73.6 343.7 L 72.5 340.4 L 71.6 337.2 L 70.7 334.2 L 70.1 331.2 L 69.6 328.3 L 69.2 325.5 L 69.0 322.8 L 68.9 320.3 L 69.1 317.8 L 69.3 315.6" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 203.0 431.3 L 200.8 431.8 L 198.5 432.1 L 196.0 432.2 L 193.4 432.0 L 190.6 431.7 L 187.8 431.1 L 184.8 430.3 L 181.7 429.3 L 178.6 428.0 L 175.3 426.6 L 172.0 424.9 L 168.6 423.1 L 165.2 421.0 L 161.7 418.8 L 158.1 416.3 L 154.6 413.7 L 151.0 410.9 L 147.4 408.0 L 143.9 404.8 L 140.3 401.6 L 136.8 398.2 L 133.2 394.6 L 129.8 391.0 L 126.3 387.2 L 123.0 383.4 L 119.7 379.4 L 116.5 375.4 L 113.3 371.3 L 110.3 367.1 L 107.4 362.9 L 104.5 358.7 L 101.8 354.5 L 99.3 350.2 L 96.8 345.9 L 94.5 341.7 L 92.4 337.5 L 90.4 333.3 L 88.5 329.1 L 86.8 325.0 L 85.3 321.0 L 84.0 317.1 L 82.8 313.3 L 81.8 309.5 L 81.0 305.9 L 80.4 302.4 L 80.0 299.0 L 79.7 295.8 L 79.7 292.7 L 79.8 289.8 L 80.1 287.1 L 80.6 284.5 L 81.3 282.1 L 82.1 279.9 L 83.2 277.9" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 233.0 416.2 L 231.2 417.5 L 229.2 418.5 L 227.0 419.3 L 224.7 419.8 L 222.2 420.2 L 219.6 420.3 L 216.8 420.1 L 213.9 419.7 L 210.9 419.1 L 207.8 418.3 L 204.5 417.2 L 201.2 415.9 L 197.8 414.4 L 194.3 412.6 L 190.7 410.6 L 187.1 408.5 L 183.4 406.1 L 179.7 403.5 L 175.9 400.8 L 172.1 397.8 L 168.4 394.7 L 164.6 391.4 L 160.8 388.0 L 157.1 384.4 L 153.4 380.7 L 149.7 376.8 L 146.1 372.9 L 142.6 368.8 L 139.1 364.6 L 135.7 360.4 L 132.4 356.0 L 129.2 351.7 L 126.1 347.2 L 123.1 342.8 L 120.3 338.3 L 117.6 333.8 L 115.0 329.3 L 112.6 324.8 L 110.3 320.3 L 108.2 315.9 L 106.2 311.6 L 104.5 307.3 L 102.9 303.0 L 101.4 298.9 L 100.2 294.8 L 99.2 290.9 L 98.3 287.1 L 97.7 283.4 L 97.2 279.8 L 96.9 276.4 L 96.9 273.2 L 97.0 270.1 L 97.3 267.2 L 97.9 264.5 L 98.6 262.0 L 99.5 259.7 L 100.6 257.5 L 101.9 255.6 L 103.4 253.9 L 105.0 252.5" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 156.2 231.6 L 157.8 230.5 L 159.5 229.6 L 161.4 229.0 L 163.4 228.5 L 165.5 228.2" class="fw-flowline" stroke="url(#flowSmall)"/>
+<path d="M 271.1 363.4 L 270.3 365.4 L 269.4 367.2 L 268.3 368.9 L 267.0 370.3 L 265.6 371.6 L 264.1 372.7 L 262.3 373.5 L 260.5 374.2 L 258.5 374.7 L 256.4 375.0 L 254.1 375.0 L 251.8 374.9 L 249.3 374.6 L 246.7 374.1 L 244.1 373.3 L 241.3 372.4 L 238.4 371.3 L 235.5 370.0 L 232.5 368.5 L 229.5 366.8 L 226.4 365.0 L 223.2 362.9 L 220.0 360.7 L 216.8 358.4 L 213.6 355.8 L 210.4 353.2 L 207.2 350.4 L 203.9 347.4 L 200.8 344.4 L 197.6 341.2 L 194.5 337.9 L 191.4 334.5 L 188.3 331.0 L 185.4 327.5 L 182.5 323.8 L 179.6 320.1 L 176.9 316.4 L 174.3 312.6 L 171.7 308.8 L 169.3 305.0 L 167.0 301.1 L 164.8 297.3 L 162.7 293.4 L 160.7 289.6 L 158.9 285.8 L 157.3 282.1 L 155.8 278.4 L 154.4 274.8 L 153.2 271.3 L 152.1 267.8 L 151.2 264.4 L 150.5 261.2 L 149.9 258.0 L 149.6 255.0 L 149.3 252.1 L 149.3 249.3 L 149.4 246.7 L 149.7 244.2 L 150.1 241.9 L 150.7 239.7 L 151.5 237.7 L 152.5 235.9 L 153.6 234.3 L 154.8 232.8 L 156.2 231.6" class="fw-flowline" stroke="url(#flowSmall)"/>
+<circle cx="172" cy="332" r="104" class="fw-outline"/>
+<path d="M 122.5 240.9 L 124.8 239.4 L 127.3 238.2 L 130.1 237.4 L 133.1 237.0 L 136.4 236.9 L 139.8 237.2 L 143.5 237.8 L 147.3 238.8 L 151.3 240.2 L 155.5 241.9 L 159.7 244.0 L 164.1 246.4 L 168.6 249.1 L 173.1 252.1 L 177.7 255.4 L 182.4 259.0 L 187.0 262.8 L 191.7 267.0 L 196.3 271.3 L 200.8 275.9 L 205.3 280.6 L 209.8 285.6 L 214.1 290.6 L 218.3 295.9 L 222.3 301.2 L 226.2 306.6 L 229.9 312.1 L 233.4 317.6 L 236.8 323.1 L 239.9 328.7 L 242.7 334.2 L 245.4 339.6 L 247.7 345.0 L 249.8 350.2 L 251.7 355.4 L 253.2 360.4 L 254.4 365.2 L 255.4 369.8 L 256.1 374.3 L 256.4 378.5 L 256.5 382.4 L 256.2 386.1 L 255.7 389.6 L 254.8 392.7 L 253.6 395.5 L 252.2 398.1 L 250.5 400.2 L 248.5 402.1 L 246.2 403.6 L 243.6 404.7 L 240.9 405.5 L 237.8 406.0 L 234.6 406.0 L 231.1 405.8 L 227.5 405.1 L 223.6 404.1 L 219.6 402.7 L 215.5 401.0 L 211.2 399.0 L 206.8 396.6 L 202.4 393.9 L 197.8 390.9 L 193.2 387.6 L 188.6 384.0 L 183.9 380.1 L 179.3 376.0 L 174.7 371.6 L 170.1 367.1 L 165.6 362.3 L 161.2 357.4 L 156.9 352.3 L 152.7 347.1 L 148.6 341.8 L 144.7 336.3 L 141.0 330.9 L 137.5 325.4 L 134.2 319.8 L 131.1 314.3 L 128.2 308.8 L 125.6 303.3 L 123.2 298.0 L 121.1 292.7 L 119.3 287.6 L 117.8 282.6 L 116.5 277.8 L 115.5 273.1 L 114.9 268.7 L 114.5 264.5 L 114.5 260.5 L 114.7 256.8 L 115.3 253.4 L 116.2 250.2 L 117.3 247.4 L 118.8 244.9 L 120.5 242.7 L 122.5 240.9 Z" class="fw-band-fill"/>
+<path d="M 112.6 246.7 L 114.9 245.2 L 117.5 244.0 L 120.3 243.2 L 123.4 242.7 L 126.7 242.7 L 130.2 243.0 L 133.9 243.6 L 137.8 244.6 L 141.8 246.0 L 146.0 247.8 L 150.4 249.8 L 154.8 252.3 L 159.4 255.0 L 164.0 258.1 L 168.6 261.4 L 173.4 265.1 L 178.1 269.0 L 182.8 273.2 L 187.5 277.6 L 192.1 282.2 L 196.7 287.0 L 201.1 292.0 L 205.5 297.2 L 209.8 302.5 L 213.9 307.9 L 217.8 313.4 L 221.6 319.0 L 225.2 324.6 L 228.5 330.2 L 231.7 335.8 L 234.6 341.4 L 237.3 346.9 L 239.7 352.3 L 241.8 357.7 L 243.6 362.9 L 245.2 368.0 L 246.5 372.9 L 247.5 377.6 L 248.1 382.1 L 248.5 386.3 L 248.5 390.4 L 248.3 394.1 L 247.7 397.6 L 246.8 400.8 L 245.7 403.7 L 244.2 406.2 L 242.4 408.4 L 240.4 410.3 L 238.1 411.8 L 235.5 413.0 L 232.7 413.8 L 229.6 414.2 L 226.3 414.3 L 222.8 414.0 L 219.1 413.4 L 215.2 412.3 L 211.1 411.0 L 206.9 409.2 L 202.6 407.1 L 198.2 404.7 L 193.6 402.0 L 189.0 398.9 L 184.3 395.6 L 179.6 391.9 L 174.9 388.0 L 170.2 383.8 L 165.5 379.4 L 160.9 374.8 L 156.3 369.9 L 151.8 364.9 L 147.5 359.8 L 143.2 354.5 L 139.1 349.1 L 135.2 343.6 L 131.4 338.0 L 127.8 332.4 L 124.4 326.8 L 121.3 321.2 L 118.4 315.6 L 115.7 310.1 L 113.3 304.7 L 111.2 299.3 L 109.3 294.1 L 107.8 289.0 L 106.5 284.1 L 105.5 279.4 L 104.9 274.9 L 104.5 270.6 L 104.5 266.6 L 104.7 262.9 L 105.3 259.4 L 106.1 256.2 L 107.3 253.3 L 108.8 250.8 L 110.5 248.6 L 112.6 246.7 Z" class="fw-band-edge"/>
+</g>
+            <g class="fpart" data-k="ops" id="fNode"></g>
+            <g class="fpart" data-k="inc" id="fCone"></g>
+            <g class="fpart" data-k="chk" id="fBig">
+<defs>
+<linearGradient id="flowBig" gradientUnits="userSpaceOnUse" x1="470" y1="44" x2="826" y2="400">
+  <stop offset="0" stop-color="#f4b702" stop-opacity="0.1"/>
+  <stop offset="0.4" stop-color="#f4b702" stop-opacity="0.2"/>
+  <stop offset="0.5" stop-color="#fde9a8" stop-opacity="0.9"/>
+  <stop offset="0.6" stop-color="#f4b702" stop-opacity="0.2"/>
+  <stop offset="1" stop-color="#f4b702" stop-opacity="0.1"/>
+  <animateTransform attributeName="gradientTransform" type="translate" from="-440 -440" to="440 440" dur="5s" repeatCount="indefinite"/>
+</linearGradient>
+</defs>
+<circle cx="648" cy="222" r="178" fill="rgba(13,33,82,0.92)" stroke="none"/>
+<path d="M 480.5 246.5 L 482.1 255.7 L 484.1 264.8 L 486.6 273.8 L 489.5 282.6 L 492.9 291.3 L 496.7 299.8 L 500.9 308.0 L 505.5 316.0 L 510.5 323.8 L 515.8 331.3 L 521.6 338.5 L 527.6 345.4 L 534.1 351.9 L 540.8 358.1 L 547.8 363.9 L 555.1 369.3 L 562.6 374.3 L 570.4 378.9 L 578.4 383.1 L 586.6 386.8 L 594.9 390.1 L 603.4 392.9 L 612.0 395.2 L 620.8 397.1 L 629.6 398.5 L 638.4 399.4 L 647.3 399.8 L 656.1 399.7 L 665.0 399.2 L 673.8 398.1 L 682.5 396.6" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 631.0 44.8 L 622.2 45.9 L 613.5 47.4 L 604.8 49.4 L 596.3 51.9 L 587.9 54.8 L 579.7 58.2 L 571.7 62.1 L 563.9 66.4 L 556.3 71.1 L 549.0 76.2 L 541.9 81.7 L 535.1 87.7 L 528.7 93.9 L 522.5 100.6 L 516.8 107.5 L 511.3 114.8 L 506.3 122.4 L 501.6 130.2 L 497.3 138.3 L 493.5 146.6 L 490.0 155.2 L 487.0 163.9 L 484.5 172.8 L 482.4 181.8 L 480.7 190.9 L 479.5 200.1 L 478.8 209.4 L 478.5 218.7 L 478.7 228.0 L 479.4 237.3 L 480.5 246.5" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 480.5 246.5 L 481.1 255.4 L 482.2 264.2 L 483.8 272.8 L 485.8 281.3 L 488.2 289.7 L 491.1 297.8 L 494.4 305.8 L 498.1 313.5 L 502.3 321.0 L 506.8 328.2 L 511.7 335.1 L 517.0 341.7 L 522.7 348.0 L 528.7 354.0 L 535.0 359.5 L 541.6 364.7" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 761.0 84.5 L 754.4 79.3 L 747.4 74.5 L 740.2 70.1 L 732.8 66.1 L 725.1 62.5 L 717.2 59.4 L 709.1 56.8 L 700.8 54.5 L 692.4 52.8 L 683.9 51.5 L 675.3 50.7 L 666.6 50.3 L 657.8 50.4 L 649.1 51.0 L 640.3 52.0 L 631.5 53.6 L 622.8 55.5 L 614.2 58.0 L 605.6 60.8 L 597.2 64.2 L 588.9 67.9 L 580.8 72.1 L 572.8 76.7 L 565.1 81.7 L 557.6 87.1 L 550.3 92.8 L 543.3 98.9 L 536.6 105.3 L 530.2 112.1 L 524.1 119.2 L 518.4 126.5 L 513.0 134.1 L 508.0 141.9 L 503.3 150.0 L 499.1 158.3 L 495.3 166.7 L 491.8 175.3 L 488.9 184.0 L 486.3 192.8 L 484.2 201.7 L 482.6 210.7 L 481.4 219.6 L 480.6 228.6 L 480.3 237.6 L 480.5 246.5" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 480.5 246.5 L 480.1 254.2 L 480.3 261.8 L 480.8 269.2 L 481.8 276.6 L 483.3 283.8 L 485.3 290.8 L 487.6 297.6 L 490.5 304.3 L 493.7 310.7 L 497.4 316.8" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 798.6 127.2 L 794.5 121.3 L 790.1 115.7 L 785.2 110.3 L 779.9 105.3 L 774.3 100.6 L 768.3 96.2 L 762.1 92.2 L 755.5 88.5 L 748.6 85.2 L 741.4 82.3 L 734.0 79.7 L 726.3 77.6 L 718.4 75.8 L 710.3 74.5 L 702.1 73.5 L 693.7 72.9 L 685.2 72.8 L 676.6 73.1 L 667.9 73.7 L 659.1 74.8 L 650.3 76.3 L 641.6 78.2 L 632.8 80.5 L 624.1 83.1 L 615.4 86.2 L 606.8 89.6 L 598.4 93.4 L 590.0 97.5 L 581.9 102.0 L 573.9 106.8 L 566.1 111.9 L 558.5 117.4 L 551.2 123.1 L 544.2 129.0 L 537.4 135.3 L 531.0 141.8 L 524.8 148.4 L 519.0 155.3 L 513.6 162.4 L 508.5 169.7 L 503.8 177.0 L 499.5 184.5 L 495.6 192.2 L 492.1 199.8 L 489.1 207.6 L 486.5 215.4 L 484.3 223.2 L 482.6 231.0 L 481.3 238.8 L 480.5 246.5" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 480.5 246.5 L 479.2 252.2 L 478.4 257.9 L 478.0 263.4 L 478.2 268.9 L 478.7 274.2 L 479.8 279.3 L 481.3 284.3" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 814.7 159.7 L 812.8 154.9 L 810.4 150.2 L 807.5 145.8 L 804.2 141.5 L 800.5 137.5 L 796.3 133.7 L 791.8 130.2 L 786.9 126.9 L 781.5 123.9 L 775.9 121.1 L 769.8 118.6 L 763.4 116.4 L 756.8 114.5 L 749.8 112.9 L 742.5 111.6 L 735.0 110.5 L 727.2 109.8 L 719.2 109.4 L 711.1 109.3 L 702.7 109.5 L 694.2 110.1 L 685.6 110.9 L 676.9 112.0 L 668.1 113.5 L 659.2 115.2 L 650.3 117.2 L 641.4 119.5 L 632.5 122.1 L 623.7 125.0 L 614.9 128.1 L 606.2 131.5 L 597.7 135.2 L 589.3 139.0 L 581.0 143.1 L 572.9 147.4 L 565.0 152.0 L 557.4 156.7 L 550.0 161.6 L 542.8 166.6 L 536.0 171.9 L 529.5 177.2 L 523.2 182.7 L 517.4 188.3 L 511.9 193.9 L 506.7 199.7 L 502.0 205.5 L 497.6 211.3 L 493.7 217.2 L 490.2 223.1 L 487.1 229.0 L 484.4 234.9 L 482.2 240.7 L 480.5 246.5" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 480.5 246.5 L 478.4 249.7 L 476.8 252.9 L 475.7 255.9 L 475.1 258.9 L 474.9 261.7 L 475.2 264.5" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 820.8 179.5 L 820.1 176.9 L 818.8 174.4 L 817.1 172.0 L 815.0 169.8 L 812.3 167.7 L 809.3 165.7 L 805.7 163.9 L 801.8 162.3 L 797.4 160.8 L 792.6 159.5 L 787.4 158.4 L 781.9 157.4 L 776.0 156.6 L 769.7 156.0 L 763.1 155.6 L 756.1 155.4 L 748.9 155.3 L 741.4 155.5 L 733.7 155.8 L 725.7 156.3 L 717.5 156.9 L 709.1 157.8 L 700.5 158.8 L 691.8 160.0 L 683.0 161.4 L 674.0 162.9 L 665.0 164.6 L 656.0 166.5 L 646.9 168.5 L 637.9 170.6 L 628.9 172.9 L 619.9 175.3 L 611.0 177.9 L 602.2 180.6 L 593.5 183.4 L 585.0 186.3 L 576.6 189.2 L 568.5 192.3 L 560.5 195.5 L 552.8 198.7 L 545.4 202.0 L 538.2 205.4 L 531.4 208.8 L 524.8 212.2 L 518.6 215.7 L 512.8 219.2 L 507.3 222.7 L 502.2 226.2 L 497.5 229.6 L 493.3 233.1 L 489.4 236.5 L 486.0 239.9 L 483.0 243.2 L 480.5 246.5" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 480.5 246.5 L 477.9 246.9 L 475.7 247.2 L 474.0 247.5 L 472.8 247.6 L 472.1 247.8 L 471.9 247.8" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 824.1 196.2 L 823.9 196.2 L 823.2 196.4 L 822.0 196.5 L 820.3 196.8 L 818.1 197.1 L 815.5 197.5 L 812.4 197.9 L 808.9 198.4 L 804.9 199.0 L 800.5 199.7 L 795.7 200.4 L 790.5 201.1 L 784.9 202.0 L 778.9 202.8 L 772.5 203.8 L 765.8 204.7 L 758.8 205.8 L 751.5 206.8 L 743.9 208.0 L 736.1 209.1 L 728.0 210.3 L 719.6 211.5 L 711.1 212.8 L 702.4 214.0 L 693.6 215.3 L 684.6 216.6 L 675.6 218.0 L 666.4 219.3 L 657.2 220.7 L 648.0 222.0 L 638.8 223.3 L 629.6 224.7 L 620.4 226.0 L 611.4 227.4 L 602.4 228.7 L 593.6 230.0 L 584.9 231.2 L 576.4 232.5 L 568.0 233.7 L 559.9 234.9 L 552.1 236.0 L 544.5 237.2 L 537.2 238.2 L 530.2 239.3 L 523.5 240.2 L 517.1 241.2 L 511.1 242.0 L 505.5 242.9 L 500.3 243.6 L 495.5 244.3 L 491.1 245.0 L 487.1 245.6 L 483.6 246.1 L 480.5 246.5" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 480.5 246.5 L 477.6 244.0 L 475.2 241.5 L 473.2 238.9 L 471.7 236.3 L 470.7 233.6 L 470.2 230.9" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 825.8 213.1 L 825.8 215.9 L 825.3 218.6 L 824.4 221.4 L 822.9 224.2 L 821.0 226.9 L 818.6 229.7 L 815.8 232.4 L 812.4 235.1 L 808.7 237.8 L 804.5 240.4 L 799.8 243.0 L 794.8 245.5 L 789.3 247.9 L 783.5 250.3 L 777.3 252.6 L 770.7 254.8 L 763.8 256.9 L 756.6 259.0 L 749.0 260.9 L 741.3 262.7 L 733.2 264.4 L 724.9 266.0 L 716.4 267.5 L 707.7 268.8 L 698.9 270.1 L 689.9 271.2 L 680.8 272.1 L 671.6 272.9 L 662.3 273.6 L 653.0 274.1 L 643.7 274.5 L 634.4 274.8 L 625.2 274.9 L 616.0 274.8 L 606.9 274.6 L 597.9 274.3 L 589.0 273.8 L 580.3 273.2 L 571.8 272.5 L 563.5 271.6 L 555.4 270.5 L 547.6 269.4 L 540.1 268.1 L 532.8 266.7 L 525.9 265.1 L 519.3 263.5 L 513.0 261.7 L 507.2 259.8 L 501.7 257.8 L 496.6 255.7 L 491.9 253.6 L 487.7 251.3 L 483.9 248.9 L 480.5 246.5" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 480.5 246.5 L 477.6 241.4 L 475.2 236.2 L 473.3 231.0 L 471.9 225.8 L 470.9 220.6 L 470.4 215.3 L 470.4 210.1" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 825.6 233.9 L 825.1 239.1 L 824.1 244.2 L 822.7 249.3 L 820.7 254.3 L 818.3 259.2 L 815.4 264.0 L 812.1 268.7 L 808.3 273.3 L 804.1 277.7 L 799.4 282.0 L 794.3 286.1 L 788.9 290.1 L 783.0 293.8 L 776.8 297.4 L 770.2 300.7 L 763.3 303.8 L 756.1 306.7 L 748.5 309.4 L 740.7 311.9 L 732.7 314.0 L 724.4 316.0 L 715.9 317.7 L 707.2 319.1 L 698.3 320.2 L 689.4 321.1 L 680.3 321.7 L 671.1 322.1 L 661.8 322.1 L 652.5 321.9 L 643.2 321.4 L 633.9 320.7 L 624.7 319.6 L 615.5 318.3 L 606.4 316.8 L 597.4 315.0 L 588.6 312.9 L 579.9 310.6 L 571.4 308.0 L 563.1 305.2 L 555.1 302.2 L 547.3 298.9 L 539.8 295.4 L 532.5 291.8 L 525.6 287.9 L 519.1 283.9 L 512.8 279.7 L 507.0 275.3 L 501.5 270.8 L 496.5 266.2 L 491.8 261.4 L 487.6 256.5 L 483.8 251.6 L 480.5 246.5" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 480.5 246.5 L 478.0 239.3 L 475.9 232.0 L 474.3 224.7 L 473.2 217.3 L 472.5 210.0 L 472.4 202.7 L 472.7 195.5 L 473.5 188.4 L 474.8 181.3 L 476.5 174.3" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 819.5 269.7 L 817.3 276.5 L 814.6 283.2 L 811.4 289.7 L 807.8 296.0 L 803.8 302.1 L 799.4 308.0 L 794.5 313.7 L 789.2 319.1 L 783.6 324.2 L 777.5 329.1 L 771.1 333.6 L 764.4 337.9 L 757.4 341.9 L 750.0 345.5 L 742.4 348.8 L 734.5 351.7 L 726.4 354.3 L 718.1 356.5 L 709.5 358.3 L 700.9 359.8 L 692.0 360.9 L 683.1 361.6 L 674.0 361.9 L 664.9 361.9 L 655.7 361.5 L 646.5 360.6 L 637.3 359.4 L 628.2 357.9 L 619.0 355.9 L 610.0 353.6 L 601.1 350.9 L 592.3 347.9 L 583.7 344.5 L 575.2 340.8 L 566.9 336.8 L 558.9 332.4 L 551.1 327.8 L 543.6 322.8 L 536.3 317.6 L 529.4 312.1 L 522.7 306.4 L 516.5 300.5 L 510.6 294.3 L 505.0 287.9 L 499.9 281.4 L 495.1 274.6 L 490.8 267.8 L 486.9 260.8 L 483.5 253.7 L 480.5 246.5" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 480.5 246.5 L 478.6 237.9 L 477.1 229.1 L 476.1 220.4 L 475.6 211.7 L 475.5 203.0 L 475.9 194.3 L 476.8 185.8 L 478.2 177.3 L 480.0 168.9 L 482.3 160.7 L 485.0 152.7 L 488.2 144.8 L 491.8 137.2 L 495.9 129.8 L 500.3 122.6 L 505.2 115.8" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 795.7 321.4 L 790.8 328.2 L 785.5 334.8 L 779.9 341.1 L 773.9 347.1 L 767.6 352.7 L 760.9 357.9 L 753.9 362.8 L 746.6 367.3 L 739.1 371.4 L 731.3 375.1 L 723.3 378.3 L 715.0 381.2 L 706.6 383.6 L 698.1 385.5 L 689.3 387.0 L 680.5 388.1 L 671.6 388.7 L 662.6 388.8 L 653.6 388.5 L 644.6 387.8 L 635.6 386.5 L 626.6 384.9 L 617.6 382.7 L 608.8 380.2 L 600.1 377.2 L 591.4 373.8 L 583.0 369.9 L 574.7 365.7 L 566.6 361.1 L 558.8 356.0 L 551.2 350.7 L 543.8 344.9 L 536.8 338.9 L 530.0 332.5 L 523.6 325.8 L 517.5 318.8 L 511.8 311.5 L 506.4 304.0 L 501.5 296.3 L 496.9 288.4 L 492.8 280.3 L 489.0 272.0 L 485.7 263.6 L 482.9 255.1 L 480.5 246.5" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 750.4 76.5 L 752.8 78.1 L 755.1 80.1 L 757.5 82.5 L 759.9 85.2 L 762.2 88.2 L 764.6 91.6 L 766.9 95.2 L 769.2 99.2 L 771.5 103.5 L 773.8 108.0 L 776.0 112.8 L 778.1 117.9 L 780.2 123.2 L 782.3 128.7 L 784.3 134.5 L 786.2 140.4 L 788.0 146.5 L 789.8 152.8 L 791.5 159.2 L 793.0 165.8 L 794.5 172.4 L 795.9 179.2 L 797.2 186.0 L 798.4 192.9 L 799.4 199.8 L 800.4 206.8 L 801.2 213.7 L 802.0 220.6 L 802.6 227.5 L 803.1 234.3 L 803.4 241.0 L 803.7 247.6 L 803.8 254.2 L 803.8 260.5 L 803.6 266.8 L 803.4 272.9 L 803.0 278.7 L 802.5 284.4 L 801.9 289.9 L 801.2 295.1 L 800.3 300.1 L 799.3 304.9 L 798.3 309.3 L 797.1 313.5 L 795.8 317.4 L 794.4 321.0 L 792.9 324.3 L 791.3 327.2 L 789.6 329.8 L 787.8 332.1" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 713.5 56.5 L 716.2 57.6 L 718.9 59.2 L 721.6 61.1 L 724.4 63.5 L 727.2 66.2 L 729.9 69.4 L 732.7 72.9 L 735.4 76.8 L 738.2 81.1 L 740.9 85.8 L 743.5 90.7 L 746.2 96.0 L 748.7 101.6 L 751.3 107.6 L 753.7 113.8 L 756.1 120.2 L 758.4 126.9 L 760.7 133.9 L 762.8 141.0 L 764.9 148.3 L 766.8 155.8 L 768.7 163.5 L 770.4 171.3 L 772.0 179.2 L 773.5 187.1 L 774.9 195.2 L 776.1 203.2 L 777.3 211.3 L 778.2 219.4 L 779.1 227.5 L 779.8 235.5 L 780.4 243.5 L 780.8 251.3 L 781.1 259.1 L 781.2 266.7 L 781.2 274.1 L 781.1 281.4 L 780.8 288.5 L 780.3 295.4 L 779.7 302.0 L 779.0 308.4 L 778.2 314.5 L 777.2 320.4 L 776.0 325.9 L 774.8 331.1 L 773.4 336.0 L 771.9 340.5 L 770.2 344.7 L 768.5 348.5 L 766.6 352.0 L 764.7 355.0 L 762.6 357.7 L 760.5 359.9 L 758.2 361.7" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 679.2 46.8 L 682.1 47.5 L 685.0 48.7 L 687.9 50.4 L 690.9 52.5 L 693.9 55.1 L 696.9 58.1 L 699.9 61.5 L 702.9 65.3 L 705.9 69.6 L 708.9 74.3 L 711.8 79.3 L 714.7 84.7 L 717.6 90.5 L 720.4 96.6 L 723.1 103.0 L 725.8 109.7 L 728.4 116.8 L 730.9 124.1 L 733.3 131.6 L 735.7 139.4 L 737.9 147.3 L 740.0 155.5 L 742.0 163.8 L 743.9 172.3 L 745.7 180.9 L 747.3 189.5 L 748.8 198.3 L 750.2 207.0 L 751.4 215.8 L 752.5 224.6 L 753.4 233.4 L 754.1 242.1 L 754.8 250.8 L 755.2 259.3 L 755.5 267.8 L 755.7 276.0 L 755.7 284.1 L 755.5 292.1 L 755.2 299.8 L 754.7 307.2 L 754.1 314.5 L 753.3 321.4 L 752.4 328.1 L 751.3 334.4 L 750.0 340.4 L 748.7 346.1 L 747.2 351.4 L 745.5 356.3 L 743.7 360.9 L 741.8 365.0 L 739.8 368.8 L 737.7 372.1 L 735.5 375.0 L 733.1 377.4 L 730.7 379.4 L 728.1 380.9" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 645.4 44.0 L 648.3 44.3 L 651.3 45.1 L 654.3 46.4 L 657.4 48.1 L 660.4 50.3 L 663.6 53.0 L 666.7 56.1 L 669.8 59.7 L 672.9 63.7 L 676.1 68.1 L 679.1 73.0 L 682.2 78.2 L 685.2 83.8 L 688.2 89.8 L 691.1 96.2 L 694.0 102.9 L 696.8 109.9 L 699.5 117.2 L 702.1 124.8 L 704.6 132.6 L 707.0 140.7 L 709.4 149.0 L 711.6 157.5 L 713.7 166.2 L 715.6 175.0 L 717.5 183.9 L 719.2 192.9 L 720.7 202.0 L 722.1 211.1 L 723.4 220.3 L 724.5 229.5 L 725.5 238.6 L 726.3 247.7 L 726.9 256.7 L 727.4 265.6 L 727.7 274.3 L 727.9 282.9 L 727.9 291.4 L 727.7 299.6 L 727.4 307.7 L 726.9 315.4 L 726.2 322.9 L 725.4 330.2 L 724.4 337.1 L 723.3 343.7 L 722.0 350.0 L 720.6 355.9 L 719.0 361.4 L 717.3 366.5 L 715.4 371.3 L 713.5 375.6 L 711.4 379.5 L 709.1 382.9 L 706.8 385.9 L 704.4 388.4 L 701.8 390.5 L 699.2 392.1 L 696.5 393.3" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 612.2 47.7 L 615.1 47.5 L 618.0 47.8 L 621.0 48.6 L 624.1 49.9 L 627.1 51.6 L 630.3 53.8 L 633.4 56.5 L 636.5 59.6 L 639.7 63.2 L 642.8 67.2 L 645.9 71.7 L 649.1 76.6 L 652.1 81.8 L 655.2 87.5 L 658.2 93.5 L 661.1 99.9 L 664.0 106.7 L 666.8 113.7 L 669.5 121.0 L 672.1 128.7 L 674.7 136.6 L 677.1 144.7 L 679.4 153.0 L 681.7 161.6 L 683.8 170.3 L 685.7 179.1 L 687.6 188.1 L 689.3 197.2 L 690.9 206.3 L 692.3 215.5 L 693.5 224.7 L 694.7 233.9 L 695.6 243.1 L 696.4 252.2 L 697.1 261.3 L 697.6 270.2 L 697.9 279.0 L 698.1 287.7 L 698.0 296.2 L 697.9 304.5 L 697.5 312.6 L 697.0 320.4 L 696.4 327.9 L 695.5 335.2 L 694.6 342.2 L 693.4 348.8 L 692.1 355.1 L 690.7 361.0 L 689.1 366.6 L 687.4 371.7 L 685.6 376.5 L 683.6 380.8 L 681.5 384.7 L 679.2 388.2 L 676.9 391.2 L 674.4 393.8 L 671.9 395.9 L 669.2 397.5 L 666.5 398.6 L 663.7 399.3" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 622.4 397.4 L 619.6 397.5 L 616.8 397.2" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 567.9 63.1 L 570.5 62.0 L 573.1 61.3 L 575.9 61.2 L 578.7 61.5 L 581.6 62.2 L 584.5 63.4 L 587.4 65.1 L 590.4 67.2 L 593.4 69.8 L 596.4 72.8 L 599.4 76.2 L 602.4 80.1 L 605.4 84.3 L 608.4 89.0 L 611.3 94.0 L 614.2 99.4 L 617.1 105.2 L 619.9 111.3 L 622.6 117.7 L 625.3 124.5 L 627.9 131.5 L 630.4 138.8 L 632.8 146.3 L 635.2 154.1 L 637.4 162.1 L 639.5 170.2 L 641.5 178.5 L 643.4 187.0 L 645.2 195.6 L 646.8 204.2 L 648.3 213.0 L 649.7 221.8 L 650.9 230.6 L 652.0 239.4 L 652.9 248.1 L 653.6 256.9 L 654.3 265.5 L 654.7 274.0 L 655.0 282.5 L 655.2 290.7 L 655.2 298.9 L 655.0 306.8 L 654.7 314.5 L 654.2 322.0 L 653.6 329.2 L 652.8 336.1 L 651.9 342.8 L 650.8 349.1 L 649.5 355.1 L 648.2 360.8 L 646.7 366.1 L 645.0 371.1 L 643.2 375.6 L 641.3 379.8 L 639.3 383.5 L 637.2 386.8 L 634.9 389.7 L 632.6 392.1 L 630.2 394.1 L 627.6 395.7 L 625.0 396.7 L 622.4 397.4" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 577.4 382.6 L 575.0 382.7 L 572.5 382.5 L 570.0 381.8 L 567.5 380.8" class="fw-flowline" stroke="url(#flowBig)"/>
+<path d="M 525.4 93.0 L 527.5 91.3 L 529.7 89.9 L 532.0 88.9 L 534.3 88.4 L 536.7 88.3 L 539.2 88.5 L 541.7 89.2 L 544.3 90.2 L 546.8 91.7 L 549.4 93.5 L 552.1 95.8 L 554.7 98.4 L 557.3 101.4 L 559.9 104.8 L 562.6 108.5 L 565.2 112.6 L 567.7 117.0 L 570.3 121.7 L 572.8 126.8 L 575.2 132.1 L 577.6 137.8 L 580.0 143.6 L 582.3 149.8 L 584.5 156.2 L 586.6 162.8 L 588.6 169.6 L 590.6 176.6 L 592.4 183.7 L 594.2 191.0 L 595.9 198.4 L 597.4 205.9 L 598.8 213.5 L 600.1 221.1 L 601.3 228.8 L 602.4 236.5 L 603.3 244.2 L 604.1 251.9 L 604.8 259.6 L 605.4 267.1 L 605.8 274.6 L 606.0 282.0 L 606.2 289.2 L 606.2 296.3 L 606.0 303.3 L 605.7 310.0 L 605.3 316.6 L 604.8 322.9 L 604.1 329.0 L 603.2 334.8 L 602.3 340.3 L 601.2 345.6 L 600.0 350.6 L 598.7 355.2 L 597.3 359.5 L 595.7 363.5 L 594.0 367.2 L 592.3 370.4 L 590.4 373.3 L 588.4 375.8 L 586.4 378.0 L 584.3 379.7 L 582.0 381.1 L 579.8 382.0 L 577.4 382.6" class="fw-flowline" stroke="url(#flowBig)"/>
+<circle cx="648" cy="222" r="178" class="fw-outline"/>
+
+
+
+</g>
+</g>
+          </svg>
+          <canvas class="formula-canvas" id="convCanvas" aria-hidden="true"></canvas>
+          <div class="formula-badge" aria-hidden="true">
+            <div class="fb-num">3+1</div>
+            <div class="fb-zh lang-zh-only">經 營 管 理 公 式</div>
+            <div class="fb-en lang-en-only" data-en="STATON&lt;br&gt;Operating&lt;br&gt;Formula" data-zh="STATON Operating Formula">STATON Operating Formula</div>
+          </div>
+        </div>
+
+        <!-- 結果面板：÷ 檢核 → 成果 -->
+        <aside class="formula-result fstep-like" data-k="chk" tabindex="0" role="button" aria-label="除以檢核 Verification">
+          <div class="fr-cap">
+            <span class="lang-zh-only">經 營 管 理</span>
+            <span class="fr-cap-en" data-en="OPERATING MANAGEMENT" data-zh="OPERATING MANAGEMENT">OPERATING MANAGEMENT</span>
+          </div>
+          <div class="fr-head">
+            <span class="fr-op">÷</span>
+            <span class="fr-title">
+              <span class="fr-zh lang-zh-only">除 以 檢 核</span>
+              <span class="fr-en" data-en="VERIFICATION" data-zh="VERIFICATION">VERIFICATION</span>
+            </span>
+          </div>
+          <div class="fr-headline" data-en="Build a business&lt;br&gt;that runs&lt;br&gt;itself" data-zh="成功打造&lt;br&gt;會自己運轉的&lt;br&gt;經營系統">成功打造<br>會自己運轉的<br>經營系統</div>
+          <ul class="fr-checks">
+            <li data-en="Systems compound — knowledge &lt;strong&gt;accrues&lt;/strong&gt; to the company, not individuals" data-zh="制度沉澱 — 知識&lt;strong&gt;累積&lt;/strong&gt;在系統，而非個人">制度沉澱 — 知識<strong>累積</strong>在系統，而非個人</li>
+            <li data-en="Incentives drive — the right roles &lt;strong&gt;multiply&lt;/strong&gt; the right output" data-zh="誘因驅動 — 對的位置&lt;strong&gt;放大&lt;/strong&gt;對的產出">誘因驅動 — 對的位置<strong>放大</strong>對的產出</li>
+            <li data-en="Reviews calibrate — every result is &lt;strong&gt;verifiable&lt;/strong&gt; and correctable" data-zh="檢核校準 — 每個成效&lt;strong&gt;可被驗證&lt;/strong&gt;與修正">檢核校準 — 每個成效<strong>可被驗證</strong>與修正</li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- 3 個步驟箭牌 -->
+      <div class="formula-steps">
+        <button type="button" class="fstep" data-k="sys">
+          <span class="fs-step">○ STEP 01</span>
+          <span class="fs-name"><span class="fs-op">＋</span><span class="fs-zh lang-zh-only">加 法 制 度</span><span class="fs-en" data-en="SYSTEM" data-zh="SYSTEM">SYSTEM</span></span>
+          <span class="fs-desc" data-en="Turn personal know-how into company assets&lt;br&gt;Build a repeatable operating skeleton" data-zh="把個人經驗沉澱為公司資產&lt;br&gt;建立可重複運轉的營運骨架">把個人經驗沉澱為公司資產<br>建立可重複運轉的營運骨架</span>
+        </button>
+        <button type="button" class="fstep" data-k="ops">
+          <span class="fs-step">○ STEP 02</span>
+          <span class="fs-name"><span class="fs-op">－</span><span class="fs-zh lang-zh-only">減 法 流 程</span><span class="fs-en" data-en="FOCUS" data-zh="FOCUS">FOCUS</span></span>
+          <span class="fs-desc" data-en="Cut processes and friction that create no value&lt;br&gt;Focus on the arteries that move the business" data-zh="砍掉不創造價值的流程與內耗&lt;br&gt;聚焦真正推動營收的關鍵命脈">砍掉不創造價值的流程與內耗<br>聚焦真正推動營收的關鍵命脈</span>
+        </button>
+        <button type="button" class="fstep" data-k="inc">
+          <span class="fs-step">○ STEP 03</span>
+          <span class="fs-name"><span class="fs-op">×</span><span class="fs-zh lang-zh-only">乘 法 誘 因</span><span class="fs-en" data-en="INCENTIVE" data-zh="INCENTIVE">INCENTIVE</span></span>
+          <span class="fs-desc" data-en="Design incentive systems rooted in human nature&lt;br&gt;Multiply execution in every single role" data-zh="以人性為本設計誘因與分潤制度&lt;br&gt;放大每一個崗位的執行力">以人性為本設計誘因與分潤制度<br>放大每一個崗位的執行力</span>
+        </button>
+      </div>
+    </div>
+
+    </div>
 </section>
 
 <!-- ============ CHAPTER 06 — LEADERSHIP ============ -->
@@ -4427,62 +4759,9 @@ body[data-lang="zh"] .closing-headline .accent {
       </div>
     </div>
 
-    <div class="process-group-label process-group-label-2">
-      <span class="pgl-zh lang-zh-only">核 心 競 爭 優 勢</span>
-      <span class="pgl-en" data-en="Our Core Competitive Edge" data-zh="Our Core Competitive Edge">Our Core Competitive Edge</span>
-    </div>
-    <p class="section-summary process-group-sub" data-en="Most consultancies start from one corner. STATON's edge is convergence — a CPA, a CFO, a lawyer and an SME owner at the same table. Tap each pillar to see what it brings." data-zh="多數管顧只從一個角落出發。仕坦登的優勢在於「匯聚」——會計師、財務長、律師、中小企業主同坐一桌。點擊每個支柱，看它帶來什麼。">多數管顧只從一個角落出發。仕坦登的優勢在於「匯聚」——會計師、財務長、律師、中小企業主同坐一桌。點擊每個支柱，看它帶來什麼。</p>
+    
 
-    <div class="conv" id="convMap">
-      <div class="conv-stage">
-        <svg class="conv-svg" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <line class="conv-link" data-k="cpa"   x1="140" y1="70"  x2="300" y2="180"/>
-          <line class="conv-link" data-k="cfo"   x1="140" y1="290" x2="300" y2="180"/>
-          <line class="conv-link" data-k="law"   x1="460" y1="70"  x2="300" y2="180"/>
-          <line class="conv-link" data-k="sme"   x1="460" y1="290" x2="300" y2="180"/>
-          <circle class="conv-core-ring" cx="300" cy="180" r="62"/>
-          <circle class="conv-core" cx="300" cy="180" r="50"/>
-          <text class="conv-core-zh" x="300" y="174" text-anchor="middle">仕坦登</text>
-          <text class="conv-core-en" x="300" y="196" text-anchor="middle">STATON</text>
-        </svg>
-
-        <button class="conv-node conv-node-tl" data-k="cpa" type="button">
-          <span class="cn-zh lang-zh-only">會 計 師</span>
-          <span class="cn-en" data-en="CPA" data-zh="CPA">CPA</span>
-        </button>
-        <button class="conv-node conv-node-bl" data-k="cfo" type="button">
-          <span class="cn-zh lang-zh-only">財 務 長</span>
-          <span class="cn-en" data-en="CFO" data-zh="CFO">CFO</span>
-        </button>
-        <button class="conv-node conv-node-tr" data-k="law" type="button">
-          <span class="cn-zh lang-zh-only">律 師</span>
-          <span class="cn-en" data-en="Lawyer" data-zh="Lawyer">Lawyer</span>
-        </button>
-        <button class="conv-node conv-node-br" data-k="sme" type="button">
-          <span class="cn-zh lang-zh-only">中 小 企 業 主</span>
-          <span class="cn-en" data-en="SME Owner" data-zh="SME Owner">SME Owner</span>
-        </button>
-      </div>
-
-      <div class="conv-detail" id="convDetail">
-        <div class="conv-detail-pane is-active" data-k="cpa">
-          <div class="cd-tag" data-en="The accounting foundation" data-zh="會計根基">會計根基</div>
-          <p class="cd-text" data-en="A CPA anchors the books, tax and compliance to a single professional standard — so every number is reconciled and trustworthy, not improvised case by case." data-zh="會計師把帳務、稅務與法遵錨定在同一套專業標準上——每一個數字都對得起來、可被信任，而非個案臨場拼湊。">會計師把帳務、稅務與法遵錨定在同一套專業標準上——每一個數字都對得起來、可被信任，而非個案臨場拼湊。</p>
-        </div>
-        <div class="conv-detail-pane" data-k="cfo">
-          <div class="cd-tag" data-en="The operating lens" data-zh="營運視角">營運視角</div>
-          <p class="cd-text" data-en="A CFO's perspective turns reports into decisions — connecting cash flow, operations and resource allocation to where the business is actually headed." data-zh="財務長視角把報表轉化為決策——把資金、營運與資源配置，連回事業真正要去的方向。">財務長視角把報表轉化為決策——把資金、營運與資源配置，連回事業真正要去的方向。</p>
-        </div>
-        <div class="conv-detail-pane" data-k="law">
-          <div class="cd-tag" data-en="The risk safety net" data-zh="風險防護網">風險防護網</div>
-          <p class="cd-text" data-en="A lawyer weaves legal-risk review into every system — contracts, liability and compliance handled before they become problems, not after." data-zh="律師把法律風險審查織進每一套制度——合約、責任與法遵在問題發生前就被處理，而非事後補救。">律師把法律風險審查織進每一套制度——合約、責任與法遵在問題發生前就被處理，而非事後補救。</p>
-        </div>
-        <div class="conv-detail-pane" data-k="sme">
-          <div class="cd-tag" data-en="The resonance" data-zh="實戰共鳴">實戰共鳴</div>
-          <p class="cd-text" data-en="An SME owner's hands-on experience is what most firms lack — we understand the real cash, talent and decision constraints, so solutions actually land." data-zh="中小企業主的實戰經驗，正是多數管顧所缺——我們理解現金、人才與決策上的真實限制，方案才能真正落地。">中小企業主的實戰經驗，正是多數管顧所缺——我們理解現金、人才與決策上的真實限制，方案才能真正落地。</p>
-        </div>
-      </div>
-    </div>
+    
 
     <div class="process-group-label process-group-label-2">
       <span class="pgl-zh lang-zh-only">仕 坦 登 與 一 般 管 顧 之 差 異</span>
@@ -5841,23 +6120,587 @@ function setupCursorParticles() {
 function setupConvergence() {
   const map = document.getElementById('convMap');
   if (!map) return;
-  const nodes = Array.from(map.querySelectorAll('.conv-node'));
-  const links = Array.from(map.querySelectorAll('.conv-link'));
-  const panes = Array.from(map.querySelectorAll('.conv-detail-pane'));
-  if (!nodes.length) return;
+  const stage = map.querySelector('.formula-stage');
+  const svg = map.querySelector('.formula-svg');
+  if (!stage || !svg) return;
 
-  function activate(key) {
-    nodes.forEach(n => n.classList.toggle('is-active', n.dataset.k === key));
-    links.forEach(l => l.classList.toggle('is-lit', l.dataset.k === key));
-    panes.forEach(p => p.classList.toggle('is-active', p.dataset.k === key));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NS = 'http://www.w3.org/2000/svg';
+
+  // 構圖座標（viewBox 900x500）
+  const SMALL = { x: 172, y: 332, r: 104 };    // 制度核（小球）
+  const NODE  = { x: 368, y: 263, r: 20 };     // 減法節點（落在 ＋→÷ 主斜線上）
+  const MULT  = { x: 438, y: 238, r: 20 };     // 乘法徽章（落在主斜線上）
+  const BIG   = { x: 648, y: 222, r: 178 };    // 經營系統（大球）
+  const DIVI  = { x: 600, y: 181, r: 20 };     // 除法徽章（落在 ＋−× 主斜線上）
+
+  function el(tag, attrs, parent) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    parent.appendChild(e);
+    return e;
   }
 
-  nodes.forEach(n => {
-    n.addEventListener('click', () => activate(n.dataset.k));
-    n.addEventListener('mouseenter', () => activate(n.dataset.k));
-  });
+  function medal(parent, cx, cy, r, glyph, dy) {
+    el('circle', { cx: cx, cy: cy, r: r, 'class': 'fw-medal' }, parent);
+    const t = el('text', { x: cx, y: cy + (dy || 9), 'text-anchor': 'middle', 'class': 'fw-op' }, parent);
+    t.textContent = glyph;
+  }
 
-  activate('cpa');
+  function caption(parent, x, y, zh, en) {
+    const g = el('g', { 'class': 'fw-hoverable' }, parent);
+    const hi = el('g', { 'class': 'fw-hi' }, g);
+    const tz = el('text', { x: x, y: y, 'text-anchor': 'middle', 'class': 'fw-cap-zh lang-zh-only' }, hi);
+    tz.textContent = zh;
+    const te = el('text', { x: x, y: y + 6, 'text-anchor': 'middle', 'class': 'fw-cap-en lang-en-only' }, hi);
+    te.textContent = en;
+  }
+
+  // 球體流金邊：單一弧線 + 沿弧漸層（透明→金→亮核→金→透明），一體成型的連續流光
+  function addCbeam(parent, cx, cy, r, slow) {
+    const g = el('g', { 'class': 'cbeam-orbit' + (slow ? ' slow' : ''), 'aria-hidden': 'true' }, parent);
+    g.style.transformOrigin = cx + 'px ' + cy + 'px';
+    const A = 40 * Math.PI / 180;
+    const x1 = cx + r * Math.cos(-A), y1 = cy + r * Math.sin(-A);
+    const x2 = cx + r * Math.cos(A),  y2 = cy + r * Math.sin(A);
+    const gid = 'cbeamGrad_' + Math.round(cx) + '_' + Math.round(cy);
+    const lg = el('linearGradient', {
+      id: gid, gradientUnits: 'userSpaceOnUse',
+      x1: x1.toFixed(1), y1: y1.toFixed(1), x2: x2.toFixed(1), y2: y2.toFixed(1)
+    }, g);
+    [[0, '#f4b702', 0], [0.18, '#f4b702', 0.2], [0.4, '#f4b702', 0.8],
+     [0.5, '#fde9a8', 1], [0.6, '#f4b702', 0.8], [0.82, '#f4b702', 0.2], [1, '#f4b702', 0]
+    ].forEach(([o, c, a]) => {
+      el('stop', { offset: o, 'stop-color': c, 'stop-opacity': a }, lg);
+    });
+    const d = 'M ' + x1.toFixed(1) + ' ' + y1.toFixed(1) +
+              ' A ' + r + ' ' + r + ' 0 0 1 ' + x2.toFixed(1) + ' ' + y2.toFixed(1);
+    el('path', { d: d, 'class': 'cb-haze', stroke: 'url(#' + gid + ')' }, g);
+    el('path', { d: d, 'class': 'cb-flow', stroke: 'url(#' + gid + ')' }, g);
+  }
+
+  // 三連箭頭 ▸▸▸（沿指定角度排列）
+  function arrowTriplet(parent, x, y, angDeg) {
+    for (let i = 0; i < 3; i++) {
+      el('path', {
+        d: 'M 0 -3.2 L 7 0 L 0 3.2 Z',
+        transform: 'translate(' + (x + Math.cos(angDeg * Math.PI / 180) * i * 9.5).toFixed(1) + ',' +
+                                   (y + Math.sin(angDeg * Math.PI / 180) * i * 9.5).toFixed(1) + ') rotate(' + angDeg.toFixed(1) + ')',
+        'class': 'fw-arrow'
+      }, parent);
+    }
+  }
+
+  // 沿線傾斜標籤（中文 + 英文兩行，依線角旋轉）
+  function edgeLabel(parent, x, y, angDeg, zh, en) {
+    const g = el('g', { 'class': 'fw-hoverable', transform: 'translate(' + x.toFixed(1) + ',' + y.toFixed(1) + ') rotate(' + angDeg.toFixed(1) + ')' }, parent);
+    const hi = el('g', { 'class': 'fw-hi' }, g);
+    const tz = el('text', { x: 0, y: 4, 'text-anchor': 'middle', 'class': 'fw-cap-zh lang-zh-only' }, hi);
+    tz.textContent = zh;
+    const te = el('text', { x: 0, y: 4, 'text-anchor': 'middle', 'class': 'fw-cap-en lang-en-only' }, hi);
+    te.textContent = en;
+    return g;
+  }
+
+  // ===== 生成四個部位 =====
+  const gSmall = document.getElementById('fSmall');
+  const gNode  = document.getElementById('fNode');
+  const gCone  = document.getElementById('fCone');
+  const gBig   = document.getElementById('fBig');
+  if (gSmall && !gSmall.querySelector('.fw-medal')) {
+    // 小球＋加法：球體與剖開帶為靜態 3D 投影藝術（markup 內），此處僅掛流金邊
+    addCbeam(gSmall, SMALL.x, SMALL.y, SMALL.r, false);
+    const bandG = el('g', { 'class': 'fw-hoverable' }, gSmall);
+    const bandHi = el('g', { 'class': 'fw-hi' }, bandG);
+    const bandZh = el('text', {
+      x: SMALL.x, y: SMALL.y - 40,
+      'text-anchor': 'middle', 'class': 'fw-band-zh lang-zh-only'
+    }, bandHi);
+    bandZh.textContent = '制 度';
+    const bandEn = el('text', {
+      x: SMALL.x, y: SMALL.y - 40,
+      'text-anchor': 'middle', 'class': 'fw-band-en lang-en-only'
+    }, bandHi);
+    bandEn.textContent = 'METHOD';
+    medal(gSmall, SMALL.x, SMALL.y, 24, '＋', 10);
+
+    // 連接線（小球切點 → 節點）＋減法節點
+    const a = Math.atan2(NODE.y - SMALL.y, NODE.x - SMALL.x);
+    const px = -Math.sin(a), py = Math.cos(a);
+    // 兩條切線：沿線文字說明 + 三連箭頭（上緣中文、下緣英文，呼應錐面排法）
+    const tangents = [-0.86, 0.86].map(s => {
+      const x1 = SMALL.x + px * SMALL.r * s, y1 = SMALL.y + py * SMALL.r * s;
+      el('line', { x1: x1.toFixed(1), y1: y1.toFixed(1), x2: NODE.x, y2: NODE.y, 'class': 'fw-line' }, gNode);
+      return { x1: x1, y1: y1 };
+    });
+    tangents.sort((a, b) => a.y1 - b.y1);   // [0]=上切線, [1]=下切線
+    // 上切線：同槽中英互換的「文字 + 箭頭」組
+    (function () {
+      const tg = tangents[0];
+      const angR = Math.atan2(NODE.y - tg.y1, NODE.x - tg.x1);
+      const angD = angR * 180 / Math.PI;
+      const mx = tg.x1 + (NODE.x - tg.x1) * 0.46, my = tg.y1 + (NODE.y - tg.y1) * 0.46;
+      const ox = Math.sin(angR) * 14, oy = -Math.cos(angR) * 14;
+      [['制 度 沉 澱', 'fw-cap-zh', 'lang-zh-only', 50], ['CODIFY', 'fw-cap-en', 'lang-en-only', 38]].forEach(([label, cls, langCls, arrowX]) => {
+        const g = el('g', {
+          transform: 'translate(' + (mx + ox).toFixed(1) + ',' + (my + oy).toFixed(1) + ') rotate(' + angD.toFixed(1) + ')',
+          'class': 'fw-hoverable ' + langCls
+        }, gNode);
+        const hi = el('g', { 'class': 'fw-hi' }, g);
+        const t = el('text', { x: 0, y: 4, 'text-anchor': 'middle', 'class': cls }, hi);
+        t.textContent = label;
+        arrowTriplet(g, arrowX, 0, 0);
+      });
+    })();
+    // 下切線：同槽中英互換的「文字 + 箭頭」組（與上切線成對）
+    (function () {
+      const tg = tangents[1];
+      const angR = Math.atan2(NODE.y - tg.y1, NODE.x - tg.x1);
+      const angD = angR * 180 / Math.PI;
+      const mx = tg.x1 + (NODE.x - tg.x1) * 0.5, my = tg.y1 + (NODE.y - tg.y1) * 0.5;
+      const ox = -Math.sin(angR) * 14, oy = Math.cos(angR) * 14;
+      [['經 驗 萃 取', 'fw-cap-zh', 'lang-zh-only', 50], ['DISTILL', 'fw-cap-en', 'lang-en-only', 38]].forEach(([label, cls, langCls, arrowX]) => {
+        const g = el('g', {
+          transform: 'translate(' + (mx + ox).toFixed(1) + ',' + (my + oy).toFixed(1) + ') rotate(' + angD.toFixed(1) + ')',
+          'class': 'fw-hoverable ' + langCls
+        }, gNode);
+        const hi = el('g', { 'class': 'fw-hi' }, g);
+        const t = el('text', { x: 0, y: 4, 'text-anchor': 'middle', 'class': cls }, hi);
+        t.textContent = label;
+        arrowTriplet(g, arrowX, 0, 0);
+      });
+    })();
+    medal(gNode, NODE.x, NODE.y, NODE.r, '－', 9);
+    caption(gNode, NODE.x - 18, NODE.y - 46, '減 法 流 程', 'FOCUS');
+
+    // 擴張錐（節點 → 大球插槽外緣）＋乘法徽章＋沿緣傾斜標籤
+    // 錐線終點：大球開口切圓外緣的預算 21 點（3D 投影）
+    const CONE_PTS = [[485.0,152.3],[480.7,161.2],[478.1,169.9],[476.4,178.6],[475.2,187.1],[474.4,195.7],[474.0,204.2],[473.9,212.7],[474.0,221.2],[474.4,229.6],[475.1,238.1],[476.0,246.5],[477.1,254.8],[478.5,263.2],[480.2,271.5],[482.2,279.8],[484.5,288.1],[487.3,296.3],[490.6,304.5],[494.8,312.6],[500.6,320.5]];
+    let edgeTop = null, edgeBot = null;
+    for (let i = 0; i < 21; i++) {
+      const ex = CONE_PTS[i][0], ey = CONE_PTS[i][1];
+      el('line', { x1: NODE.x, y1: NODE.y, x2: ex.toFixed(1), y2: ey.toFixed(1), 'class': 'fw-cone' }, gCone);
+      if (i === 0 || i === 20) {
+        const pt = { x: ex, y: ey };
+        if (edgeTop === null || ey < edgeTop.y) { edgeBot = edgeTop || pt; edgeTop = pt; }
+        else edgeBot = pt;
+      }
+    }
+    // 上緣：同槽中英互換的「文字 + 箭頭」組；下緣：純箭頭（雙語恆定）
+    (function () {
+      const angR = Math.atan2(edgeTop.y - NODE.y, edgeTop.x - NODE.x);
+      const angD = angR * 180 / Math.PI;
+      const mx = NODE.x + (edgeTop.x - NODE.x) * 0.66, my = NODE.y + (edgeTop.y - NODE.y) * 0.66;
+      const ox = Math.sin(angR) * 17, oy = -Math.cos(angR) * 17;
+      [['乘 法 誘 因', 'fw-cap-zh', 'lang-zh-only', 52], ['INCENTIVE', 'fw-cap-en', 'lang-en-only', 44]].forEach(([label, cls, langCls, arrowX]) => {
+        const g = el('g', {
+          transform: 'translate(' + (mx + ox).toFixed(1) + ',' + (my + oy).toFixed(1) + ') rotate(' + angD.toFixed(1) + ')',
+          'class': 'fw-hoverable ' + langCls
+        }, gCone);
+        const hi = el('g', { 'class': 'fw-hi' }, g);
+        const t = el('text', { x: 0, y: 4, 'text-anchor': 'middle', 'class': cls }, hi);
+        t.textContent = label;
+        arrowTriplet(g, arrowX, 0, 0);
+      });
+      const angRB = Math.atan2(edgeBot.y - NODE.y, edgeBot.x - NODE.x);
+      const angDB = angRB * 180 / Math.PI;
+      const mbx = NODE.x + (edgeBot.x - NODE.x) * 0.6, mby = NODE.y + (edgeBot.y - NODE.y) * 0.6;
+      const obx = -Math.sin(angRB) * 16, oby = Math.cos(angRB) * 16;
+      [['執 行 放 大', 'fw-cap-zh', 'lang-zh-only', 50], ['AMPLIFY', 'fw-cap-en', 'lang-en-only', 42]].forEach(([label, cls, langCls, arrowX]) => {
+        const g = el('g', {
+          transform: 'translate(' + (mbx + obx).toFixed(1) + ',' + (mby + oby).toFixed(1) + ') rotate(' + angDB.toFixed(1) + ')',
+          'class': 'fw-hoverable ' + langCls
+        }, gCone);
+        const hi = el('g', { 'class': 'fw-hi' }, g);
+        const t = el('text', { x: 0, y: 4, 'text-anchor': 'middle', 'class': cls }, hi);
+        t.textContent = label;
+        arrowTriplet(g, arrowX, 0, 0);
+      });
+    })();
+    medal(gCone, MULT.x, MULT.y, MULT.r, '×', 9);
+
+    // 大球＋除法：球體與開口為靜態 3D 投影藝術（markup 內）
+    // 內部機芯：三枚咬合齒輪緩慢滾動（強調「會自己運轉的經營系統」）
+    (function () {
+      function gp(cx, cy, r, teeth) {
+        const th = Math.max(3.4, r * 0.1), pts = [];
+        for (let i = 0; i < teeth; i++) {
+          const a0 = (i / teeth) * Math.PI * 2, w = (Math.PI * 2) / teeth;
+          [[0, r], [0.18, r + th], [0.42, r + th], [0.6, r], [1.0, r]].forEach(([f, rad]) => {
+            const a = a0 + w * f;
+            pts.push((cx + Math.cos(a) * rad).toFixed(1) + ',' + (cy + Math.sin(a) * rad).toFixed(1));
+          });
+        }
+        return 'M ' + pts.join(' L ') + ' Z';
+      }
+      function gear(cx, cy, r, teeth, dur, rev) {
+        const g = el('g', { 'class': 'fw-gear-spin' }, gBig);
+        g.style.transformOrigin = cx + 'px ' + cy + 'px';
+        g.style.animationDuration = dur + 's';
+        if (rev) g.style.animationDirection = 'reverse';
+        el('path', { d: gp(cx, cy, r, teeth), 'class': 'fw-gear' }, g);
+        el('circle', { cx: cx, cy: cy, r: (r * 0.5).toFixed(1), 'class': 'fw-gear-inner' }, g);
+        for (let i = 0; i < 5; i++) {
+          const a = i * Math.PI * 2 / 5 + 0.3;
+          el('line', {
+            x1: (cx + Math.cos(a) * r * 0.16).toFixed(1), y1: (cy + Math.sin(a) * r * 0.16).toFixed(1),
+            x2: (cx + Math.cos(a) * r * 0.5).toFixed(1), y2: (cy + Math.sin(a) * r * 0.5).toFixed(1),
+            'class': 'fw-gear-inner'
+          }, g);
+        }
+        el('circle', { cx: cx, cy: cy, r: 3.6, 'class': 'fw-gear-chaton' }, gBig);
+        el('circle', { cx: cx, cy: cy, r: 1.9, 'class': 'fw-gear-jewel' }, gBig);
+      }
+      // 機芯置於球體中下、÷ 與「經營系統」標籤之間
+      gear(636, 268, 46, 16, 64, false);
+      gear(578, 320, 30, 12, 44, true);
+      gear(680, 322, 22, 9, 32, false);
+    })();
+    addCbeam(gBig, BIG.x, BIG.y, BIG.r, true);
+    medal(gBig, DIVI.x, DIVI.y, DIVI.r, '÷', 8);
+    edgeLabel(gBig, DIVI.x + 60, DIVI.y - 2, 0, '檢 核', 'VERIFY');
+    caption(gBig, BIG.x + 36, BIG.y + 150, '經 營 系 統', 'THE ENTERPRISE');
+  }
+
+  // ===== 互動：步驟箭牌/結果面板 → 點亮對應部位 =====
+  const parts = Array.from(svg.querySelectorAll('.fpart'));
+  const steps = Array.from(map.querySelectorAll('.fstep, .formula-result'));
+  let activeKey = null;
+  let burstQueue = 0;
+  let burstKey = 'sys';
+
+  function setActive(key, withBurst) {
+    if (withBurst && key && key !== activeKey) { burstQueue = 16; burstKey = key; }
+    activeKey = key;
+    parts.forEach(p => p.classList.toggle('is-lit', p.dataset.k === key));
+    steps.forEach(s => s.classList.toggle('is-active', s.dataset.k === key));
+  }
+
+  steps.forEach(s => {
+    s.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') setActive(s.dataset.k, true); });
+    s.addEventListener('click', () => setActive(s.dataset.k, true));
+    s.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActive(s.dataset.k, true); }
+    });
+  });
+  map.addEventListener('pointerleave', () => setActive(null, false));
+
+  // ========== 粒子：沿公式路徑流動（小球 → 節點 → 擴張 → 大球收束） ==========
+  const canvas = document.getElementById('convCanvas');
+  if (reduceMotion || !canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  let dpr = 1, W = 0, H = 0, k = 1;
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = stage.clientWidth; H = stage.clientHeight;
+    canvas.width = Math.max(1, W * dpr);
+    canvas.height = Math.max(1, H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    k = W / 900;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  function goldColor() {
+    const roll = Math.random();
+    if (roll < 0.70) return [244, 183 + (Math.random() * 24 | 0) - 12, 2];
+    if (roll < 0.95) return [253, 233, 168];
+    return [255, 246, 205];
+  }
+
+  const particles = [];
+  const MAX = 700;
+
+  // ===== 大球內部金塵：比照制度小球的粒子質感，方向相反（自球緣向內匯聚沉澱） =====
+  // 制度＝向外發散（經驗流出、被萃取）；經營系統＝向內收斂（成果流入、沉澱為系統資產）
+  const sysDust = [];
+  const SYS_DUST_N = 150;
+  const DIVI_CLEAR = DIVI.r + 22;                             // ÷ 徽章淨空半徑（完整涵蓋徽章圈外緣＋留白）
+  function spawnSysDust(d, warm) {
+    // 均勻散落整顆大球（圓盤均勻分佈），避開 ÷ 徽章淨空區
+    let tries = 0;
+    do {
+      const a = Math.random() * Math.PI * 2;
+      const r = BIG.r * 0.92 * Math.sqrt(Math.random());      // sqrt → 面積均勻散落
+      d.x = BIG.x + Math.cos(a) * r;
+      d.y = BIG.y + Math.sin(a) * r * 0.88;
+    } while (Math.hypot(d.x - DIVI.x, d.y - DIVI.y) < DIVI_CLEAR + 6 && ++tries < 8);
+    // 反向：緩慢向球心飄移，帶一點切向偏移（極緩內旋）
+    const toC = Math.atan2(BIG.y - d.y, BIG.x - d.x);
+    const curl = (Math.random() < 0.5 ? 1 : -1) * (0.25 + Math.random() * 0.35);
+    const sp = 0.02 + Math.random() * 0.05;
+    d.vx = Math.cos(toC) * sp + Math.cos(toC + Math.PI / 2) * sp * curl;
+    d.vy = Math.sin(toC) * sp + Math.sin(toC + Math.PI / 2) * sp * curl;
+    d.r = 0.7 + Math.random() * 1.1;
+    d.life = warm ? Math.random() * 300 : 0;                  // 首批錯開生命週期
+    d.maxLife = 380 + Math.random() * 320;
+    d.tw = Math.random() * Math.PI * 2;
+    d.c = goldColor();
+    return d;
+  }
+  for (let i = 0; i < SYS_DUST_N; i++) sysDust.push(spawnSysDust({}, true));
+
+  // 星際軌道環：大球內傾斜星粒盤（緩慢公轉、前亮後暗、微閃爍）
+  const ORBIT_TILT = -18 * Math.PI / 180;
+  const orbit = [];
+  for (let i = 0; i < 46; i++) {
+    orbit.push({
+      th: Math.random() * Math.PI * 2,
+      om: 0.0015 + Math.random() * 0.0025,
+      r: 58 + Math.random() * 92,
+      tw: Math.random() * Math.PI * 2,
+      c: goldColor()
+    });
+  }
+  // 第二道星環：反向傾斜交叉（陀螺儀式雙環）
+  const RING2_TILT = 26 * Math.PI / 180;
+  const orbit2 = [];
+  for (let i = 0; i < 40; i++) {
+    orbit2.push({
+      th: Math.random() * Math.PI * 2,
+      om: -(0.0012 + Math.random() * 0.002),
+      r: 66 + Math.random() * 84,
+      tw: Math.random() * Math.PI * 2,
+      c: goldColor()
+    });
+  }
+  // 球心核星：一簇靜靜閃爍的亮點
+  const core = [];
+  for (let i = 0; i < 10; i++) {
+    const a = Math.random() * Math.PI * 2, rr = Math.random() * 34;
+    core.push({ x: BIG.x + Math.cos(a) * rr, y: BIG.y + Math.sin(a) * rr * 0.5, tw: Math.random() * Math.PI * 2 });
+  }
+  // 流星：偶發劃過球體內部的光痕
+  const streaks = [];
+
+  // 路徑：小球內隨機點 → 節點 → 乘法 → 穿越檢核（÷）→ 流入大球內部 → 併入星盤沉澱
+  // 公式路徑各運算子的途經點（沿主斜線：制度＋ → 減法－ → 乘法× → 檢核÷ → 經營系統）
+  function jitter(pt, amt) {
+    return { x: pt.x + (Math.random() - 0.5) * amt, y: pt.y + (Math.random() - 0.5) * amt };
+  }
+  // 大球內隨機落點：橢圓盤分佈（與星環同樣的壓扁視角），確保粒子確實「流進」球體內部
+  function interiorPoint() {
+    let p, tries = 0;
+    do {
+      const a = Math.random() * Math.PI * 2;
+      const r = 28 + Math.random() * (BIG.r * 0.52);
+      p = { x: BIG.x + Math.cos(a) * r, y: BIG.y + Math.sin(a) * r * 0.62 };
+    } while (Math.hypot(p.x - DIVI.x, p.y - DIVI.y) < DIVI_CLEAR + 6 && ++tries < 8);
+    return p;
+  }
+  // 檢核閘門途經點：落在 ÷ 徽章圈外緣（朝大球方向偏移），讓粒子「擦邊而過」而非穿過徽章眶
+  function gatePoint() {
+    const ang = Math.atan2(BIG.y - DIVI.y, BIG.x - DIVI.x);   // ÷ → 大球心方向
+    const off = DIVI_CLEAR + 6;                               // 圈外緣再留白
+    const spread = (Math.random() - 0.5) * 0.9;               // 沿閘門弧面散開
+    const a = ang + spread;
+    return { x: DIVI.x + Math.cos(a) * off, y: DIVI.y + Math.sin(a) * off };
+  }
+  function makeTargets(fromKey) {
+    // 常態流：自制度核啟程，依序經過 減法節點 → 乘法徽章 → 擦過檢核閘門（÷ 圈外）→ 流入經營系統球體內部
+    if (fromKey === 'sys') {
+      return [
+        jitter(NODE, 16),
+        jitter(MULT, 18),
+        gatePoint(),
+        interiorPoint()
+      ];
+    }
+    // hover 各步驟的局部爆發：從該步驟起，沿鏈擦過檢核閘門流入大球
+    if (fromKey === 'inc') return [jitter(MULT, 16), gatePoint(), interiorPoint()];
+    if (fromKey === 'ops') return [jitter(NODE, 14), jitter(MULT, 18), gatePoint(), interiorPoint()];
+    if (fromKey === 'chk') return [gatePoint(), interiorPoint()];
+    return [jitter(NODE, 16), jitter(MULT, 18), gatePoint(), interiorPoint()];
+  }
+
+  function spawn(n, key) {
+    for (let i = 0; i < n; i++) {
+      if (particles.length >= MAX) particles.shift();
+      let sx, sy;
+      if (key === 'inc') { sx = NODE.x + (Math.random() - 0.5) * 24; sy = NODE.y + (Math.random() - 0.5) * 24; }
+      else if (key === 'chk') { sx = MULT.x + (Math.random() - 0.5) * 24; sy = MULT.y + (Math.random() - 0.5) * 24; }
+      else if (key === 'ops') {
+        const a = Math.random() * Math.PI * 2, r = Math.random() * SMALL.r * 0.6;
+        sx = SMALL.x + Math.cos(a) * r; sy = SMALL.y + Math.sin(a) * r;
+      }
+      else {
+        // 'sys'：自制度核內隨機點啟程
+        const a = Math.random() * Math.PI * 2, r = Math.random() * SMALL.r * 0.75;
+        sx = SMALL.x + Math.cos(a) * r; sy = SMALL.y + Math.sin(a) * r;
+      }
+      particles.push({
+        x: sx, y: sy,
+        targets: makeTargets(key), ti: 0,
+        sp: 1.0 + Math.random() * 0.8,
+        r: 0.7 + Math.random() * 1.1,
+        life: 0, maxLife: 900,
+        c: goldColor()
+      });
+    }
+  }
+
+  let visible = false, running = false;
+  const io = new IntersectionObserver((entries) => {
+    visible = entries[0].isIntersecting;
+    if (visible && !running) { running = true; requestAnimationFrame(loop); }
+  }, { threshold: 0.15 });
+  io.observe(stage);
+
+  let frame = 0;
+  function loop() {
+    if (!visible) { running = false; ctx.clearRect(0, 0, W, H); return; }
+    frame++;
+
+    if (burstQueue > 0) { spawn(2, burstKey); burstQueue -= 2; }
+    spawn(1, 'sys');                                 // 常態流：自制度核啟程
+
+    ctx.clearRect(0, 0, W, H);
+
+    // ===== 大球內部金塵（反向匯聚）：制度感的金色微塵，向球心緩慢沉澱 =====
+    for (const d of sysDust) {
+      d.life++;
+      d.x += d.vx; d.y += d.vy;
+      const dc = Math.hypot(d.x - BIG.x, d.y - BIG.y);
+      const dDv = Math.hypot(d.x - DIVI.x, d.y - DIVI.y);
+      // ÷ 徽章淨空：壽終／抵核心／飄入徽章圈 → 立即自外圍重生，粒子絕不碰到除號的眶
+      if (d.life >= d.maxLife || dc < 18 || dDv < DIVI_CLEAR) { spawnSysDust(d, false); continue; }
+      const t = d.life / d.maxLife;
+      let fade = t < 0.12 ? t / 0.12 : (t > 0.78 ? (1 - t) / 0.22 : 1);
+      const tw = 0.72 + 0.28 * Math.sin(frame * 0.038 + d.tw);
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(' + d.c[0] + ',' + d.c[1] + ',' + d.c[2] + ',' + (fade * tw * 0.42).toFixed(3) + ')';
+      ctx.arc(d.x * k, d.y * k, d.r * k, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // 星際軌道環
+    const cosT = Math.cos(ORBIT_TILT), sinT = Math.sin(ORBIT_TILT);
+    for (const o of orbit) {
+      o.th += o.om;
+      const ex = Math.cos(o.th) * o.r, ey = Math.sin(o.th) * o.r * 0.36;
+      const px = BIG.x + ex * cosT - ey * sinT;
+      const py = BIG.y + ex * sinT + ey * cosT;
+      const depth = (Math.sin(o.th) + 1) / 2;
+      const tw = 0.75 + 0.25 * Math.sin(frame * 0.05 + o.tw);
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(' + o.c[0] + ',' + o.c[1] + ',' + o.c[2] + ',' + ((0.16 + 0.4 * depth) * tw).toFixed(3) + ')';
+      ctx.arc(px * k, py * k, (0.6 + 0.9 * depth) * k, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    const cosT2 = Math.cos(RING2_TILT), sinT2 = Math.sin(RING2_TILT);
+    for (const o of orbit2) {
+      o.th += o.om;
+      const ex = Math.cos(o.th) * o.r, ey = Math.sin(o.th) * o.r * 0.3;
+      const px = BIG.x + ex * cosT2 - ey * sinT2;
+      const py = BIG.y + ex * sinT2 + ey * cosT2;
+      const depth = (Math.sin(o.th) + 1) / 2;
+      const tw = 0.75 + 0.25 * Math.sin(frame * 0.045 + o.tw);
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(' + o.c[0] + ',' + o.c[1] + ',' + o.c[2] + ',' + ((0.13 + 0.34 * depth) * tw).toFixed(3) + ')';
+      ctx.arc(px * k, py * k, (0.5 + 0.8 * depth) * k, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    for (const s of core) {
+      const tw = 0.5 + 0.5 * Math.sin(frame * 0.06 + s.tw);
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(253,233,168,' + (0.25 + 0.45 * tw).toFixed(3) + ')';
+      ctx.arc(s.x * k, s.y * k, (0.7 + 0.6 * tw) * k, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // 流星：每隔數秒自球內上緣劃向右下，拖曳漸隱光尾
+    if (frame % 170 === 0 && streaks.length < 2) {
+      const a = Math.PI * (1.05 + Math.random() * 0.5);
+      const sx = BIG.x + Math.cos(a) * (BIG.r * 0.55), sy = BIG.y + Math.sin(a) * (BIG.r * 0.55);
+      const dir = -0.5 + Math.random() * 0.5;
+      streaks.push({ x: sx, y: sy, vx: 2.4 * Math.cos(dir), vy: 2.4 * Math.sin(dir), life: 0, max: 52 });
+    }
+    for (let i = streaks.length - 1; i >= 0; i--) {
+      const s = streaks[i];
+      s.life++; s.x += s.vx; s.y += s.vy;
+      const distC = Math.hypot(s.x - BIG.x, s.y - BIG.y);
+      if (s.life >= s.max || distC > BIG.r - 10) { streaks.splice(i, 1); continue; }
+      const t = s.life / s.max;
+      const fade = t < 0.15 ? t / 0.15 : 1 - (t - 0.15) / 0.85;
+      const grad = ctx.createLinearGradient((s.x - s.vx * 9) * k, (s.y - s.vy * 9) * k, s.x * k, s.y * k);
+      grad.addColorStop(0, 'rgba(253,233,168,0)');
+      grad.addColorStop(1, 'rgba(253,233,168,' + (fade * 0.8).toFixed(3) + ')');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.2 * k;
+      ctx.beginPath();
+      ctx.moveTo((s.x - s.vx * 9) * k, (s.y - s.vy * 9) * k);
+      ctx.lineTo(s.x * k, s.y * k);
+      ctx.stroke();
+    }
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.life++;
+
+      if (!p.settle) {
+        // ---- 流動段：沿公式鏈推進 ----
+        const tgt = p.targets[p.ti];
+        const dx = tgt.x - p.x, dy = tgt.y - p.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 7) {
+          p.ti++;
+          if (p.ti >= p.targets.length) {
+            // 抵達大球內部 → 轉為「沉澱」：併入傾斜星盤，緩慢公轉後漸隱
+            p.settle = true;
+            p.life = 0;
+            p.maxLife = 200 + Math.random() * 160;
+            p.orbR  = Math.max(26, Math.min(Math.hypot(p.x - BIG.x, (p.y - BIG.y) / 0.62), BIG.r * 0.72));
+            p.orbTh = Math.atan2((p.y - BIG.y) / 0.62, p.x - BIG.x);
+            p.orbOm = (0.0028 + Math.random() * 0.0038) * (Math.random() < 0.5 ? 1 : -1);
+            p.tw = Math.random() * Math.PI * 2;
+            p.bx = p.x; p.by = p.y;   // 銜接起點（前 36 幀平滑過渡到軌道）
+            continue;
+          }
+        } else {
+          p.x += dx / dist * p.sp;
+          p.y += dy / dist * p.sp;
+        }
+        if (p.life >= p.maxLife) { particles.splice(i, 1); continue; }
+
+        // 入場漸顯；萬一逼近檢核（÷）徽章圈，透明化避免遮擋／碰眶
+        const t = p.life / p.maxLife;
+        let fade = t < 0.05 ? t / 0.05 : 1;
+        const dDivi = Math.hypot(p.x - DIVI.x, p.y - DIVI.y);
+        if (dDivi < DIVI_CLEAR) fade *= Math.max(0, (dDivi - DIVI.r) / (DIVI_CLEAR - DIVI.r));
+
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(' + p.c[0] + ',' + p.c[1] + ',' + p.c[2] + ',' + Math.min(1, fade * 0.85).toFixed(3) + ')';
+        ctx.arc(p.x * k, p.y * k, p.r * k, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        // ---- 沉澱段：在大球內沿橢圓盤公轉，半徑緩縮、微閃爍、末段漸隱 ----
+        if (p.life >= p.maxLife) { particles.splice(i, 1); continue; }
+        p.orbTh += p.orbOm;
+        p.orbR *= 0.9992;                            // 緩慢向核心螺旋收束
+        const ox = BIG.x + Math.cos(p.orbTh) * p.orbR;
+        const oy = BIG.y + Math.sin(p.orbTh) * p.orbR * 0.62;
+        const blend = Math.min(1, p.life / 36);      // 入軌平滑銜接
+        p.x = p.bx + (ox - p.bx) * blend;
+        p.y = p.by + (oy - p.by) * blend;
+        if (blend >= 1) { p.bx = p.x; p.by = p.y; }
+
+        const t = p.life / p.maxLife;
+        const fadeOut = t > 0.62 ? 1 - (t - 0.62) / 0.38 : 1;
+        const tw = 0.7 + 0.3 * Math.sin(frame * 0.05 + p.tw);
+        const depth = (Math.sin(p.orbTh) + 1) / 2;   // 前亮後暗，與星環一致
+        const dDv2 = Math.hypot(p.x - DIVI.x, p.y - DIVI.y);
+        if (dDv2 < DIVI_CLEAR) { particles.splice(i, 1); continue; }  // 公轉路徑碰到 ÷ 徽章 → 即移除，絕不碰眶
+        let sa = fadeOut * tw * (0.22 + 0.42 * depth);
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(' + p.c[0] + ',' + p.c[1] + ',' + p.c[2] + ',' + sa.toFixed(3) + ')';
+        ctx.arc(p.x * k, p.y * k, p.r * (0.55 + 0.55 * depth) * k, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    requestAnimationFrame(loop);
+  }
 }
 
 function setupCaseFilter() {
