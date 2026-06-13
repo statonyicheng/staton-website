@@ -2264,7 +2264,18 @@ body[data-lang="en"] .pgl-en {
   gap: 32px;
   align-items: center;
 }
-.formula-stage { position: relative; width: 100%; aspect-ratio: 900 / 500; }
+.formula-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 900 / 500;
+  /* 不透明卡面：擋住背景粒子，讓線框球體清楚呈現（比照客戶案例卡） */
+  background:
+    radial-gradient(125% 110% at 50% 8%, rgba(13, 33, 82, 0.55) 0%, rgba(0, 14, 47, 0.94) 52%, var(--navy) 100%);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
 .formula-svg { width: 100%; height: 100%; overflow: visible; }
 .formula-canvas {
   position: absolute; inset: 0;
