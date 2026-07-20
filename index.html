@@ -3855,11 +3855,32 @@ body[data-lang="zh"] .closing-headline .accent {
 #kgHint b{color:var(--cream-text);font-weight:600;font-style:normal;font-family:inherit}
 
 @media (max-width:820px){
-  #kgStage .kg-head{left:18px;top:18px;max-width:82%}
-  #kgLegend{left:12px;bottom:12px;max-height:34%}
-  #kgLegend .kg-chip{min-width:150px}
-  #kgCard{right:12px;top:auto;bottom:12px;left:12px;width:auto;max-height:52%}
+  #kgStage .kg-head{left:18px;top:16px;max-width:82%}
+  /* legend: compact, top-left under heading; hidden while a card is open */
+  #kgLegend{left:12px;right:auto;bottom:auto;top:auto;max-height:38%;overflow-y:auto}
+  #kgLegend .kg-chip{min-width:0}
+  #kgLegend .kg-chip .kg-nm{font-size:11px}
+  #kgStage.card-open #kgLegend{display:none}   /* no overlap: legend gives way to card */
+  /* card: full-width bottom sheet, its own scroll, capped height */
+  #kgCard{
+    right:10px;left:10px;top:auto;bottom:10px;width:auto;
+    max-height:min(62%,520px);border-radius:16px;
+  }
   #kgHint{display:none}
+}
+@media (max-width:480px){
+  #kgStage{height:clamp(560px,82vh,760px)}
+  #kgStage .kg-head{top:14px;left:14px;max-width:88%}
+  #kgStage .kg-h{font-size:clamp(18px,5.2vw,23px)}
+  #kgStage .kg-sub{font-size:12px}
+  #kgStage .kg-stat{font-size:11px}
+  #kgLegend{left:10px;bottom:10px;padding:10px 10px 8px;max-height:42%}
+  #kgLegend .kg-lg-title{font-size:9.5px;margin-bottom:6px}
+  #kgLegend .kg-chip{padding:5px 8px;gap:8px}
+  #kgLegend .kg-chip .kg-nm{font-size:10.5px}
+  #kgLegend .kg-chip .kg-ct{font-size:10px}
+  #kgCard{right:8px;left:8px;bottom:8px;max-height:64%;padding:14px 14px 14px}
+  #kgCard .kg-ctl{font-size:17px}
 }
 @media (prefers-reduced-motion:reduce){#kgSection *{transition:none!important}}
 </style>
@@ -4924,6 +4945,7 @@ body[data-lang="zh"] .closing-headline .accent {
     selected = -1; lineage = null; hist.length = 0;
     rotYTarget = null; tiltTarget = null; zoomTarget = null;
     document.getElementById('kgCard').classList.remove('on');
+    document.getElementById('kgStage').classList.remove('card-open');
     if (!reduce) spin = 0.00016;
   }
 
@@ -4997,6 +5019,7 @@ body[data-lang="zh"] .closing-headline .accent {
     card.querySelector('.kg-back').classList.toggle('on', hist.length > 0);
     card.scrollTop = 0;
     card.classList.add('on');
+    stage.classList.add('card-open');
   }
 
   // ---- legend ----
