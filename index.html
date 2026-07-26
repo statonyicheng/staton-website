@@ -214,6 +214,39 @@ section, header, footer, .nav-bar, .scroll-progress {
 }
 .shape-flash.active { opacity: 1; }
 
+/* ========== STATON LOGO LOCKUP ==========
+   金色菱形記號 + 字標。所有尺寸皆以 em 定義，
+   放進任何容器都會自動依 font-size 等比縮放。 */
+.logo-diamond {
+  display: inline-block;
+  width: 0.26em;
+  height: 0.26em;
+  background: var(--gold);
+  transform: rotate(45deg);
+  vertical-align: 0.55em;          /* 抬升至字母上緣，形成右上角記號 */
+  margin-left: 0.10em;
+  margin-right: 0.04em;
+  box-shadow: 0 0 0.9em rgba(244, 183, 2, 0.55);
+  flex-shrink: 0;
+  animation: logoDiamondGlow 4.5s ease-in-out infinite;
+}
+@keyframes logoDiamondGlow {
+  0%, 100% { box-shadow: 0 0 0.9em rgba(244, 183, 2, 0.45); }
+  50%      { box-shadow: 0 0 1.6em rgba(244, 183, 2, 0.85); }
+}
+/* 字標下方的英文副標：MANAGEMENT CONSULTING */
+.logo-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.46em;
+  padding-left: 0.46em;            /* 補償尾端字距，維持視覺置中 */
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-diamond { animation: none; }
+}
+
 /* ========== Navigation ========== */
 .nav-bar {
   position: fixed; top: 0; left: 0; right: 0;
@@ -256,18 +289,18 @@ section, header, footer, .nav-bar, .scroll-progress {
 .nav-links a:hover { color: var(--gold); }
 .nav-links a:hover::after { width: 100%; }
 .nav-cta {
-  font-size: 11px;
-  letter-spacing: 0.32em;
+  font-size: 10px;
+  letter-spacing: 0.28em;
   color: var(--navy);
   background: var(--gold);
-  padding: 10px 22px;
+  padding: 8px 18px;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s;
 }
 .nav-cta:hover {
   background: var(--cream);
-  letter-spacing: 0.4em;
+  letter-spacing: 0.34em;
 }
 
 /* 頂部 LINE 按鈕 */
@@ -421,16 +454,16 @@ section, header, footer, .nav-bar, .scroll-progress {
 .nav-cta-line-icon {
   padding: 0 !important; border: none !important; background: transparent !important;
   gap: 0 !important; letter-spacing: 0 !important;
-  width: 40px; height: 40px; flex: 0 0 40px;
-  border-radius: 10px;
+  width: 32px; height: 32px; flex: 0 0 32px;
+  border-radius: 8px;
   display: inline-flex; align-items: center; justify-content: center;
   overflow: visible; transition: transform 0.3s ease, filter 0.3s ease;
   line-height: 0;
 }
 .nav-cta-line-icon::before { content: none !important; display: none !important; }  /* remove the pulsing dot */
 .nav-line-img {
-  width: 40px; height: 40px;
-  display: block; border-radius: 10px;
+  width: 32px; height: 32px;
+  display: block; border-radius: 8px;
   object-fit: fill;
 }
 .nav-cta-line-icon:hover {
@@ -441,8 +474,8 @@ section, header, footer, .nav-bar, .scroll-progress {
 @media (max-width: 1280px) {
   .lang-trigger { padding: 6px 10px; font-size: 11px; }
   .lang-label { font-size: 11px; }
-  .nav-cta-line-icon { width: 36px; height: 36px; flex: 0 0 36px; }
-  .nav-line-img { width: 36px; height: 36px; }
+  .nav-cta-line-icon { width: 28px; height: 28px; flex: 0 0 28px; }
+  .nav-line-img { width: 28px; height: 28px; }
 }
 @media (max-width: 900px) {
   .lang-select { margin-left: 8px; }
@@ -457,6 +490,7 @@ section, header, footer, .nav-bar, .scroll-progress {
   font-size: 14px;
   letter-spacing: 0.22em;
   font-weight: 500;
+  margin-left: 0.55em;
 }
 
 /* === 中等螢幕：14" 筆電（901-1280px）壓縮 nav，避免水平溢出 === */
@@ -466,7 +500,7 @@ section, header, footer, .nav-bar, .scroll-progress {
   .nav-brand-zh { font-size: 12.5px; letter-spacing: 0.14em; }
   .nav-brand .dot { margin: 0 3px; }
   .nav-links { gap: 18px; font-size: 10.5px; letter-spacing: 0.22em; }
-  .nav-cta { padding: 9px 16px; font-size: 10.5px; letter-spacing: 0.24em; }
+  .nav-cta { padding: 7px 14px; font-size: 9.5px; letter-spacing: 0.2em; }
   .nav-cta-line {
     margin-left: 8px;
     padding: 7px 13px;
@@ -3359,16 +3393,21 @@ body[data-lang="zh"] .closing-headline .accent {
 }
 .footer-brand-name {
   font-family: 'Playfair Display', serif;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--cream);
-  letter-spacing: 0.2em;
-  margin-bottom: 8px;
+  letter-spacing: 0.16em;
+  margin-bottom: 10px;
+}
+.footer-brand-sub {
+  font-size: 10px;
+  margin-bottom: 14px;
 }
 .footer-brand-zh {
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 0.25em;
   color: var(--gold);
+  opacity: 0.85;
   margin-bottom: 20px;
 }
 .footer-brand-text {
@@ -3914,7 +3953,7 @@ body[data-lang="zh"] .closing-headline .accent {
     <span></span>
     <span></span>
   </button>
-  <div class="nav-brand">STATON<span class="dot lang-zh-only">·</span><span class="lang-zh-only nav-brand-zh">仕坦登企管顧問</span></div>
+  <div class="nav-brand">STATON<i class="logo-diamond"></i><span class="lang-zh-only nav-brand-zh">仕坦登企管顧問</span></div>
   <div class="nav-links">
     <a href="#philosophy">PHILOSOPHY</a>
     <a href="#systems">SERVICES</a>
@@ -3954,7 +3993,7 @@ body[data-lang="zh"] .closing-headline .accent {
   <div class="mobile-drawer-overlay" data-drawer-dismiss></div>
   <aside class="mobile-drawer-panel" role="dialog" aria-modal="true" aria-label="Navigation menu">
     <div class="mobile-drawer-head">
-      <div class="mobile-drawer-brand">STATON</div>
+      <div class="mobile-drawer-brand">STATON<i class="logo-diamond"></i></div>
       <button class="mobile-drawer-close" aria-label="Close menu" data-drawer-dismiss>
         <span></span><span></span>
       </button>
@@ -5777,8 +5816,9 @@ body[data-lang="zh"] .closing-headline .accent {
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-col">
-      <div class="footer-brand-name">STATON</div>
-      <div class="footer-brand-zh" data-en="Management Consulting LTD." data-zh="仕 坦 登 企 業 管 理 顧 問">仕 坦 登 企 業 管 理 顧 問</div>
+      <div class="footer-brand-name">STATON<i class="logo-diamond"></i></div>
+      <div class="footer-brand-sub logo-sub">MANAGEMENT CONSULTING</div>
+      <div class="footer-brand-zh lang-zh-only">仕 坦 登 企 業 管 理 顧 問</div>
       <p class="footer-brand-text" data-en="Verifiable operating systems designed for SMEs. From organizational design, operations, management reporting, finance, branding to compliance — and from operations into IPO &amp; M&amp;A capitalization advisory — your long-term partner in business." data-zh="為中小企業設計可被驗證的經營系統。從組織架構、營運優化、管報、財務、品牌到法遵的六大模組，再到 IPO 與 M&amp;A 的資本化顧問，做你長期的經營夥伴。">為中小企業設計可被驗證的經營系統。從組織架構、營運優化、管報、財務、品牌到法遵的六大模組，再到 IPO 與 M&amp;A 的資本化顧問，做你長期的經營夥伴。</p>
     </div>
 
