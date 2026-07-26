@@ -64,13 +64,37 @@
 }
 </script>
 
-<!-- Google tag (gtag.js) — STATON GA4 -->
+<!-- Google tag (gtag.js) — STATON GA4 v2 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7RSYRJHF3R"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-7RSYRJHF3R');
+
+  /* 首次來源保存：把第一次進站的 UTM 存起來，之後每個事件都帶上，
+     用來回答「哪個管道最後真的帶來 LINE 加好友」 */
+  (function () {
+    try {
+      var p = new URLSearchParams(location.search);
+      var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+      var hit = {}, has = false;
+      keys.forEach(function (k) { if (p.get(k)) { hit[k] = p.get(k); has = true; } });
+      if (has && !localStorage.getItem('staton_first_touch')) {
+        localStorage.setItem('staton_first_touch', JSON.stringify({ t: Date.now(), d: hit }));
+      }
+    } catch (e) {}
+  })();
+
+  gtag('config', 'G-7RSYRJHF3R', {
+    /* 固定 page_title：中英切換不再被記成兩個頁面
+       （沿用既有英文標題，歷史數據才能接得起來） */
+    page_title: 'STATON ｜ 仕坦登企業管理顧問 — From Insight to Execution',
+    send_page_view: true
+  });
+
+  gtag('set', 'user_properties', {
+    site_lang: document.documentElement.lang || 'en'
+  });
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -6549,8 +6573,8 @@ function setupLangToggle() {
   function choose(lang, prev) {
     apply(lang);
     closeMenu();
-    if (typeof gtag === 'function') {
-      gtag('event', 'language_switch', { from_lang: prev, to_lang: lang });
+    if (typeof window.statonTrack === 'function') {
+      window.statonTrack('language_switch', { from_lang: prev, to_lang: lang });
     }
     if (prev !== lang && typeof window.__statonOpenLineCta === 'function') {
       window.__statonOpenLineCta();
@@ -6850,28 +6874,196 @@ function createLineCtaParticles(canvas) {
   };
 }
 
-// ========== GA4 自訂事件追蹤 ==========
+// ========== GA4 自訂事件追蹤 v2 ==========
 function setupAnalytics() {
   if (typeof gtag !== 'function') return;
 
-  // 以事件代理一次涵蓋全站 4 個 LINE 連結（導覽列／彈窗／預約區／頁尾）
-  document.addEventListener('click', (e) => {
-    const link = e.target.closest('a[href*="lin.ee"], a[href*="line.me"]');
+  /* ---------- 0. 共用工具 ---------- */
+  var device = window.matchMedia('(max-width: 768px)').matches ? 'mobile' : 'desktop';
+  var ft = {};
+  try { ft = (JSON.parse(localStorage.getItem('staton_first_touch') || '{}').d) || {}; } catch (e) {}
+
+  function lang() { return document.body.dataset.lang || 'en'; }
+
+  function track(name, params) {
+    var base = {
+      page_lang:   lang(),
+      device_type: device,
+      ft_source:   ft.utm_source   || '(none)',
+      ft_campaign: ft.utm_campaign || '(none)'
+    };
+    gtag('event', name, Object.assign(base, params || {}));
+  }
+  window.statonTrack = track;   // 其他模組（例如語言切換）可直接呼叫
+
+  function sectionOf(el) {
+    var s = el && el.closest ? el.closest('section[id]') : null;
+    return s ? s.id : 'hero';
+  }
+
+  /* ---------- 1. LINE = 主要轉換（用 GA4 建議事件名 generate_lead） ---------- */
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href*="lin.ee"], a[href*="line.me"]');
     if (!link) return;
-    // 依連結位置判斷來源，方便後台區分轉換點
-    let source = 'other';
-    if (link.classList.contains('btn-primary'))        source = 'booking_section';
-    else if (link.classList.contains('nav-cta-line'))  source = 'nav_bar';
-    else if (link.classList.contains('line-cta-primary')) source = 'cta_popup';
-    else if (link.classList.contains('footer-social-line')) source = 'footer';
-    gtag('event', 'line_booking_click', {
-      link_source: source,
-      link_url: link.href,
-      page_lang: document.body.dataset.lang || 'en'
+
+    var where = 'other';
+    if (link.classList.contains('btn-primary'))             where = 'booking_section';
+    else if (link.classList.contains('nav-cta-line'))       where = 'nav_bar';
+    else if (link.classList.contains('line-cta-primary'))   where = 'cta_popup';
+    else if (link.classList.contains('footer-social-line')) where = 'footer';
+    else if (link.classList.contains('case-card'))          where = 'case_card';
+
+    track('generate_lead', {
+      method:       'line',
+      cta_location: where,
+      section_id:   sectionOf(link),
+      link_url:     link.href
     });
   });
-}
 
+  /* ---------- 2. 客戶案例外連 / 社群外連 ---------- */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="http"]');
+    if (!a) return;
+    if (/lin\.ee|line\.me|staton\.tw|fonts\.googleapis|fonts\.gstatic/.test(a.href)) return;
+
+    var host = '';
+    try { host = new URL(a.href).hostname.replace(/^www\./, ''); } catch (err) { return; }
+
+    if (/facebook\.com|instagram\.com|x\.com|twitter\.com/.test(host)) {
+      track('social_click', { platform: host, section_id: sectionOf(a) });
+      return;
+    }
+
+    var img  = a.querySelector('img');
+    var name = (img && img.alt) || a.textContent.trim().slice(0, 40) || host;
+    track('case_study_click', { client_name: name, link_domain: host, section_id: sectionOf(a) });
+  });
+
+  /* ---------- 3. 章節到達（單頁站的「頁面深度」） ---------- */
+  var order = ['hero','philosophy','systems','capital','cases',
+               'methodology','leadership','impact','process','booking'];
+  var seen = {}, deepest = 0;
+
+  if ('IntersectionObserver' in window) {
+    var ioSec = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var id = en.target.id || 'hero';
+        if (seen[id]) return;
+        seen[id] = true;
+        var idx = order.indexOf(id);
+        if (idx > deepest) deepest = idx;
+        track('section_view', { section_id: id, section_index: idx < 0 ? 99 : idx });
+      });
+    }, { threshold: 0.35 });
+
+    document.querySelectorAll('section[id]').forEach(function (s) { ioSec.observe(s); });
+    if (document.querySelector('section.hero')) { seen.hero = true; }
+  }
+
+  /* ---------- 4. 捲動深度 25 / 50 / 75 / 90 ---------- */
+  var marks = [25, 50, 75, 90], fired = {}, ticking = false;
+  function checkScroll() {
+    var h = document.documentElement;
+    var total = h.scrollHeight - h.clientHeight;
+    if (total <= 0) return;
+    var pct = Math.round((h.scrollTop || document.body.scrollTop) / total * 100);
+    marks.forEach(function (m) {
+      if (pct >= m && !fired[m]) {
+        fired[m] = true;
+        track('scroll_depth', { percent_scrolled: m });
+      }
+    });
+  }
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { checkScroll(); ticking = false; });
+  }, { passive: true });
+
+  /* ---------- 5. 停留時間里程碑（只算分頁可見的時間） ---------- */
+  var active = 0, last = Date.now(), stages = [30, 60, 120], done = {};
+  function tickTime() {
+    if (document.visibilityState === 'visible') {
+      active += (Date.now() - last) / 1000;
+      stages.forEach(function (s) {
+        if (active >= s && !done[s]) {
+          done[s] = true;
+          track('engaged_' + s + 's', { seconds: s });
+        }
+      });
+    }
+    last = Date.now();
+  }
+  setInterval(tickTime, 5000);
+  document.addEventListener('visibilitychange', tickTime);
+
+  /* ---------- 6. 知識圖譜互動（監看卡片標題變化） ---------- */
+  var kgTitle = document.querySelector('#kgCard .kg-ctl');
+  if (kgTitle && 'MutationObserver' in window) {
+    var lastNode = '';
+    new MutationObserver(function () {
+      var t = kgTitle.textContent.trim();
+      if (t && t !== lastNode) {
+        lastNode = t;
+        track('kg_node_click', { kg_node: t.slice(0, 60) });
+      }
+    }).observe(kgTitle, { childList: true, characterData: true, subtree: true });
+  }
+
+  /* ---------- 7. 案例篩選 chip ---------- */
+  document.addEventListener('click', function (e) {
+    var chip = e.target.closest('.case-chip, [data-tag]');
+    if (!chip) return;
+    track('case_filter', { filter_tag: (chip.dataset.tag || chip.textContent.trim()).slice(0, 40) });
+  });
+
+  /* ---------- 8. LINE 彈窗開關 ---------- */
+  var overlay = document.getElementById('lineCtaOverlay');
+  if (overlay && 'MutationObserver' in window) {
+    var wasOpen = false;
+    new MutationObserver(function () {
+      var open = overlay.classList.contains('is-open') ||
+                 getComputedStyle(overlay).display !== 'none';
+      if (open && !wasOpen) track('cta_popup_shown');
+      wasOpen = open;
+    }).observe(overlay, { attributes: true, attributeFilter: ['class', 'style'] });
+  }
+  var closeBtn = document.getElementById('lineCtaClose');
+  if (closeBtn) closeBtn.addEventListener('click', function () { track('cta_popup_close'); });
+
+  /* ---------- 9. 載入效能（診斷跳出率的關鍵） ---------- */
+  var lcp = 0;
+  if ('PerformanceObserver' in window) {
+    try {
+      new PerformanceObserver(function (list) {
+        var es = list.getEntries();
+        lcp = es[es.length - 1].startTime;
+      }).observe({ type: 'largest-contentful-paint', buffered: true });
+    } catch (e) {}
+  }
+
+  /* ---------- 10. 離開時送出「這次逛了多深」 ---------- */
+  var sent = false;
+  function flush() {
+    if (sent) return;
+    sent = true;
+    tickTime();
+    var nav = performance.getEntriesByType('navigation')[0];
+    track('session_summary', {
+      deepest_section: order[deepest] || 'hero',
+      sections_seen:   Object.keys(seen).length,
+      active_seconds:  Math.round(active),
+      load_seconds:    nav ? +(nav.loadEventEnd / 1000).toFixed(2) : 0,
+      lcp_seconds:     +(lcp / 1000).toFixed(2)
+    });
+  }
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') flush();
+  });
+  window.addEventListener('pagehide', flush);
+}
 // ========== 游標小粒子（滑鼠移動到哪就在哪緊密輕散，免按壓） ==========
 function setupCursorParticles() {
   // 尊重「減少動態」偏好
